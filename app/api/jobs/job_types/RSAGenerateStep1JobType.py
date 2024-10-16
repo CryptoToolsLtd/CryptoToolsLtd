@@ -10,7 +10,7 @@ def call_random_prime_fast(type: str, numBits: int, queue) -> None: # type: igno
 class RSAGenerateStep1JobType(JobType):
     @override
     def __init__(self):
-        super().__init__(job_type="RSAGenerateStep1", immediate=False)
+        super().__init__(job_type="RSAGenerateStep1", immediate=True)
     
     @override
     def __call__(self, input: str) -> str:

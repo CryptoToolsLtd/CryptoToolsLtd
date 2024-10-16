@@ -4,6 +4,7 @@ import redis
 import time
 import datetime
 import json
+# import traceback
 
 from ..models import db, Job
 from .types import JobCreateRequest, JobResponse
@@ -66,6 +67,7 @@ def create_job():
                     return jsonify(job_payload)
             except Exception as e:
                 return jsonify({'error': str(e)}), 500
+                # return jsonify({'error': traceback.format_exc()}), 500
 
     return jsonify({
         'error': "Unknown job type",

@@ -5,7 +5,7 @@ from crypto import is_prime, EllipticCurve # type: ignore
 class ECValidateJobType(JobType):
     @override
     def __init__(self):
-        super().__init__(job_type="ECValidate", immediate=False)
+        super().__init__(job_type="ECValidate", immediate=True)
     
     @override
     def __call__(self, input: str) -> str:

@@ -21,8 +21,6 @@ def worker_process(worker_id: int, app: Flask):
     
     signal.signal(signal.SIGINT, caught_signal)
     signal.signal(signal.SIGTERM, caught_signal)
-    signal.signal(signal.SIGQUIT, caught_signal)
-    signal.signal(signal.SIGHUP, caught_signal)
     signal.signal(signal.SIGABRT, caught_signal)
 
     with app.app_context():  # Ensure app context for database operations
@@ -97,8 +95,6 @@ def cleanup(*args: typing.Any):
     exit(0)
 signal.signal(signal.SIGINT, cleanup)
 signal.signal(signal.SIGTERM, cleanup)
-signal.signal(signal.SIGQUIT, cleanup)
-signal.signal(signal.SIGHUP, cleanup)
 signal.signal(signal.SIGABRT, cleanup)
 
 from .job_types import job_types

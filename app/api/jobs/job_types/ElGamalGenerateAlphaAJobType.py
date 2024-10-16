@@ -6,7 +6,7 @@ from crypto import is_primitive_root_fast, random_prime # type: ignore
 class ElGamalGenerateAlphaAJobType(JobType):
     @override
     def __init__(self):
-        super().__init__(job_type="ElGamalGenerateAlphaA", immediate=False)
+        super().__init__(job_type="ElGamalGenerateAlphaA", immediate=True)
     
     @override
     def __call__(self, input: str) -> str:

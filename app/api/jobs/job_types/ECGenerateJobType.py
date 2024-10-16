@@ -6,7 +6,7 @@ from random import randrange
 class ECGenerateJobType(JobType):
     @override
     def __init__(self):
-        super().__init__(job_type="ECGenerate", immediate=False)
+        super().__init__(job_type="ECGenerate", immediate=True)
     
     @override
     def __call__(self, input: str) -> str:

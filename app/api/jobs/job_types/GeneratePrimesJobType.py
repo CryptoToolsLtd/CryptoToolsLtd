@@ -5,7 +5,7 @@ from crypto import random_prime_fast # type: ignore
 class GeneratePrimesJobType(JobType):
     @override
     def __init__(self):
-        super().__init__(job_type="Generate Primes", immediate=False)
+        super().__init__(job_type="Generate Primes", immediate=True)
     
     @override
     def __call__(self, input: str) -> str:

@@ -7,7 +7,7 @@ import json
 class ElGamalGeneratePAlphaAJobType(JobType):
     @override
     def __init__(self):
-        super().__init__(job_type="ElGamalGeneratePAlphaA", immediate=False)
+        super().__init__(job_type="ElGamalGeneratePAlphaA", immediate=True)
     
     @override
     def __call__(self, input: str) -> str:

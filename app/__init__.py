@@ -38,7 +38,7 @@ def create_app():
     def load_user(id: int): # type: ignore
         return User.query.get(int(id))
     
-    start_worker_pool(app)
+    # start_worker_pool(app)
     
     return app
 
