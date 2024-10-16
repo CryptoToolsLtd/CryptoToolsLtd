@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title%}
+cryptoTools
+{% endblock%}
+{% block content %}
+<section class="slider">
+    <div class="hero-slider">
+        <!-- Start Single Slider -->
+        <div class="single-slider" style="background-image:url('static/img/home.png')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="text">
+                            <h1>We Provide <span>Tools</span> Services That You Can <span>Trust!</span></h1>
+                            <p>A cryptographic tool is an essential component in ensuring the security and integrity of sensitive information in the digital world. These tools leverage complex algorithms to encrypt data, making it unreadable to unauthorized individuals or systems. By converting plaintext into ciphertext, cryptographic tools protect data during transmission, ensuring confidentiality and safeguarding it from cyber threats, such as hacking or data breaches. Additionally, they provide authentication through digital signatures, verifying the origin and authenticity of messages or transactions. For information safety, especially in fields like banking or credit, cryptographic tools help secure financial transactions, protect personal data, and maintain privacy by ensuring that only authorized parties can access or modify sensitive information. This makes them indispensable for preserving trust and security in modern digital interactions.</p>
+                            <div class="button">
+                                <a href="https://www.cryptostudio.com/books/" class="btn">Read more</a>
+                                <a href="{{ url_for('auth.login') }}" class="btn primary">Get start</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slider -->
+        <!-- Start Single Slider -->
+        <div class="single-slider" style="background-image:url('static/img/RSA.png')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="text">
+                            <h1><span>RSA </span>Algorithm</span></h1>
+                            <p>RSA (Rivest–Shamir–Adleman) is a public-key cryptosystem, one of the oldest widely used for secure data transmission. The initialism "RSA" comes from the surnames of Ron Rivest, Adi Shamir and Leonard Adleman, who publicly described the algorithm in 1977. An equivalent system was developed secretly in 1973 at Government Communications Headquarters (GCHQ), the British signals intelligence agency, by the English mathematician Clifford Cocks. That system was declassified in 1997 </p>
+                            <div class="button">
+                                <a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29" class="btn">Read more</a>
+                                <a href="{{ url_for('views.rsa') }}" class="btn primary">Get tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start End Slider -->
+        <!-- Start Single Slider -->
+        <div class="single-slider" style="background-image:url('static/img/elgmal.png')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="text">
+                            <h1><span>Elgamal</span> Algorithm</h1>
+                            <p>In cryptography, the ElGamal encryption system is an asymmetric key encryption algorithm for public-key cryptography which is based on the Diffie–Hellman key exchange. It was described by Taher Elgamal in 1985.ElGamal encryption is used in the free GNU Privacy Guard software, recent versions of PGP, and other cryptosystems. The Digital Signature Algorithm (DSA) is a variant of the ElGamal signature scheme, which should not be confused with ElGamal encryption. </p>
+                            <div class="button">
+                                <a href="https://en.wikipedia.org/wiki/ElGamal_encryption" class="btn">Read more</a>
+                                <a href="{{ url_for('views.elgamal') }}" class="btn primary">Get tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slider -->
+    </div>
+</section>
+<section class="blog section" id="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Our team</h2>
+                    <img src="{{url_for('static', filename='img/unit.png')}}" alt="#">
+                    <p>Get hand dirty. Nothing is impossible. I do it, you also do it</p>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-4 col-md-6 col-12">
+                <!-- Single Blog -->
+                <div class="single-news">
+                    <div class="news-head">
+                        <img src="{{url_for('static', filename='img/dat.png')}}" alt="#">
+                    </div>
+                    <div class="news-body">
+                        <div class="news-content">
+                            <div class="date"> 2202... - Lê Thành Đạt </div>
+                            <h2><a href="https://www.facebook.com/profile.php?id=100022031139684&locale=vi_VN">....</a></h2>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Blog -->
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <!-- Single Blog -->
+                <div class="single-news">
+                    <div class="news-head">
+                        <img src="{{url_for('static', filename='img/thien.png')}}" alt="#">
+                    </div>
+                    <div class="news-body">
+                        <div class="news-content">
+                            <div class="date">22028182 - Nguyễn Văn Thiện </div>
+                            <h2><a href="https://www.facebook.com/profile.php?id=100068081235576&locale=vi_VN">What is hightlight of your day</a></h2>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Blog -->
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <!-- Single Blog -->
+                <div class="single-news">
+                    <div class="news-head">
+                        <img src="{{url_for('static', filename='img/lam.jpg')}}" alt="#">
+                    </div>
+                    <div class="news-body">
+                        <div class="news-content">
+                            <div class="date">2202.... - Vũ Tùng Lâm</div>
+                            <h2><a href="https://www.facebook.com/vtlinc004?locale=vi_VN">Rarely repping message</a></h2>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Blog -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End portfolio -->
+{%endblock%}
