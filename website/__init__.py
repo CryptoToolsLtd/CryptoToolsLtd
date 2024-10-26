@@ -2,6 +2,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+from flask_migrate import Migrate
+
+from utils.env import (
+    MYSQL_HOSTNAME, MYSQL_HOSTPORT,
+    MYSQL_USERNAME, MYSQL_PASSWORD,
+    MYSQL_DATABASE,SECRET_KEY
+)
 
 
 db = SQLAlchemy()
@@ -9,9 +16,11 @@ DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = "nguyen van thien asssaa"
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config["SECRET_KEY"] = SECRET_KEY
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@{MYSQL_HOSTNAME}:{MYSQL_HOSTPORT}/{MYSQL_DATABASE}"
     db.init_app(app)
+    
+    migrate = Migrate(app, db)
     
     from .views import views
     from .auth import auth
