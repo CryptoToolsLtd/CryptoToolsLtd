@@ -31,9 +31,9 @@ We are a group of students at UET - VNU.
 
     On Debian/Ubuntu-based distros, run the following:
 
-        ```sh
-        sudo apt-get install python3-dev default-libmysqlclient-dev build-essential pkg-config
-        ```
+    ```sh
+    sudo apt-get install python3-dev default-libmysqlclient-dev build-essential pkg-config
+    ```
 
     For other distros (and other operating systems), see the full guide at <https://pypi.org/project/mysqlclient/>.
 
@@ -51,18 +51,18 @@ Some variables require setting up a database.
 You may want to create and activate a virtual environment
 (venv) first. Then, at the project root, run
 
-    ```sh
-    pip install -r requirements.txt
-    ```
+```sh
+pip install -r requirements.txt
+```
 
 ## Launch the App
 
 Activate the venv if necessary. Then, at the project
 root, execute
 
-    ```sh
-    flask --app=website run --port=8000
-    ```
+```sh
+flask --app=website run --port=8000
+```
 
 It should be available at <http://localhost:8000>.
 
@@ -70,9 +70,9 @@ Alternatively, to enable hot-reloading (flask to automatically
 reload the app when some code changes), add the `--debug` flag,
 for example:
 
-    ```sh
-    flask --app=website run --port=8000 --debug
-    ```
+```sh
+flask --app=website run --port=8000 --debug
+```
 
 ## Advanced Use
 
@@ -85,10 +85,10 @@ effect/be reflected in the database.
 To do that, activate the venv if necessary, then
 execute
 
-    ```sh
-    flask db migrate -m "Migration content, e.g. rename column C of table T"
-    flask db upgrade
-    ```
+```sh
+flask db migrate -m "Migration content, e.g. rename column C of table T"
+flask db upgrade
+```
 
 ## License
 
