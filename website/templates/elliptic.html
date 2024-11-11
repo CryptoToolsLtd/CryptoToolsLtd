@@ -4,6 +4,80 @@ cryptoTools
 {% endblock%}
 {% block content %}
 
-<p1> this is Elliptic page </p1>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ecc.css') }}">
+    <script src="{{ url_for('static', filename='static/js/elliptic.js') }}"></script>
+
+    <div class="ecc-container">
+        <h1>ECC Encryption (explained step by step)</h1>
+        <p>Here you can see how to encrypt and decrypt using the ECC procedure step by step.</p>
+        
+        <!-- Choose Button -->
+        <div>
+            <button type="button" onclick="ShowOption(1)">Choose ...</button>
+            <button type="button" onclick="ShowOption(2)">Choose ...</button>
+        </div>
+        <!-- Option 1 (Full ECC Steps) -->
+        <div id = "option1" class="option">
+            <div>
+                <h2>Step 1: Key Setup</h2>
+                <form id="keyForm">
+                    <label for="p">Prime number p:</label>
+                    <input type="text" id="p" placeholder="Enter prime p"><br><br>
+                    <label for="a">Coefficient a:</label>
+                    <input type="text" id="a" placeholder="Enter coefficient a"><br><br>
+                    <label for="b">Coefficient b:</label>
+                    <input type="text" id="b" placeholder="Enter coefficient b"><br><br>
+                    <label for="P">Point P:</label>
+                    <input type="text" id="P" placeholder="Enter point P (x, y)"><br><br>
+                    <label for="s">Private Key (s):</label>
+                    <input type="text" id="s" placeholder="Enter private key s"><br><br>
+                    <button type="button" onclick="generateKeys()">Generate Keys</button>
+                </form>
+                <p>Public Key: <span id="publicKey"></span></p>
+                <p>Private Key: <span id="privateKey"></span></p>
+            </div>
+    
+            <div>
+                <h2>Step 2: Encrypts the Message</h2>
+                <label for="message">Message (point M):</label>
+                <input type="text" id="message" placeholder="Enter message"><br><br>
+                <label for="k">Random k:</label>
+                <input type="text" id="k" placeholder="Enter random k"><br><br>
+                <button onclick="encryptMessage()">Encrypt Message</button>
+                <p>Encrypted Message:</p>
+                <p id="encryptedMessage"></p>
+            </div>
+    
+            <div>
+                <h2>Step 3: Decrypts the Message</h2>
+                <button onclick="decryptMessage()">Decrypt Message</button>
+                <p>Decrypted Message: <span id="decryptedMessage"></span></p>
+            </div>
+        </div>
+        <!-- Option 2  -->
+        <div id="option2" class="option hidden">
+            <div>
+                <h2>Step 1: Key Setup</h2>
+                <button onclick="generateKeys()">Generate Keys</button>
+                <p>Public Key: <span id="publicKey"></span></p>
+                <p>Private Key: <span id="privateKey"></span></p>
+            </div>
+        
+            <div>
+                <h2>Step 2: Encrypts the Message</h2>
+                <label for="message">Message (point M):</label>
+                <input type="text" id="message" placeholder="Enter message">
+                <button onclick="encryptMessage()">Encrypt Message</button>
+                <p>Encrypted Message:</p>
+                <p id="encryptedMessage"></p>
+            </div>
+        
+            <div>
+                <h2>Step 3: Decrypts the Message</h2>
+                <button onclick="decryptMessage()">Decrypt Message</button>
+                <p>Decrypted Message: <span id="decryptedMessage"></span></p>
+            </div>
+        </div>
+    </div>
 
 {%endblock%}
