@@ -23,3 +23,28 @@ def elgamal():
 @login_required
 def elliptic():
     return render_template("elliptic.html", user=current_user)
+
+
+@views.route('/modulo')
+@login_required
+def modulo():
+    return render_template("modulo.html", user=current_user)
+
+@views.route('/is_prime')
+@login_required
+def is_prime():
+    return render_template("is_prime.html", user=current_user)
+
+@views.route('/jacobi_legendre')
+@login_required
+def jacobi_legendre():
+    return render_template("jacobi_legendre.html", user=current_user)
+
+@views.route('/all_in_one')
+@login_required
+def all_in_one():
+    return render_template("all_in_one.html", user=current_user)
+
+@views.route('/theory')
+def theory():
+    return render_template("theory.html", user=current_user)

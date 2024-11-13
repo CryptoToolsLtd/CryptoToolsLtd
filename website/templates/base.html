@@ -110,27 +110,28 @@
 								<div class="main-menu">
 									<nav class="navigation">
 										<ul class="nav menu">
-											<li class="active"><a href="">Home </a>
+											<li class="{% if request.path == '/' %}active{% endif %}"><a href="/">Home </a>
 												
 											</li>
-											<li><a href="">Cryptos system <i class="icofont-rounded-down"></i></a>
+											<li class="{% if request.path in ['/rsa', '/elliptic', '/elgamal'] %}active{% endif %}"><a href="">Cryptos system <i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
-													<li><a href="/rsa">RSA</a></li>
+													<li class="">><a href="/rsa">RSA</a></li>
 													<li><a href="/elliptic">elliptic</a></li>
 													<li><a href="/elgamal">Elgamal</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Computes <i class="icofont-rounded-down"></i></a>
+											<li class="{% if request.path in ['/modulo', '/is_prime', '/jacobi_legendre'] %}active{% endif %}"><a href="#">Computes <i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
-													<li><a href="">Modulo</a></li>
-													<li><a href="">Isprime</a></li>
+													<li><a href="/modulo">Modulo</a></li>
+													<li><a href="/is_prime">Isprime</a></li>
+													<li><a href="/jacobi_legendre">Jacobi and legendre</a></li>
 												</ul>
 											</li>
-											<li><a href="">All in one </a></li>
+											<li class="{% if request.path == '/all_in_one' %}active{% endif %}"><a href="/all_in_one">All in one </a></li>
 											{% if not user.is_authenticated %}
 											<li><a href="/login_up">Sign in/up</a></li>
 											{% else%}
-											<li><a href="/login_up">Theory </a></li>
+											<li class="{% if request.path == '/theory' %}active{% endif %}"><a href="/theory">Theory </a></li>
 											{% endif %}
 										</ul>
 									</nav>
