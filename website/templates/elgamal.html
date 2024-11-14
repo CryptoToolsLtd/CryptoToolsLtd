@@ -2,8 +2,61 @@
 {% block title%}
 cryptoTools
 {% endblock%}
-{% block content %}
+{% block content %} 
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/elgamal.css') }}">
+        <script src="{{ url_for('static', filename='static/js/elgamal.js') }}"></script>
 
-<p1> this is Elgamal page </p1>
+        <div class="elgamal-container">
+            <h1>Elgamal Encryption (explained step by step)</h1>
+            <p>Here you can see how to encrypt and decrypt using the Elgamal procedure step by step.</p>
+            
+            <div>
+            <h2>Step 1: Enter Parameters</h2>
+            <form id="params-form">
+                <div>
+                    <label for="p">Prime number (p):
+                    </label>
+                    <input type="number"id="p"placeholder="Enter prime number"required>
+                </div>
+                <div>
+                    <label for="g">Generator (g):</label>
+                    <input type="number"id="g"placeholder="Enter prime number"required>
+                </div>
+                <div>
+                    <label for="x">Private key (x):</label>
+                    <input type="number"id="x"placeholder="Enter prime number"required>
+                </div>
+                <div>
+                    <button type="submit">Generate Public Key</button>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <h2>Step 2: Calculate key values</h2>
+            <p id="h"> <var>h = g <sup>x</sup> </var> mod <var>p</var> = </p>
+            <p>Public Key: <span id="public-key"><var>(p, g, h) =</var> </span></p>
+            <p>Private Key: <var>x = </var></p>
+        </div>
+
+        <div>
+            <h2>Step 3: Message Encryption</h2>
+            <p>Choose a random integer number <var>k</var></p>
+            <label for="k"><var>k =</var></label>
+            <input type="number" id="k" placeholder="Enter number" />
+            <p><var>C<sub>1</sub> = g <sup>k</sup></var> mod <var>p</var></p>
+            <p><var>C<sub>2</sub> = x. h <sup>k</sup></var></p>
+            <button onclick="encryptMessage()">Encrypt</button>
+            <p>Encrypted Message: <span id="encrypted-message"></span></p>
+        </div>
+
+        <div>
+            <h2>Step 4: Message Decryption</h2>
+            <p><var>s = C<sub>1</sub> <sup>x</sup></var> mod <var>p</var></p>
+            <p><var>M = C<sub>2</sub> . s <sup>-1</sup></var> mod <var>p</var></p>
+            <button onclick="decryptMessage()">Decrypt</button>
+            <p>Decrypted Message: <span id="decrypted-message"></span></p>
+        </div>
+    </div>
 
 {%endblock%}

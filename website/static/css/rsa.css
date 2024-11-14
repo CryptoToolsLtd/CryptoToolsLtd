@@ -1,0 +1,116 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.rsa-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Header and Sub-Headers */
+h1 {
+    font-size: 2.5em;
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 30px;
+    border-bottom: 2px solid #f4f4f9;
+    padding-bottom: 5px;
+}
+
+h4 {
+    font-size: 1.2em;
+    color: #444;
+    margin-top: 20px;
+}
+
+/* Labels and Inputs */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: left;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 10px;
+}
+
+
+
+/* Paragraphs and Results */
+p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+var {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* Button */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Key Result Display */
+#public-key,
+#private-key {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+}
+
+#p-q-value,
+#n-value,
+#phi-value,
+#p-1-q-1-value,
+#d-value,
+#c,
+#c-value,
+#m-decrypt,
+#m-decrypt-value {
+    font-size: 1.1em;
+    margin-top: 10px;
+    color: #4CAF50;
+}
