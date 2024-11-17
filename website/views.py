@@ -38,3 +38,31 @@ def elgamal_signature():
 @login_required
 def elliptic_signature():
     return render_template("elliptic_signature.html", user=current_user)
+
+@views.route('/modulo')
+@login_required
+def modulo():
+    return render_template("modulo.html", user=current_user)
+
+@views.route('/is_prime')
+@login_required
+def is_prime():
+    return render_template("is_prime.html", user=current_user)
+
+@views.route('/jacobi_legendre')
+@login_required
+def jacobi_legendre():
+    return render_template("jacobi_legendre.html", user=current_user)
+
+@views.route('/contribute')
+@login_required
+def all_in_one():
+    return render_template("contribute.html", user=current_user)
+
+@views.route('/theory')
+def theory():
+    return render_template("theory.html", user=current_user)
+
+@views.route('/diophantine')
+def diophantine():
+    return render_template("diophantine.html", user=current_user)

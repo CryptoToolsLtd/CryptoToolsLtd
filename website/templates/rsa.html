@@ -7,6 +7,7 @@ cryptoTools
         <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
 
         <div class="rsa-section">
+
             <div class="rsa-container">
                 <h1>RSA Encryption (explained step by step)</h1>
                 <p>Here you can see how to encrypt and decrypt using the RSA procedure step by step.</p>
@@ -36,6 +37,7 @@ cryptoTools
                 <p>Public key: (<var>n</var>, <var>e</var>)</p>
                 
                 <!------- Step 2.1 ------->
+
                 <h4><var>n</var> (Step 2.1)</h4>
                 <p>To calculate <i>n</i>, simply multiply <i>p</i> and <i>q</i>.</p>
                 <p><var>n</var> = <var>p</var> . <var>q</var></p>
@@ -51,6 +53,7 @@ cryptoTools
                 <p id="phi-value"><var>ϕ</var>(<var>n</var>) = </p>
                     
                 <!------- Step 2.3 ------->
+
                 <h4><var>e</var> (Step 2.3)</h4>
                 <p>Choose a number <var>e</var> that is coprime to <var>φ</var>(<var>n</var>) and smaller than it.</p>
                 <label for="e"> <var>e</var> = </label>
@@ -93,6 +96,7 @@ cryptoTools
     
                 <div>
                     <button type="button" onclick="encryptMessage()">Encrypt Message</button>
+
                 </div>
                 <p id="c"> <var>c</var> = </p>
                 <p id="c-value"><var>c</var> = </p>
