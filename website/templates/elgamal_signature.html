@@ -8,9 +8,10 @@ cryptoTools
 
         <div class="elgamal-section">
             <div class="elgamal-container">
-                <h1>Elgamal Encryption (explained step by step)</h1>
-                <p>Here you can see how to encrypt and decrypt using the Elgamal procedure step by step.</p>
+                <h1>Elgamal Signature (explained step by step)</h1>
+                <p>Here you can see how to sign and verify using the Elgamal procedure step by step.</p>
                 
+                <!-- Step 1: Enter Parameters -->
                 <div>
                 <h2>Step 1: Enter Parameters</h2>
                 <form id="params-form">
@@ -32,16 +33,18 @@ cryptoTools
                     </div>
                 </form>
                 </div>
-        
+
+                <!-- Step 2: Calculate Key Values -->
                 <div>
                     <h2>Step 2: Calculate key values</h2>
                     <p id="beta"> <var> β = α <sup>a</sup> </var> mod <var>p</var> = </p>
                     <h3 id = "public-key">Public Key: <var>(p, α, β) =</var></h3>
                     <h3 id = "private-key">Private Key: <var>a = </var></h3>
                 </div>
-        
+
+                <!-- Step 3: Message Signing -->
                 <div>
-                    <h2>Step 3: Message Encryption</h2>
+                    <h2>Step 3: Message Signing</h2>
                     <p>Choose a random integer number <var>k</var></p>
                     <div class="input-form-group">
                         <label for="k"> <var>k =</var>  </label>
@@ -56,18 +59,21 @@ cryptoTools
                             <option value="text">Text</option>
                         </select>
                     </div>
-                    <p><var>y<sub>1</sub> = α<sup>k</sup></var> mod <var>p</var></p>
-                    <p><var>y<sub>2</sub> = x · β<sup>k</sup></var> mod <var>p</var></p>
-                    <button type="button" onclick="encryptMessage()">Encrypt Message</button>
-                    <p>Encrypted Message: <span id="encrypted-message"></span></p>
+
+                    <p><var>&gamma; = α<sup>k</sup></var> mod <var>p</var></p>
+                    <p><var>&delta; = (x- a.&gamma;).k<sup>-1</sup></var> mod <var>(p-1)</var></p>
+                    <button type="button" onclick="signMessage()">Sign Message</button>
+                    <p>Signature: <span id="signature"><var>sig<sub>K'</sub>(x, k) = (&gamma;,&delta;)</var></span></p>
                 </div>
-        
+
+                <!-- Step 4: Verify Signature -->
                 <div>
-                    <h2>Step 4: Message Decryption</h2>
-                    <p><var>s = y<sub>1</sub><sup>x</sup></var> mod <var>p</var></p>
-                    <p><var>M = y<sub>2</sub> . s <sup>-1</sup></var> mod <var>p</var></p>
-                    <button type="button" onclick="decryptMessage()">Decrypt Message</button>
-                    <p>Decrypted Message: <span id="decrypted-message"></span></p>
+                    <h2>Step 4: Verify Signature</h2>
+                    <p>Use the public key to verify the signature (<var>&gamma;</var>, <var>&delta;</var>):</p>
+                    <p><var>v<sub>1</sub> = β<sup>&gamma;</sup>.&gamma;<sup>&delta;</sup> </var> mod <var>p</var></p>
+                    <p><var>v<sub>2</sub> = α<sub>x</sub></var> mod <var>p</var></p>
+                    <button type="button" onclick="verifySignature()">Verify Signature</button>
+                    <p>Verification Result: <span id="verification-result"></span></p>
                 </div>
             </div>
         </div>

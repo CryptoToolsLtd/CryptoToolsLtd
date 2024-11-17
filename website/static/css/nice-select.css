@@ -1,5 +1,4 @@
-
-.nice-select {
+/* .nice-select {
     -webkit-tap-highlight-color: transparent;
     background-color: #fff;
     border-radius: 5px;
@@ -28,7 +27,7 @@
     white-space: nowrap;
     width: auto;
     margin-bottom: 16px;
-}
+} */
 
 .nice-select:hover {
     border-color: #3164F4;

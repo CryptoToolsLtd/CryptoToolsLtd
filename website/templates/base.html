@@ -22,7 +22,7 @@
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 		<!-- Nice Select CSS -->
-				<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css')}}"> -->
+		<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css')}}"> -->
 		<!-- Font Awesome CSS -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 		<!-- icofont CSS -->
@@ -118,6 +118,9 @@
 													<li class=""><a href="/rsa">RSA</a></li>
 													<li><a href="/elliptic">Elliptic</a></li>
 													<li><a href="/elgamal">Elgamal</a></li>
+													<li><a href="/rsa_signature">RSA Signature</a></li>
+													<li><a href="/elgamal_signature">Elgamal Signature</a></li>
+													<li><a href="/elliptic_signature">Elliptic Signature</a></li>
 												</ul>
 											</li>
 											<li class="{% if request.path in ['/modulo', '/is_prime', '/jacobi_legendre'] %}active{% endif %}"><a href="#">Computes <i class="icofont-rounded-down"></i></a>
