@@ -7,6 +7,12 @@ body {
     color: #333;
 }
 
+.rsa-section {
+    display: block;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
 .rsa-container {
     width: 80%;
     margin: 0 auto;
@@ -32,29 +38,60 @@ h2 {
     padding-bottom: 5px;
 }
 
+h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
+}
+
 h4 {
     font-size: 1.2em;
     color: #444;
     margin-top: 20px;
+    border-bottom: 2px solid #f4f4f9;
 }
 
-/* Labels and Inputs */
+
+.input-form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#input-type-selector {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    height: 43px;
+}
+
+#input-type-selector:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
 label {
-    margin-bottom: 5px;
     font-weight: bold;
 }
 
-input[type="number"] {
+input[type="number"],
+input[type="text"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: left;
+    width: 500px;
 }
 
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="text"]:focus {
     outline: none;
     border-color: #4CAF50;
 }
+
 
 .input-group {
     display: flex;

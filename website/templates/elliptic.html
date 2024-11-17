@@ -5,77 +5,134 @@ cryptoTools
 {% block content %}
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ecc.css') }}">
-    <script src="{{ url_for('static', filename='static/js/elliptic.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ecc.js') }}"></script>
 
-    <div class="ecc-container">
-        <h1>ECC Encryption (explained step by step)</h1>
-        <p>Here you can see how to encrypt and decrypt using the ECC procedure step by step.</p>
+    <div class="elliptic-section">
+        <div class="ecc-container">
+            <h1>ECC Encryption (explained step by step)</h1>
+            <p>Here you can see how to encrypt and decrypt using the ECC procedure step by step.</p>
+            
+            <!-- Choose Option -->
+            <!-- <div>
+                <button type="button" onclick="showOption(1)">Choose ...</button>
+                <button type="button" onclick="showOption(2)">Choose ...</button>
+            </div> -->
+            
+            <h2>Step 1: Key Setup</h2>
+            <p>Choose a prime number p, coefficients a and b, point P, and a private key s.</p>
+
+            <!-- Option 1 (Full ECC Steps) -->
+            <div id = "option1" class="option">
+                <div>
+                    <div>
+                        <label for="curve-options">Choose an option:</label>
+                        <select id="curve-options" onchange="showOption(parseInt(this.value))">
+                            <option value="1" selected>Input them yourself</option>
+                            <option value="2">Select a predefined curve</option>
+                        </select>
+                    </div>
+                    <form id="keyForm">
+                        <label for="p">Prime number p:</label>
+                        <input type="number" id="p" placeholder="Enter prime p"><br><br>
+                        <label for="a">Coefficient a:</label>
+                        <input type="number" id="a" placeholder="Enter coefficient a"><br><br>
+                        <label for="b">Coefficient b:</label>
+                        <input type="number" id="b" placeholder="Enter coefficient b"><br><br>
+                        <label for="P">Point P:</label>
+                        <input type="text" id="P" placeholder="Enter point P (x, y)"><br><br>
+                        <label for="s">Private Key (s):</label>
+                        <input type="number" id="s" placeholder="Enter private key s"><br><br>
+                        <button type="button" onclick="generateKeys()">Generate Keys</button>
+                    </form>
+                    <h3 id = "public-key">Public Key: <var>(E, F<sub>b</sub>, P, B) =</var></h3>
+                    <h3 id = "private-key">Private Key: <var>s =</var> </h3>
+                </div>
         
-        <!-- Choose Button -->
-        <div>
-            <button type="button" onclick="ShowOption(1)">Choose ...</button>
-            <button type="button" onclick="ShowOption(2)">Choose ...</button>
-        </div>
-        <!-- Option 1 (Full ECC Steps) -->
-        <div id = "option1" class="option">
-            <div>
-                <h2>Step 1: Key Setup</h2>
-                <form id="keyForm">
-                    <label for="p">Prime number p:</label>
-                    <input type="text" id="p" placeholder="Enter prime p"><br><br>
-                    <label for="a">Coefficient a:</label>
-                    <input type="text" id="a" placeholder="Enter coefficient a"><br><br>
-                    <label for="b">Coefficient b:</label>
-                    <input type="text" id="b" placeholder="Enter coefficient b"><br><br>
-                    <label for="P">Point P:</label>
-                    <input type="text" id="P" placeholder="Enter point P (x, y)"><br><br>
-                    <label for="s">Private Key (s):</label>
-                    <input type="text" id="s" placeholder="Enter private key s"><br><br>
-                    <button type="button" onclick="generateKeys()">Generate Keys</button>
-                </form>
-                <p>Public Key: <span id="publicKey"></span></p>
-                <p>Private Key: <span id="privateKey"></span></p>
-            </div>
-    
-            <div>
-                <h2>Step 2: Encrypts the Message</h2>
-                <label for="message">Message (point M):</label>
-                <input type="text" id="message" placeholder="Enter message"><br><br>
-                <label for="k">Random k:</label>
-                <input type="text" id="k" placeholder="Enter random k"><br><br>
-                <button onclick="encryptMessage()">Encrypt Message</button>
-                <p>Encrypted Message:</p>
-                <p id="encryptedMessage"></p>
-            </div>
-    
-            <div>
-                <h2>Step 3: Decrypts the Message</h2>
-                <button onclick="decryptMessage()">Decrypt Message</button>
-                <p>Decrypted Message: <span id="decryptedMessage"></span></p>
-            </div>
-        </div>
-        <!-- Option 2  -->
-        <div id="option2" class="option hidden">
-            <div>
-                <h2>Step 1: Key Setup</h2>
-                <button onclick="generateKeys()">Generate Keys</button>
-                <p>Public Key: <span id="publicKey"></span></p>
-                <p>Private Key: <span id="privateKey"></span></p>
-            </div>
+                <div>
+                    <h2>Step 2: Encrypts the Message</h2>
+                    <div class="input-form-group">
+                        <label for="message"> Message: </label>
+                        <input id="message" type="text" placeholder="Enter message">
+                        <select id="input-type-selector" onchange="changeInputType()">
+                            <option value="text" selected>Point</option>
+                            <option value="text">Text</option>
+                        </select>
+                    </div>
+                    <p> <var>M = (x,y)</var></p>
+                    <label for="k">Random k:</label>
+                    <input type="text" id="k" placeholder="Enter random k"><br><br>
+                    <p id="M1-value"><var> M<sub>1</sub> = kP</var> =</p>
+                    <p id="M2-value"><var> M<sub>2</sub> = M + kB</var> =</p>
+                    <button type="button" onclick="encryptMessage()">Encrypt Message</button>
+                    <p>Encrypted Message: <span id="encryptedMessage"><var>(M<sub>1</sub>, M<sub>2</sub> ) =</var></span> </p>
+                </div>
         
-            <div>
-                <h2>Step 2: Encrypts the Message</h2>
-                <label for="message">Message (point M):</label>
-                <input type="text" id="message" placeholder="Enter message">
-                <button onclick="encryptMessage()">Encrypt Message</button>
-                <p>Encrypted Message:</p>
-                <p id="encryptedMessage"></p>
+                <div>
+                    <h2>Step 3: Decrypts the Message</h2>
+                    <label for="M1"><var>M<sub>1</sub> =</var></label>
+                    <input type="text" id="M1" placeholder="Enter M1"><br><br>
+                    <label for="M2"><var>M<sub>2</sub> =</var></label>
+                    <input type="text" id="M2" placeholder="Enter M2"><br><br>
+                    <p id="M-value"><var> M = M<sub>2</sub> - sM<sub>1</sub></var> =</p>
+                    <button type="button" onclick="decryptMessage()">Decrypt Message</button>
+                    <p>Decrypted Message: <span id="decryptedMessage"></span></p>
+                </div>
             </div>
+            <!-- Option 2  -->
+            <div id="option2" class="option hidden">
+                <div>
+                    <div>
+                        <label for="curve-options">Choose an option:</label>
+                        <select id="curve-options" onchange="showOption(parseInt(value))">
+                            <option value="1" selected>Input them yourself</option>
+                            <option value="2">Select a predefined curve</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="predefined-curve-options">Choose a predefined curve:</label>
+                        <select id="predefined-curve-options" onchange="showOptionCurve(parseInt(this.value))">
+                            <option value="1" selected> secp192k1</option>
+                            <option value="2"> secp224k1</option>
+                            <option value="3">secp256k1</option>
+                            <option value="4">secp384r1</option>
+                            <option value="5"> secp521r1</option>
+                        </select>
+                    </div>
+                    <p> <var>B = dg</var> </p>
+                    <button onclick="generateKeys()">Generate Keys</button>
+                    <h3 id = "public-key">Public Key: <var>(E, F<sub>b</sub>, P, B) =</var></h3>
+                    <h3 id = "private-key">Private Key: <var>s =</var> </h3>
+                </div>
+            
+                <div>
+                    <h2>Step 2: Encrypts the Message</h2>
+                    <div class="input-form-group">
+                        <label for="message"> Message: </label>
+                        <input id="message" type="text" placeholder="Enter message">
+                        <select id="input-type-selector" onchange="changeInputType()">
+                            <option value="text" selected>Point</option>
+                            <option value="text">Text</option>
+                        </select>
+                    </div>
+                    <p> <var>M = (x,y)</var></p>
+                    <label for="k">Random k:</label>
+                    <input type="text" id="k" placeholder="Enter random k"><br><br>
+                    <p id="M1-value"><var> M<sub>1</sub> = kP</var> =</p>
+                    <p id="M2-value"><var> M<sub>2</sub> = M + kB</var> =</p>
+                    <button type="button" onclick="encryptMessage()">Encrypt Message</button>
+                    <p>Encrypted Message: <span id="encryptedMessage"><var>(M<sub>1</sub>, M<sub>2</sub> ) =</var></span> </p>
+                </div>
         
-            <div>
-                <h2>Step 3: Decrypts the Message</h2>
-                <button onclick="decryptMessage()">Decrypt Message</button>
-                <p>Decrypted Message: <span id="decryptedMessage"></span></p>
+                <div>
+                    <h2>Step 3: Decrypts the Message</h2>
+                    <label for="M1"><var>M<sub>1</sub> =</var></label>
+                    <input type="text" id="M1" placeholder="Enter M1"><br><br>
+                    <label for="M2"><var>M<sub>2</sub> =</var></label>
+                    <input type="text" id="M2" placeholder="Enter M2"><br><br>
+                    <p id="M-value"><var> M = M<sub>2</sub> - sM<sub>1</sub></var> =</p>
+                    <button type="button" onclick="decryptMessage()">Decrypt Message</button>
+                    <p>Decrypted Message: <span id="decryptedMessage"></span></p>
+                </div>
             </div>
         </div>
     </div>

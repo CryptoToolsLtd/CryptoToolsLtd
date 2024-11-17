@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title%}
+cryptoTools
+{% endblock%}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ecc.css') }}">
+    <script src="{{ url_for('static', filename='js/ecc.js') }}"></script>
+
+    <div class="elliptic-section">
+        <div class="ecc-container">
+            <h1>ECDSA Signing and Verification</h1>
+            <p>Here you can see how to generate a digital signature and verify it step by step using ECDSA.</p>
+    
+            <!-- Step 1: Key Setup -->
+            <h2>Step 1: Key Setup</h2>
+            <p>Choose a predefined elliptic curve and generate key pairs.</p>
+            
+            <div>
+                <label for="predefined-curve-options">Choose a predefined curve:</label>
+                <select id="predefined-curve-options" onchange="selectCurve(this.value)">
+                    <option value="1" selected> secp192k1</option>
+                    <option value="2"> secp224k1</option>
+                    <option value="3"> secp256k1</option>
+                    <option value="4"> secp384r1</option>
+                    <option value="5"> secp521r1</option>
+                </select>
+            </div>
+            <label for="d">Choose a random integer d (<var>1</var> < <var>d</var> < <var>n-1</var>):</label>
+            <input type="number" id="d" placeholder="Enter random number" required>
+            <p id = "Q-value"><var>Q = dg</var></p>
+            <button onclick="generateKeys()">Generate Keys</button>
+            <h3 id="public-key">Public Key: <var>(E<sub>p</sub>(a,b), g, n, Q) =</var></h3>
+            <h3 id="private-key">Private Key: <var>d =</var></h3>
+    
+            <!-- Step 2: Sign the Message -->
+            <h2>Step 2: Sign the Message</h2>
+            <div>
+                <div class="input-form-group">
+                    <label for="message">Message to Sign:</label>
+                    <input id="message" type="number" placeholder="Enter number">
+                    <select id="input-type-selector" onchange="changeInputType()">
+                        <option value="number" selected>Number</option>
+                        <option value="text">Text</option>
+                    </select>
+                </div>
+                <label for="k">Choose a random integer k ( <var>1</var> < <var>d</var> < <var>n-1</var>):</label>
+                <input type="number" id="k" placeholder="Enter random number">
+                <p id="x1-y1-value"><var>(x<sub>1</sub>, y<sub>1</sub>) = kg</var></p>
+                <p id = "r-value"><var>r = x<sub>1</sub> mod n</var></p>
+                <p id = "h-value"><var>h =  H(M)</var></p>
+                <p id = "s-value"><var>s = (h + d * r) * (k <sup>-1</sup>) mod n</var></p>
+                
+                <button type="button" onclick="signMessage()">Sign Message</button>
+                <p>Signature: <var>(r, s) =</var> <span id="signature"></span></p>
+            </div>
+    
+            <!-- Step 3: Verify the Signature -->
+            <h2>Step 3: Verify the Signature</h2>
+            <div>
+                <div class="input-form-group">
+                    <label for="message-to-verify">Message to Verify:</label>
+                    <input id="message" type="number" placeholder="Enter number">
+                    <select id="input-type-selector" onchange="changeInputType()">
+                        <option value="number" selected>Number</option>
+                        <option value="text">Text</option>
+                    </select>
+                </div>
+                <label for="signature-r">Signature r:</label>
+                <input type="text" id="signature-r" placeholder="Enter r"><br><br>
+                <label for="signature-s">Signature s:</label>
+                <input type="text" id="signature-s" placeholder="Enter s"><br><br>
+                <p id = "hash-value"><var>h =  H(M)</var></p>
+                <p id = "w-value"><var>w = s <sup>-1</sup> mod n</var></p>
+                <p id = "u1-value"><var>u<sub>1</sub> = h * w mod n</var></p>
+                <p id = "u2-value"><var>u<sub>2</sub> = r * w mod n</var></p>
+                <p id = "x0-y0-value"><var>(x<sub>0</sub>, y<sub>0</sub>) = u<sub>1</sub>g + u<sub>2</sub>Q</var></p>
+                <p id = "v-value"><var>v = x<sub>0</sub> mod n</var></p>
+                <button type="button" onclick="verifySignature()">Verify Signature</button>
+                <p>Verification Result: <span id="verification-result"></span></p>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}
