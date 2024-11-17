@@ -6,7 +6,11 @@ body {
     padding: 0;
     color: #333;
 }
-
+.elgamal-section{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .elgamal-container {
     width: 80%;
     margin: 0 auto;
@@ -32,23 +36,51 @@ h2 {
     padding-bottom: 5px;
 }
 
-
-/* Labels and Inputs */
-label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    margin-left: 10px;
+h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
 }
 
-input[type="number"] {
+
+.input-form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#input-type-selector {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    height: 43px;
+}
+
+#input-type-selector:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="number"],
+input[type="text"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: left;
-    margin-bottom: 15px;
+    width: 500px;
+    margin-top: 10px;
+margin-bottom: 10px;
 }
 
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="text"]:focus {
     outline: none;
     border-color: #4CAF50;
 }

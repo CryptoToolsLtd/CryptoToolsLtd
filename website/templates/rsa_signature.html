@@ -8,8 +8,8 @@ cryptoTools
 
         <div class="rsa-section">
             <div class="rsa-container">
-                <h1>RSA Encryption (explained step by step)</h1>
-                <p>Here you can see how to encrypt and decrypt using the RSA procedure step by step.</p>
+                <h1>RSA Signature (explained step by step)</h1>
+                <p>Here you can see how to sign and verify using the RSA procedure step by step.</p>
                 
                 <!------- Step 1 ------->
                 <h2>Step 1: Set prime numbers</h2>
@@ -32,8 +32,8 @@ cryptoTools
                 <h2>Step 2: Calculate key values</h2>
                 <p>The next steps will calculate the two keys.</p>
                 <p>Both consist of two numbers, one of which is equal.</p>
-                <p>Private key: (<var>n</var>, <var>d</var>)</p>
-                <p>Public key: (<var>n</var>, <var>e</var>)</p>
+                <p>Private key: (<var>n</var>, <var>a</var>)</p>
+                <p>Public key: (<var>n</var>, <var>b</var>)</p>
                 
                 <!------- Step 2.1 ------->
                 <h4><var>n</var> (Step 2.1)</h4>
@@ -51,40 +51,35 @@ cryptoTools
                 <p id="phi-value"><var>ϕ</var>(<var>n</var>) = </p>
                     
                 <!------- Step 2.3 ------->
-                <h4><var>e</var> (Step 2.3)</h4>
-                <p>Choose a number <var>e</var> that is coprime to <var>φ</var>(<var>n</var>) and smaller than it.</p>
-                <label for="e"> <var>e</var> = </label>
-                <input type="number" id="e" placeholder="Enter number">
+                <h4><var>b</var> (Step 2.3)</h4>
+                <p>Choose a number <var>b</var> that is coprime to <var>φ</var>(<var>n</var>) and smaller than it.</p>
+                <label for="b"> <var>b</var> = </label>
+                <input type="number" id="b" placeholder="Enter number">
                 <div>
                     <button type="submit">Next Step</button>
                 </div>
                 
                 <!------- Step 2.4 ------->
-                <h4> <var>d</var> (Step 2.4)</h4>
-                <p>The number <var>d</var> is the multiplicative inverse to e</p>
+                <h4> <var>a</var> (Step 2.4)</h4>
+                <p>The number <var>a</var> is the multiplicative inverse to b</p>
                 <p>Expressed in formulas, the following must apply:</p>
-                <p> (<var>d</var> . <var>e</var>) mod <var>ϕ</var>(<var>n</var>) = 1 </p>
-                <p id="d-value"><var>d</var> = </p>
+                <p> (<var>a</var> . <var>b</var>) mod <var>ϕ</var>(<var>n</var>) = 1 </p>
+                <p id="a-value"><var>a</var> = </p>
     
                 <div>
                     <button type="submit">Generate Key</button>
                 </div>
-                <h3 id = "public-key">Public key: <var>(n,d) = </var></h3>
-                <h3 id = "private-key">Private key: <var>(n,e) = </var></h3>
+                <h3 id = "public-key">Public key: <var>(n,b) = </var></h3>
+                <h3 id = "private-key">Private key: <var>(n,a) = </var></h3>
                 
                 <!------- Encryption ------->
-                <h2>Step 3: Encrypt</h2>
-                <p>To encrypt a number <var>m</var> to ciphertext <var>c</var> the following formula is applied.</p>
-                <p>It uses the numbers of the public key:</p>
-                <p> <var>c = m <sup>e</sup></var> mod <var>n</var></p>
-                <p>RSA encrypts only numbers. These must be greater-equal 0 and less than n.</p>
-    
-                <!-- <label for="m"> <var>m</var> = </label>
-                <input type="number" id="m" placeholder="Enter number"> -->
+                <h2>Step 3: Sign the Message</h2>
+                <p>To sign a message <var>m</var>, calculate the signature <var>s</var> using the private key:</p>
+                <p> <var>s = m <sup>d</sup> mod n</var> </p>
                 
                 <div class="input-form-group">
-                    <label for="m"> <var>m =</var>  </label>
-                    <input id="m" type="number" placeholder="Enter number">
+                    <label for="message-to-sign"> <var>m</var> (Message to Sign):  </label>
+                    <input id="message-to-sign" type="number" placeholder="Enter number">
                     <select id="input-type-selector" onchange="changeInputType()">
                         <option value="number" selected>Number</option>
                         <option value="text">Text</option>
@@ -92,23 +87,27 @@ cryptoTools
                 </div>
     
                 <div>
-                    <button type="button" onclick="encryptMessage()">Encrypt Message</button>
+                    <button type="button" onclick="signMessage()">Sign Message</button>
                 </div>
-                <p id="c"> <var>c</var> = </p>
-                <p id="c-value"><var>c</var> = </p>
+                <p id="signature-value">Signature: </p>
         
-                <!------- Decryption ------->
-                <h2>Step 4: Decrypt</h2>
-                <p>For decryption the inverse formula is applied.</p>
-                <p>It uses the numbers of the private key:</p>
-                <p> <var>m' = c <sup>d</sup> mod n</var></p>
-                <label for="c-decrypt"> <var>c</var> = </label>
-                <input type="number" id="c-decrypt" placeholder="Enter number">
-                <div>
-                    <button type="button" onclick="decryptMessage()">Decrypt Message</button>
+                 <!------- Verify ------->
+                <h2>Step 4: Verify the Signature</h2>
+                <p>To verify a signature, use the public key and compute:</p>
+                <p> <var>m' = s <sup>e</sup> mod n</var> </p>
+                
+                <div class="input-form-group">
+                    <label for="signature-to-verify"> <var>m</var> (Message to Sign):  </label>
+                    <input id="signature-to-verify" type="number" placeholder="Enter number">
+                    <select id="input-type-selector" onchange="changeInputType()">
+                        <option value="number" selected>Number</option>
+                        <option value="text">Text</option>
+                    </select>
                 </div>
-                <p id="m-decrypt"> <var>m'</var> = </p>
-                <p id="m-decrypt-value"><var>m'</var> =</p>
+                <div>
+                    <button type="button" onclick="verifySignature()">Verify Signature</button>
+                </div>
+                <p id="verification-result">Verification Result: </p>
         
             </div>
         </div>
