@@ -115,23 +115,24 @@
 											</li>
 											<li class="{% if request.path in ['/rsa', '/elliptic', '/elgamal'] %}active{% endif %}"><a href="">Cryptos system <i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
-													<li class="">><a href="/rsa">RSA</a></li>
-													<li><a href="/elliptic">elliptic</a></li>
+													<li class=""><a href="/rsa">RSA</a></li>
+													<li><a href="/elliptic">Elliptic</a></li>
 													<li><a href="/elgamal">Elgamal</a></li>
 												</ul>
 											</li>
 											<li class="{% if request.path in ['/modulo', '/is_prime', '/jacobi_legendre'] %}active{% endif %}"><a href="#">Computes <i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
-													<li><a href="/modulo">Modulo</a></li>
-													<li><a href="/is_prime">Isprime</a></li>
-													<li><a href="/jacobi_legendre">Jacobi and legendre</a></li>
+													<li><a href="/jacobi_legendre">Legendre/Jacobi/Kronecker</a></li>
+													<li><a href="/modulo">Modpower</a></li>
+													<li><a href="/is_prime">Prime and Factorization</a></li>
+													<li><a href="/diophantine">Diophantine</a></li>
 												</ul>
 											</li>
-											<li class="{% if request.path == '/all_in_one' %}active{% endif %}"><a href="/all_in_one">All in one </a></li>
+											<li class="{% if request.path == '/theory' %}active{% endif %}"><a href="/theory">Theory </a></li>
 											{% if not user.is_authenticated %}
 											<li><a href="/login_up">Sign in/up</a></li>
 											{% else%}
-											<li class="{% if request.path == '/theory' %}active{% endif %}"><a href="/theory">Theory </a></li>
+											<li class="{% if request.path == '/contribute' %}active{% endif %}"><a href="/contribute">Contribute </a></li>
 											{% endif %}
 										</ul>
 									</nav>

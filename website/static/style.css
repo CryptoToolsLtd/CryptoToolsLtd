@@ -435,8 +435,8 @@ body{
 	margin-left:0;
 }
 /*  Menu */
-.header .nav li .dropdown {Dropdown
-	background: #fff;
+.header .nav li .dropdown {
+	background: #58c4e8;
 	width: 220px;
 	position: absolute;
 	left:-20px;
@@ -470,7 +470,7 @@ body{
 }
 .header .nav li .dropdown li a {
 	padding: 12px 15px;
-	color: #666;
+	color: black;
 	display: block;
 	font-weight: 400;
 	text-transform: capitalize;
@@ -486,7 +486,7 @@ body{
 	border-bottom:0px;
 }
 .header .nav li .dropdown li:hover a{
-	color:#1A76D1;
+	color:#fff;
 }
 .header .nav li .dropdown li a:hover{
 	border-color:transparent;

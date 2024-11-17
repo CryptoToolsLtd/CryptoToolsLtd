@@ -40,11 +40,15 @@ def is_prime():
 def jacobi_legendre():
     return render_template("jacobi_legendre.html", user=current_user)
 
-@views.route('/all_in_one')
+@views.route('/contribute')
 @login_required
 def all_in_one():
-    return render_template("all_in_one.html", user=current_user)
+    return render_template("contribute.html", user=current_user)
 
 @views.route('/theory')
 def theory():
     return render_template("theory.html", user=current_user)
+
+@views.route('/diophantine')
+def diophantine():
+    return render_template("diophantine.html", user=current_user)
