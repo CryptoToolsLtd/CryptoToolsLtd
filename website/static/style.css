@@ -436,7 +436,7 @@ body{
 }
 /*  Menu */
 .header .nav li .dropdown {
-	background: #58c4e8;
+	background: #f1f1f1;
 	width: 220px;
 	position: absolute;
 	left:-20px;
@@ -456,6 +456,7 @@ body{
 	border-left:3px solid #2889e4;
 }
 .header .nav li:hover .dropdown{
+	background-color: #ddd;
 	opacity:1;
 	visibility:visible;
 	transform:translateY(0px);
@@ -486,7 +487,11 @@ body{
 	border-bottom:0px;
 }
 .header .nav li .dropdown li:hover a{
-	color:#fff;
+	color:white;
+}
+
+.header .nav li .dropdown li:hover {
+	background-color: #2889e4;
 }
 .header .nav li .dropdown li a:hover{
 	border-color:transparent;

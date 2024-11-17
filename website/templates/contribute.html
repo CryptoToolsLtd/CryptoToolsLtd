@@ -4,6 +4,69 @@ cryptoTools
 {% endblock%}
 {% block content %}
 
-<p1> this is contribute in one page </p1>
+<title>Đóng góp ý kiến</title>
+<style>
+    .contribution {
+        background-color: #f4f4f9;
+        width: 100%;
+        height: 110ch;
+        padding: 20px;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .feedback-form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 600px;
+    }
+    .feedback-form h2 {
+        text-align: center;
+    }
+    .feedback-form input,
+    .feedback-form textarea,
+    .feedback-form button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .feedback-form button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: auto;
+        /* Căn giữa */
+        display: block;
+        margin: 20px auto 0 auto; /* Căn giữa với margin */
+    }
+    .feedback-form button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+    <section class="contribution">
+        <div class="contribution-div">
+            <form class="feedback-form" action="/submit_feedback" method="post">
+                <h2>Feedback</h2>
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" rows="5" placeholder="Enter your feedback..." required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+</body>
 
 {%endblock%}
