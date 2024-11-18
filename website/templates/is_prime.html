@@ -4,6 +4,152 @@ cryptoTools
 {% endblock%}
 {% block content %}
 
-<p1> this is prime page </p1>
+<style>
+    .isprime-section {
+        background-color: #f4f4f9;
+        width: 100%;
+        height: 100ch;
+        padding: 20px;
+    }
+    
+    .container-isprime {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        height: 80ch;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        align-items: center ;
+    }
+    
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    
+    p {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+    }
+    
+    .input-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    
+    label {
+        font-size: 18px;
+        width: 80px;
+        font-weight: bold;
+    }
+    
+    input[type="number"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+
+    .button-groups {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    
+    button {
+       
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: auto;
+        /* Căn giữa */
+        display: block;
+        margin: 20px auto 0 auto; /* Căn giữa với margin */
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    .note {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    
+    details {
+        margin-bottom: 20px;
+    }
+</style>
+
+
+<section class="isprime-section">
+    <div class="container-isprime">
+        <!-- Section 1 -->
+        <h2>Prime Check & Factorization</h2>
+        <div class="input-group">
+            <label for="numberN">Input N:</label>
+            <input type="number" id="numberN" placeholder="Enter number N">
+        </div>
+        <div class="button-groups">
+            <button type="button" onclick="checkPrime()">Check Prime</button>
+            <button type="button" onclick="factorize()">Factorize</button>
+        </div>
+        <h2>Result </h2>
+        <div id="checkPrimeOutput" style="display: none; margin-top: 20px;">
+            <div class="input-group">
+                <label for="res1"><strong> Prime Check: </strong></label>
+                <input type="text" id="res1" readonly>
+            </div>
+        </div>
+        <div id="factorOutput" style="display: none; margin-top: 20px;">
+            <div class="input-group">
+                <label for="res2"><strong> Factors: </strong></label>
+                <input type="text" id="res2" readonly>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <h2>Generate Prime</h2>
+        <div class="input-group">
+            <label for="primeLimit">Numbers of bits:</label>
+            <input type="number" id="primeLimit" placeholder="Enter numbers of bits">
+        </div>
+        <button onclick="generatePrimes()">Generate Primes</button>
+        <div id="primeOutput" style="display: none; margin-top: 20px;">
+            <div class="input-group">
+                <label for="res3"><strong> Primes: </strong></label>
+                <input type="text" id="res3" readonly>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    //     document.getElementById("submit_button").addEventListener("click", function(event) {
+    //     event.preventDefault(); // Ngăn chặn form reload trang
+
+        
+    // });
+</script>
 
 {%endblock%}
