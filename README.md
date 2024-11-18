@@ -4,8 +4,8 @@
   - [Authors](#authors)
   - [Setup](#setup)
     - [Prerequisites](#prerequisites)
-    - [Create Database and Setup Environment Variables](#create-database-and-setup-environment-variables)
     - [Install Python Packages](#install-python-packages)
+    - [Create Database and Setup Environment Variables](#create-database-and-setup-environment-variables)
   - [Launch the App](#launch-the-app)
   - [Advanced Use](#advanced-use)
     - [Database Migration](#database-migration)
@@ -37,6 +37,15 @@ We are a group of students at UET - VNU.
 
     For other distros (and other operating systems), see the full guide at <https://pypi.org/project/mysqlclient/>.
 
+### Install Python Packages
+
+You may want to create and activate a virtual environment
+(venv) first. Then, at the project root, run
+
+```sh
+pip install -r requirements.txt
+```
+
 ### Create Database and Setup Environment Variables
 
 You have to create a `.env` file at the project root
@@ -46,13 +55,12 @@ those variables are.
 
 Some variables require setting up a database.
 
-### Install Python Packages
-
-You may want to create and activate a virtual environment
-(venv) first. Then, at the project root, run
+After specifying the variables properly, you now
+have to migrate the database. Run (after the venv
+is activated):
 
 ```sh
-pip install -r requirements.txt
+flask db upgrade
 ```
 
 ## Launch the App

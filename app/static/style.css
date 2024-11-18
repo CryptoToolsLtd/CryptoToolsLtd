@@ -456,7 +456,7 @@ body{
 	border-left:3px solid #2889e4;
 }
 .header .nav li:hover .dropdown{
-	background-color: #ddd;
+	background-color: rgb(245, 245, 245);
 	opacity:1;
 	visibility:visible;
 	transform:translateY(0px);
