@@ -49,10 +49,10 @@ def modulo():
 def is_prime():
     return render_template("is_prime.html", user=current_user)
 
-@views.route('/jacobi_legendre')
+@views.route('/legendre_jacobi_kronecker')
 @login_required
-def jacobi_legendre():
-    return render_template("jacobi_legendre.html", user=current_user)
+def legendre_jacobi_kronecker():
+    return render_template("legendre_jacobi_kronecker.html", user=current_user)
 
 @views.route('/contribute')
 @login_required

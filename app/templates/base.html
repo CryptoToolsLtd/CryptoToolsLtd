@@ -123,12 +123,12 @@
 													<li><a href="/elliptic_signature">Elliptic Signature</a></li>
 												</ul>
 											</li>
-											<li class="{% if request.path in ['/modulo', '/is_prime', '/jacobi_legendre'] %}active{% endif %}"><a href="#">Computes <i class="icofont-rounded-down"></i></a>
+											<li class="{% if request.path in ['/modulo', '/is_prime', '/legendre_jacobi_kronecker'] %}active{% endif %}"><a href="#">Computes <i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
-													<li><a href="/jacobi_legendre">Legendre/Jacobi/Kronecker</a></li>
-													<li><a href="/modulo">Modpower</a></li>
+													<li><a href="/legendre_jacobi_kronecker">Legendre/Jacobi/Kronecker</a></li>
+													<li><a href="/modulo">Modular Exponentiation</a></li>
 													<li><a href="/is_prime">Prime and Factorization</a></li>
-													<li><a href="/diophantine">Diophantine</a></li>
+													<li><a href="/diophantine">GCD and Diophantine</a></li>
 												</ul>
 											</li>
 											<li class="{% if request.path == '/theory' %}active{% endif %}"><a href="/theory">Theory </a></li>
