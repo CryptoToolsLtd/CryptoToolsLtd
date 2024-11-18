@@ -18,7 +18,7 @@ We are a group of students at UET - VNU.
 | #   | Student ID | Name             |
 | --- | ---------- | ---------------- |
 | 1   | 22028235   | Vũ Tùng Lâm      |
-| 2   | 22028286   | Nguyễn Văn Thiện |
+| 2   | 22028182   | Nguyễn Văn Thiện |
 | 3   | 22028189   | Lê Thành Đạt     |
 
 ## Setup
