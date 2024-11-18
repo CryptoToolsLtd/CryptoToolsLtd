@@ -1,4 +1,4 @@
-from website import create_app
+from app import create_app
 from flask_login import current_user
 
 app = create_app()

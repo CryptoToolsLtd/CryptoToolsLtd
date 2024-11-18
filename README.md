@@ -61,7 +61,7 @@ Activate the venv if necessary. Then, at the project
 root, execute
 
 ```sh
-flask --app=website run --port=8000
+flask run --port=8000
 ```
 
 It should be available at <http://localhost:8000>.
@@ -71,7 +71,7 @@ reload the app when some code changes), add the `--debug` flag,
 for example:
 
 ```sh
-flask --app=website run --port=8000 --debug
+flask run --port=8000 --debug
 ```
 
 ## Advanced Use
