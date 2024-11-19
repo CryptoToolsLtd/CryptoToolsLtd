@@ -58,7 +58,7 @@ def start_worker_pool(app: Flask):
     stop_worker_pool()
     num_workers = max(1, cpu_count() - 2)
     for i in range(num_workers):
-        p = Process(target=worker_process, args=(i, app), daemon=True)
+        p = Process(target=worker_process, args=(i, app))
         p.start()
         processes.append(p)
     print_threadsafe(f"Started {num_workers} worker processes.")

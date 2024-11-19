@@ -342,7 +342,7 @@
 			} else if (config === 'negative') {
 				return negativeNumbersOnly.test(number);
 			} else {
-				return positiveNumbersOnly.test(number) || negativeNumbersOnly.test(number);
+				return positiveNumbersOnly.test(number) || negativeNumbersOnly.test(number) || number === '0';
 			}
 		}
 	</script>

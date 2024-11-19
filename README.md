@@ -75,14 +75,6 @@ flask run --port=8000
 
 It should be available at <http://localhost:8000>.
 
-Alternatively, to enable hot-reloading (flask to automatically
-reload the app when some code changes), add the `--debug` flag,
-for example:
-
-```sh
-flask run --port=8000 --debug
-```
-
 ## Advanced Use
 
 ### Database Migration
