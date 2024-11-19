@@ -65,10 +65,14 @@ def start_worker_pool(app: Flask):
 
 def stop_worker_pool():
     if processes:
+        N = len(processes)
         for p in processes:
-            p.terminate()
+            try:
+                p.terminate()
+            except Exception as e:
+                print_threadsafe(f"Error stopping worker process: {e}. Still continuing.")
         processes.clear()
-        print_threadsafe("Stopped worker pool.")
+        print_threadsafe(f"Stopped all {N} jobs in the worker pool.")
     else:
         print_threadsafe("No processes in worker pool to stop.")
 

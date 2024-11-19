@@ -306,8 +306,18 @@
 					} else {
 						await new Promise(resolve => setTimeout(resolve, 1000));
 					}
-					job = await checkJob(job.id);
+					try {
+						job = await checkJob(job.id);
+					} catch (e) {
+						if (e.message.startsWith("NetworkError")) {
+							removeErrors(errorAreaId);
+							addError(errorAreaId, "The server is not responding. Retrying...");
+						} else {
+							throw e;
+						}
+					}
 				}
+				removeErrors(errorAreaId);
 
 				return job;
 			} catch (error) {

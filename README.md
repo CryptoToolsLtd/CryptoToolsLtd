@@ -75,6 +75,22 @@ flask run --port=8000
 
 It should be available at <http://localhost:8000>.
 
+Alternatively, to enable hot-reloading (automatically
+reload the app when file changes are detected), run
+the following command (still after activating venv
+and at the project root):
+
+```sh
+python debug.py
+```
+
+It should also be available at <http://localhost:8000>.
+You can specify a different port:
+
+```sh
+python debug.py 3000
+```
+
 ## Advanced Use
 
 ### Database Migration

@@ -181,6 +181,7 @@ cryptoTools
 
 <script>
     async function checkPrime() {
+        document.getElementById("checkPrimeOutput").style.display = "none";
         const N = document.getElementById("numberN").value;
         const validator = async () => {
             if (!isNumberValid(N)) {
@@ -197,6 +198,7 @@ cryptoTools
     }
 
     async function factor() {
+        document.getElementById("factorOutput").style.display = "none";
         const N = document.getElementById("numberN").value;
         const validator = async () => {
             if (!isNumberValid(N)) {
@@ -213,6 +215,8 @@ cryptoTools
     }
 
     async function generatePrimes() {
+        document.getElementById("primeOutput").style.display = "none";
+
         const numberOfBits = document.getElementById("primeLimit").value;
         const numPrimes = document.getElementById("numPrimes").value;
         const want3Mod4 = document.getElementById("want3Mod4").checked;
