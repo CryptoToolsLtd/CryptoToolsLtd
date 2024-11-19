@@ -14,6 +14,10 @@ def readUriComponentEnv(key: str) -> str:
     value = readNonEmptyStringEnv(key)
     return quote(value)
 
+def readIntEnv(key: str) -> int:
+    value = readNonEmptyStringEnv(key)
+    return int(value)
+
 #############################################
 # Environment variables should be consumed by
 # importing the following variables, not by
@@ -25,7 +29,10 @@ FLASK_ENV = readNonEmptyStringEnv("FLASK_ENV")
 SECRET_KEY = readNonEmptyStringEnv("SECRET_KEY")
 
 MYSQL_HOSTNAME = readUriComponentEnv("MYSQL_HOSTNAME")
-MYSQL_HOSTPORT = readUriComponentEnv("MYSQL_HOSTPORT")
-MYSQL_USERNAME = readUriComponentEnv("MYSQL_USERNAME")
-MYSQL_PASSWORD = readUriComponentEnv("MYSQL_PASSWORD")
-MYSQL_DATABASE = readUriComponentEnv("MYSQL_DATABASE")
+MYSQL_HOSTPORT = readIntEnv("MYSQL_HOSTPORT")
+MYSQL_USERNAME = readNonEmptyStringEnv("MYSQL_USERNAME")
+MYSQL_PASSWORD = readNonEmptyStringEnv("MYSQL_PASSWORD")
+MYSQL_DATABASE = readNonEmptyStringEnv("MYSQL_DATABASE")
+
+REDIS_HOSTNAME = readUriComponentEnv("REDIS_HOSTNAME")
+REDIS_HOSTPORT = readIntEnv("REDIS_HOSTPORT")

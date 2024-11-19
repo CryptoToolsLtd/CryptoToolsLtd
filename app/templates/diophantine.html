@@ -8,44 +8,51 @@ cryptoTools
     .dia-section {
         background-color: #f4f4f9;
         width: 100%;
-        height: 100ch;
+        min-height: 100ch;
         padding: 20px;
     }
-    
+
     .container-dia {
         background-color: #ffffff;
         border: 1px solid #ccc;
-        height: 80ch;
+        min-height: 80ch;
         border-radius: 8px;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        align-items: center ;
+        align-items: center;
     }
-    
+
+    h1 {
+        font-size: 2.5em;
+        color: #4CAF50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
     h2 {
         font-size: 24px;
         margin-bottom: 10px;
     }
-    
+
     p {
         margin-bottom: 10px;
         font-size: 16px;
         color: #333;
     }
-    
+
     .input-group {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
     }
-    
+
     label {
         font-size: 18px;
         width: 80px;
         font-weight: bold;
     }
-    
+
     input[type="number"] {
         flex: 1;
         padding: 8px;
@@ -63,24 +70,27 @@ cryptoTools
         border-radius: 4px;
         margin-left: 10px;
     }
-    
+
     button {
-       
-        background-color: #007bff;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        background-color: #4CAF50;
         color: white;
         border: none;
-        padding: 10px 20px;
         border-radius: 5px;
-        font-size: 16px;
         cursor: pointer;
-        width: auto;
-        /* Căn giữa */
-        display: block;
-        margin: 20px auto 0 auto; /* Căn giữa với margin */
     }
-    
+
     button:hover {
-        background-color: #0056b3;
+        background-color: #45a049;
+    }
+
+    .button-groups {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 10px;
     }
     
     .note {
@@ -89,7 +99,7 @@ cryptoTools
         margin-bottom: 10px;
         font-weight: bold;
     }
-    
+
     details {
         margin-bottom: 20px;
     }
@@ -98,8 +108,9 @@ cryptoTools
 
 <section class="dia-section">
     <div class="container-dia">
-        <h2>Step 1: Set parameters </h2>
-        <p>As a starting point for diophantine, choose three parameters <em>a</em>, <em>b</em> and <em>n</em>:</p>
+        <h1>GCD, Inverse, and Diophantine Equation</h1>
+        <h2>Set parameters</h2>
+        <p>Enter the parameters <em>a</em> and <em>b</em>:</p>
 
         <div class="input-group">
             <label for="a"> a = </label>
@@ -109,16 +120,22 @@ cryptoTools
             <label for="b"> b = </label>
             <input type="number" id="b" placeholder="Enter b">
         </div>
-        
-        <p class="note"><em>We compute ax + by = d = gcd(a,b) and find x, y, t</em></p>
-        
-        <button type="button" id="submit_button">Compute</button>
+
+        <p class="note"><em>We then compute d = gcd(a,b), the inverse of a modulo b (if any), and find x, y that satisfy the Diophantine equation ax + by = d.</em></p>
+
+        <div class="button-groups"><button type="button" id="submit_button">Compute</button></div>
+        <div id="log-area"></div>
+        <div id="loader-area"></div>
 
         <div id="result" style="display: none; margin-top: 20px;">
-            <h2>Step 2: Result </h2>
+            <h2>Result</h2>
             <div class="input-group">
                 <label for="gcd"><strong>d = </strong></label>
                 <input type="text" id="gcd" readonly>
+            </div>
+            <div class="input-group">
+                <label for="inv"><strong>a^(-1) mod b = </strong></label>
+                <input type="text" id="inv" readonly>
             </div>
             <div class="input-group">
                 <label for="x"><strong>x = </strong></label>
@@ -128,42 +145,38 @@ cryptoTools
                 <label for="y"><strong>y = </strong></label>
                 <input type="text" id="y" readonly>
             </div>
-
-            <div class="input-group">
-                <label for="t"><strong>t = </strong></label>
-                <input type="text" id="t" readonly>
-            </div>
         </div>
+        <div id="error-area"></div>
     </div>
 </section>
 
 <script>
-    document.getElementById("submit_button").addEventListener("click", function(event) {
+    document.getElementById("submit_button").addEventListener("click", async function (event) {
         event.preventDefault(); // Ngăn chặn form reload trang
-        // Lấy giá trị từ input
-        const a = parseInt(document.getElementById("a").value);
-        const b = parseInt(document.getElementById("b").value);
+        document.getElementById("result").style.display = "none";
 
-       
-        if (isNaN(a) || isNaN(b)) {
-            alert("Please enter the appropriate number");
-            return;
+        const a = document.getElementById("a").value;
+        const b = document.getElementById("b").value;
+
+        const validator = async () => {
+            if (!isNumberValid(a) || !isNumberValid(b)) {
+                throw new Error("Please enter valid numbers.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "GCD", `${a},${b}`, "loader-area", "error-area", "log-area");
+
+        if (null !== res) {
+            const [d, inv, x0, y0, R, S] = res.output.split(",");
+            document.getElementById("gcd").value = d;
+            document.getElementById("inv").value = inv;
+            const x = x0 + " + " + b + "t, t ∈ ℤ";
+            const y = y0 + " - " + a + "t, t ∈ ℤ";
+            document.getElementById("x").value = x;
+            document.getElementById("y").value = y;
+
+            document.getElementById("result").style.display = "block";
         }
-
-        // compute this area
-        const gcd = 1
-        const x = 2
-        const y = 3
-
-        // return result
-        document.getElementById("gcd").value= 1;
-        document.getElementById("x").value= 2;
-        document.getElementById("y").value= 3;
-        document.getElementById("t").value= 4;
-
-        // display result
-        document.getElementById("result").style.display = "block";
-        
     });
 </script>
 

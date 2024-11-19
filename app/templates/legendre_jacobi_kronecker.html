@@ -11,7 +11,7 @@ cryptoTools
         height: 100ch;
         padding: 20px;
     }
-    
+
     .container-legendre {
         background-color: #ffffff;
         border: 1px solid #ccc;
@@ -19,33 +19,61 @@ cryptoTools
         border-radius: 8px;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        align-items: center ;
+        align-items: center;
     }
-    
+
+    h1 {
+        font-size: 2.5em;
+        color: #4CAF50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 1.8em;
+        color: #333;
+        margin-top: 30px;
+        border-bottom: 2px solid #f4f4f9;
+        padding-bottom: 5px;
+    }
+
+    h3 {
+        font-size: 1.5em;
+        color: #333;
+        margin-top: 20px;
+    }
+
+    h4 {
+        font-size: 1.2em;
+        color: #444;
+        margin-top: 20px;
+        border-bottom: 2px solid #f4f4f9;
+    }
+
     h2 {
         font-size: 24px;
         margin-bottom: 10px;
     }
-    
+
     p {
         margin-bottom: 10px;
         font-size: 16px;
         color: #333;
     }
-    
+
     .input-group {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
     }
-    
+
     label {
         font-size: 18px;
         width: 80px;
         font-weight: bold;
     }
-    
+
     input[type="number"] {
         flex: 1;
         padding: 8px;
@@ -63,33 +91,36 @@ cryptoTools
         border-radius: 4px;
         margin-left: 10px;
     }
-    
+
     button {
-       
-        background-color: #007bff;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        background-color: #4CAF50;
         color: white;
         border: none;
-        padding: 10px 20px;
         border-radius: 5px;
-        font-size: 16px;
         cursor: pointer;
-        width: auto;
-        /* Căn giữa */
-        display: block;
-        margin: 20px auto 0 auto; /* Căn giữa với margin */
     }
-    
+
     button:hover {
-        background-color: #0056b3;
+        background-color: #45a049;
     }
-    
+
+    .button-groups {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
     .note {
         color: #555;
         font-size: 14px;
         margin-bottom: 10px;
         font-weight: bold;
     }
-    
+
     details {
         margin-bottom: 20px;
     }
@@ -98,46 +129,58 @@ cryptoTools
 
 <section class="legendre-section">
     <div class="container-legendre">
-        <h2>Step 1: Set parameters </h2>
-        <p>As a starting point for Legendre, choose two parameters <em>a</em> and <em>b</em>:</p>
+        <h1>Legendre/Jacobi/Kronecker symbol</h1>
+
+        <h2>Set parameters </h2>
+        <p>Choose two parameters <em>a</em> and <em>b</em>:</p>
 
         <div class="input-group">
             <label for="a"> a = </label>
-            <input type="number" id="a" placeholder="Enter a ">
+            <input type="text" id="a" placeholder="Enter a ">
         </div>
         <div class="input-group">
             <label for="b"> b = </label>
-            <input type="number" id="b" placeholder="Enter b">
+            <input type="text" id="b" placeholder="Enter b">
         </div>
-        
-        <button type="button" id="submit_button">Compute</button>
+
+        <div class="button-groups">
+            <button type="button" id="submit_button">Compute</button>
+        </div>
+        <div id="log-area"></div>
+        <div id="loader-area"></div>
 
         <div id="result" style="display: none; margin-top: 20px;">
-            <h2>Step 2: Result </h2>
+            <h2>Result </h2>
             <div class="input-group">
                 <label for="res"><strong> &#40;<var>a</var>/<var>b</var>&#41; = </strong></label>
                 <input type="text" id="res" readonly>
             </div>
         </div>
+
+        <div id="error-area"></div>
     </div>
 </section>
 
 <script>
-        document.getElementById("submit_button").addEventListener("click", function(event) {
+    document.getElementById("submit_button").addEventListener("click", async function (event) {
         event.preventDefault(); // Ngăn chặn form reload trang
+        document.getElementById("result").style.display = "none";
 
-        const a = parseInt(document.getElementById("a").value);
-        const b = parseInt(document.getElementById("b").value);
+        const a = document.getElementById("a").value;
+        const b = document.getElementById("b").value;
 
-        if (isNaN(a) || isNaN(b)) {
-            alert("Please enter the appropriate number");
-            return;
+        const validator = async () => {
+            if (!isNumberValid(a) || !isNumberValid(b)) {
+                throw new Error("Please enter valid numbers.");
+            }
         }
 
-        const result = Math.pow(a, 2) % b;
-        document.getElementById("res").value = result;
-        document.getElementById("result").style.display = "block";
-        
+        const res = await callAPIFull(validator, "JKL", `${a},${b}`, "loader-area", "error-area", "log-area");
+
+        if (null !== res) {
+            document.getElementById("res").value = res.output;
+            document.getElementById("result").style.display = "block";
+        }
     });
 </script>
 

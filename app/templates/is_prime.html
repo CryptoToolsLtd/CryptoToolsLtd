@@ -8,45 +8,57 @@ cryptoTools
     .isprime-section {
         background-color: #f4f4f9;
         width: 100%;
-        height: 100ch;
+        min-height: 100ch;
         padding: 20px;
     }
-    
+
     .container-isprime {
         background-color: #ffffff;
         border: 1px solid #ccc;
-        height: 80ch;
+        min-height: 80ch;
         border-radius: 8px;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        align-items: center ;
+        align-items: center;
+        overflow: auto;
     }
-    
+
+    h1 {
+        font-size: 2.5em;
+        color: #4CAF50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
     h2 {
         font-size: 24px;
         margin-bottom: 10px;
     }
-    
+
+    h3 {
+        font-size: 20px;
+    }
+
     p {
         margin-bottom: 10px;
         font-size: 16px;
         color: #333;
     }
-    
+
     .input-group {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
     }
-    
+
     label {
         font-size: 18px;
         width: 80px;
         font-weight: bold;
     }
-    
-    input[type="number"] {
+
+    input[type="text"] {
         flex: 1;
         padding: 8px;
         font-size: 16px;
@@ -64,38 +76,36 @@ cryptoTools
         margin-left: 10px;
     }
 
-    .button-groups {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
-    
     button {
-       
-        background-color: #007bff;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        background-color: #4CAF50;
         color: white;
         border: none;
-        padding: 10px 20px;
         border-radius: 5px;
-        font-size: 16px;
         cursor: pointer;
-        width: auto;
-        /* Căn giữa */
-        display: block;
-        margin: 20px auto 0 auto; /* Căn giữa với margin */
     }
-    
+
     button:hover {
-        background-color: #0056b3;
+        background-color: #45a049;
     }
-    
+
+    .button-groups {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+
     .note {
         color: #555;
         font-size: 14px;
         margin-bottom: 10px;
         font-weight: bold;
     }
-    
+
     details {
         margin-bottom: 20px;
     }
@@ -104,52 +114,129 @@ cryptoTools
 
 <section class="isprime-section">
     <div class="container-isprime">
+        <h1>Prime Check and Factorization</h1>
+
         <!-- Section 1 -->
-        <h2>Prime Check & Factorization</h2>
         <div class="input-group">
             <label for="numberN">Input N:</label>
-            <input type="number" id="numberN" placeholder="Enter number N">
+            <input type="text" id="numberN" placeholder="Enter number N">
         </div>
         <div class="button-groups">
             <button type="button" onclick="checkPrime()">Check Prime</button>
-            <button type="button" onclick="factorize()">Factorize</button>
+            <button type="button" onclick="factor()">Factor</button>
         </div>
-        <h2>Result </h2>
+
+        <div id="log-area-checkprime"></div>
+        <div id="loader-area-checkprime"></div>
         <div id="checkPrimeOutput" style="display: none; margin-top: 20px;">
             <div class="input-group">
-                <label for="res1"><strong> Prime Check: </strong></label>
+                <label for="res1"><strong> N is Prime: </strong></label>
                 <input type="text" id="res1" readonly>
             </div>
         </div>
+        <div id="error-area-checkprime"></div>
+
+        <div id="log-area-factor"></div>
+        <div id="loader-area-factor"></div>
         <div id="factorOutput" style="display: none; margin-top: 20px;">
             <div class="input-group">
-                <label for="res2"><strong> Factors: </strong></label>
+                <label for="res2"><strong>Prime Factors: </strong></label>
                 <input type="text" id="res2" readonly>
             </div>
         </div>
+        <div id="error-area-factor"></div>
+
 
         <!-- Section 2 -->
-        <h2>Generate Prime</h2>
+        <br>
+        <h1>Generate Primes</h1>
         <div class="input-group">
-            <label for="primeLimit">Numbers of bits:</label>
-            <input type="number" id="primeLimit" placeholder="Enter numbers of bits">
+            <label for="primeLimit">Min no. of bits:</label>
+            <input type="text" id="primeLimit" placeholder="Enter the minimum number of bits">
         </div>
-        <button onclick="generatePrimes()">Generate Primes</button>
+
+        <div class="input-group">
+            <label for="numPrimes">No. of primes:</label>
+            <input type="text" id="numPrimes" placeholder="Enter the number of primes to generate">
+        </div>
+
+        <div>
+            <input type="checkbox" id="want3Mod4" name="want3Mod4" value="3Mod4">
+            <label for="want3Mod4" style="width: auto;">Generated primes must be congruent to 3 mod 4</label>
+        </div>
+
+        <div class="button-groups"><button onclick="generatePrimes()">Generate Primes</button></div>
+
+        <div id="log-area-genprimes"></div>
+        <div id="loader-area-genprimes"></div>
         <div id="primeOutput" style="display: none; margin-top: 20px;">
             <div class="input-group">
                 <label for="res3"><strong> Primes: </strong></label>
-                <input type="text" id="res3" readonly>
             </div>
+            <div id="res3"></div>
         </div>
+        <div id="error-area-genprimes"></div>
     </div>
 </section>
 
 <script>
-    //     document.getElementById("submit_button").addEventListener("click", function(event) {
-    //     event.preventDefault(); // Ngăn chặn form reload trang
+    async function checkPrime() {
+        const N = document.getElementById("numberN").value;
+        const validator = async () => {
+            if (!isNumberValid(N)) {
+                throw new Error("Please enter a valid number.");
+            }
+        };
 
-        
-    // });
+        const res = await callAPIFull(validator, "Check Prime", "" + N, "loader-area-checkprime", "error-area-checkprime", "log-area-checkprime", "Checking if the number is prime...");
+
+        if (null !== res) {
+            document.getElementById("res1").value = res.output;
+            document.getElementById("checkPrimeOutput").style.display = "block";
+        }
+    }
+
+    async function factor() {
+        const N = document.getElementById("numberN").value;
+        const validator = async () => {
+            if (!isNumberValid(N)) {
+                throw new Error("Please enter a valid number.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "Factor", "" + N, "loader-area-factor", "error-area-factor", "log-area-factor", "Factoring the number...");
+
+        if (null !== res) {
+            document.getElementById("res2").value = res.output;
+            document.getElementById("factorOutput").style.display = "block";
+        }
+    }
+
+    async function generatePrimes() {
+        const numberOfBits = document.getElementById("primeLimit").value;
+        const numPrimes = document.getElementById("numPrimes").value;
+        const want3Mod4 = document.getElementById("want3Mod4").checked;
+
+        const validator = async () => {
+            if (!isNumberValid(numberOfBits) || !isNumberValid(numPrimes)) {
+                throw new Error("Please enter valid numbers.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "Generate Primes", `${numberOfBits},${numPrimes},${want3Mod4}`, "loader-area-genprimes", "error-area-genprimes", "log-area-genprimes", "Generating primes...");
+
+        if (null !== res) {
+            const numbers = res.output.split(",");
+            const res3 = document.getElementById("res3");
+
+            res3.innerHTML = "";
+            for (let i = 0; i < numbers.length; i++) {
+                res3.innerHTML += `<input type="text" value="${numbers[i]}" readonly>`;
+            }
+
+            document.getElementById("primeOutput").style.display = "block";
+        }
+    }
 </script>
 
 {%endblock%}

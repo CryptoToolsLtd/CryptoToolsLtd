@@ -53,7 +53,8 @@ containing the values of the required environment
 variables. See the `example.env` file to know what
 those variables are.
 
-Some variables require setting up a database.
+Some variables require setting up a database and
+a Redis server.
 
 After specifying the variables properly, you now
 have to migrate the database. Run (after the venv

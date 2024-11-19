@@ -1,285 +1,587 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
-    <head>
-        <!-- Meta Tags -->
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="keywords" content="Site keywords here">
-		<meta name="description" content="">
-		<meta name='copyright' content=''>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-		<!-- Title -->
-        <title>{% block title %}{% endblock %} - Where you can change impossible to possible</title>
-		
-		<!-- Favicon -->
-        <link rel="icon" href="{{ url_for('static', filename='img/logo2.jpg')}}">
-		
-		<!-- Google Fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-		<!-- Nice Select CSS -->
-		<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css')}}"> -->
-		<!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
-		<!-- icofont CSS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/icofont.css') }}">
-		<!-- Slicknav -->
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.min.css') }}">
-		<!-- Owl Carousel CSS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/owl-carousel.css') }}">
-		<!-- Datepicker CSS -->
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/datepicker.css') }}">
-		<!-- Animate CSS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
-		<!-- Magnific Popup CSS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}">
-		
-		<!-- Medipro CSS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/inform_at_home.css') }}">
+<head>
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="Site keywords here">
+	<meta name="description" content="">
+	<meta name='copyright' content=''>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		{% with messages = get_flashed_messages(with_categories=True) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div id="signup-message" class="alert {% if category == 'success' %}alert-success{% elif category == 'error' or category == 'error_login' %}alert-error{% endif %}">
-                        {{ message }}
-                    </div>
-                    <script>
-                        // Set timeout to hide the alert after 5 seconds (5000 milliseconds)
-                        setTimeout(function() {
-                            var alertElement = document.getElementById('signup-message');
-                            if (alertElement) {
-                                alertElement.style.display = 'none'; // Hide the alert
-                            }
-                        }, 3000); // Adjust time in milliseconds as needed
-                    </script>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </head>
-    <body>
-		<header class="header" >
-			<!-- Topbar -->
-			<div class="topbar">
-				<div class="container">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<!-- Title -->
+	<title>{% block title %}{% endblock %} - Where you can change impossible to possible</title>
+
+	<!-- Favicon -->
+	<link rel="icon" href="{{ url_for('static', filename='img/logo2.jpg')}}">
+
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+		rel="stylesheet">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<!-- Nice Select CSS -->
+	<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css')}}"> -->
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+	<!-- icofont CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/icofont.css') }}">
+	<!-- Slicknav -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.min.css') }}">
+	<!-- Owl Carousel CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/owl-carousel.css') }}">
+	<!-- Datepicker CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/datepicker.css') }}">
+	<!-- Animate CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+	<!-- Magnific Popup CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}">
+
+	<!-- Medipro CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/inform_at_home.css') }}">
+
+	{% with messages = get_flashed_messages(with_categories=True) %}
+	{% if messages %}
+	{% for category, message in messages %}
+	<div id="signup-message"
+		class="alert {% if category == 'success' %}alert-success{% elif category == 'error' or category == 'error_login' %}alert-error{% endif %}">
+		{{ message }}
+	</div>
+	<script>
+		// Set timeout to hide the alert after 5 seconds (5000 milliseconds)
+		setTimeout(function () {
+			var alertElement = document.getElementById('signup-message');
+			if (alertElement) {
+				alertElement.style.display = 'none'; // Hide the alert
+			}
+		}, 3000); // Adjust time in milliseconds as needed
+	</script>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+
+	<style>
+		.loader-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 4px;
+		}
+
+		.loader {
+			width: 24px;
+			height: 24px;
+			border: 3px solid #4CAF50;
+			border-bottom-color: transparent;
+			border-radius: 50%;
+			display: inline-block;
+			box-sizing: border-box;
+			animation: rotation 1s linear infinite;
+		}
+
+		@keyframes rotation {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		.error-container {
+			display: block;
+			color: red;
+		}
+
+		.error-header {
+			font-weight: bold;
+			font-size: 22px;
+			color: red;
+		}
+
+		.error-detail {
+			font-size: 20px;
+			color: red;
+		}
+
+		.log-container {
+			display: block;
+			color: #333;
+		}
+
+		.log-detail {
+			font-size: 14px;
+			color: #333;
+		}
+	</style>
+</head>
+
+<body>
+	<script>
+		/**
+		 * @param {string} id The id of the element to append the loader to
+		 * @param {string} text The text to display next to the loader. Defaults to "loading".
+		 */
+		function addLoader(id, text) {
+			if (!text) {
+				text = "Loading...";
+			}
+
+			const loaderContainer = document.createElement('div');
+			loaderContainer.className = 'loader-container';
+
+			const loader = document.createElement('span');
+			loader.className = 'loader';
+			loaderContainer.appendChild(loader);
+
+			const loaderText = document.createElement('span');
+			loaderText.innerText = text;
+			loaderContainer.appendChild(loaderText);
+
+			document.getElementById(id).appendChild(loaderContainer);
+		}
+
+		/**
+		 * @param {string} id The id of the element to remove the loader from
+		 */
+		function removeLoaders(id) {
+			const loaders = document.getElementById(id).querySelectorAll('.loader-container');
+			loaders.forEach(loader => loader.remove());
+		}
+
+		/**
+		 * @param {string} id The id of the element to append the error to
+		 */
+		function addError(id, errorMessage) {
+			const errorContainer = document.createElement('div');
+			errorContainer.className = "error-container";
+
+			const errorHeader = document.createElement('h3');
+			errorHeader.className = "error-header";
+			errorHeader.innerHTML = "Error";
+			errorContainer.append(errorHeader);
+
+			const errorDetail = document.createElement('p');
+			errorDetail.className = "error-detail";
+			errorDetail.innerHTML = errorMessage;
+			errorContainer.append(errorDetail);
+
+			document.getElementById(id).append(errorContainer);
+		}
+
+		/**
+		 * @param {string} id The id of the element to remove the error container(s) from
+		 */
+		function removeErrors(id) {
+			const loaders = document.getElementById(id).querySelectorAll('.error-container');
+			loaders.forEach(loader => loader.remove());
+		}
+
+		/**
+		 * @param {string} id The id of the element to append the log to
+		 * @param {string} logMessage The log message to append
+		 */
+		function addLog(id, logMessage) {
+			const logContainer = document.createElement('div');
+			logContainer.className = "log-container";
+
+			const logMessageElem = document.createElement('p');
+			logMessageElem.className = "log-detail";
+			logMessageElem.innerHTML = logMessage;
+			logContainer.append(logMessageElem);
+
+			document.getElementById(id).append(logContainer);
+		}
+
+		/**
+		 * @param {string} id The id of the element to remove the log container(s) from
+		 */
+		function removeLogs(id) {
+			const loaders = document.getElementById(id).querySelectorAll('.log-container');
+			loaders.forEach(loader => loader.remove());
+		}
+
+		/**
+		 * @param {Response} res The response to check
+		 * @return {Promise<any>} The JSON response
+		 */
+		async function checkResponse(res) {
+			if (!res.ok) {
+				const cause = await res.json().catch(() => {
+					return "HTTP status " + res.status;
+				});
+				throw new Error(cause?.error || "" + cause);
+			}
+			return res.json();
+		}
+
+		/**
+		 * @param {string} type The type of the job to call the API for
+		 * @param {string} input The input for the job
+		 */
+		async function createJob(type, input) {
+			const res = await fetch("/api/jobs", {
+				method: 'POST',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					type: type,
+					input: input,
+				}),
+			});
+
+			return checkResponse(res);
+		}
+
+		/**
+		 * @param {string} jobId The id of the job to check
+		 */
+		async function checkJob(jobId) {
+			const res = await fetch(`/api/jobs/${jobId}`, {
+				method: 'GET',
+				credentials: 'include',
+			});
+
+			return checkResponse(res);
+		}
+
+		/**
+		 * 
+		 * @param {() => Promise<any>} validator The callback to validate input before calling the API. It should throw an exception if the input is invalid
+		 * @param {string} type The type of the job to call the API for
+		 * @param {string} input The input for the job
+		 * @param {string} loaderAreaId The id of the element to append the loader to
+		 * @param {string} errorAreaId The id of the element to append the error to
+		 * @param {string} logAreaId The id of the element to append the log to
+		 * @param {string} loadingText The text to display next to the loader. Defaults to "loading".
+		 */
+		async function callAPIFull(validator, type, input, loaderAreaId, errorAreaId, logAreaId, loadingText) {
+			let clockInterval = null;
+			const startTime = new Date().getTime();
+
+			let success = true;
+
+			try {
+				addLoader(loaderAreaId, loadingText);
+				removeErrors(errorAreaId);
+				removeLogs(logAreaId);
+
+				await validator();
+
+				if (!type || !input || !loaderAreaId || !errorAreaId || !logAreaId) {
+					throw new Error("Missing required parameters");
+				}
+
+				clockInterval = setInterval(() => {
+					removeLogs(logAreaId);
+					const elapsedTime = new Date().getTime() - startTime;
+					addLog(logAreaId, `Elapsed time: ${elapsedTime / 1000} seconds`);
+				}, 1000);
+
+				let job = await createJob(type, input);
+				for (;;) {
+					if (job.status === "FAILED") {
+						throw new Error(job.output);
+					}
+
+					if (job.status === "COMPLETED") {
+						break;
+					}
+
+					console.log(job);
+					const elapsed = new Date().getTime() - startTime;
+					if (elapsed < 1000) {
+						await new Promise(resolve => setTimeout(resolve, 100));
+					} else {
+						await new Promise(resolve => setTimeout(resolve, 1000));
+					}
+					job = await checkJob(job.id);
+				}
+
+				return job;
+			} catch (error) {
+				success = false;
+				addError(errorAreaId, error.message);
+				return null;
+			} finally {
+				removeLoaders(loaderAreaId);
+				if (clockInterval) {
+					clearInterval(clockInterval);
+				}
+				removeLogs(logAreaId);
+				const endTime = Date.now();
+				const elapsedTime = endTime - startTime;
+				addLog(logAreaId, `${success ? "Job succeeded" : '<span style="color: red;">Job failed</span>'} in ${elapsedTime / 1000} seconds.`);
+			}
+		}
+	</script>
+
+	<script>
+		// Number validation
+		const positiveNumbersOnly = /^[1-9][0-9]*$/;
+		const negativeNumbersOnly = /^\-[1-9][0-9]*$/;
+
+		/**
+		 * @param {string} number The number to validate
+		 * @returns {boolean} True if the number is valid, false otherwise
+		 */
+		function isNumberValid(number, config) {
+			if (config === 'positive') {
+				return positiveNumbersOnly.test(number);
+			} else if (config === 'negative') {
+				return negativeNumbersOnly.test(number);
+			} else {
+				return positiveNumbersOnly.test(number) || negativeNumbersOnly.test(number);
+			}
+		}
+	</script>
+
+	<header class="header">
+		<!-- Topbar -->
+		<div class="topbar">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-5 col-12">
+						<!-- Contact -->
+						<ul class="top-link">
+							<li><a href="#footer">About us </a></li>
+							<li><a href="#blog">Member</a></li>
+							<li><a href="#">FAQ</a></li>
+						</ul>
+						<!-- End Contact -->
+					</div>
+					<div class="col-lg-6 col-md-7 col-12">
+						<!-- Top Contact -->
+						<ul class="top-contact">
+							<li><i class="fa fa-phone"></i>+84 1234 6789</li>
+							<li><i class="fa fa-envelope"></i><a
+									href="mailto:support@yourmail.com">CryptoTools@vnu.edu.vn</a></li>
+						</ul>
+						<!-- End Top Contact -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Topbar -->
+		<!-- Header Inner -->
+		<div class="header-inner">
+			<div class="container">
+				<div class="inner">
 					<div class="row">
-						<div class="col-lg-6 col-md-5 col-12">
-							<!-- Contact -->
-							<ul class="top-link">
-								<li><a href="#footer">About us </a></li>
-								<li><a href="#blog">Member</a></li>
-								<li><a href="#">FAQ</a></li>
-							</ul>
-							<!-- End Contact -->
+						<div class="col-lg-3 col-md-3 col-12">
+							<!-- Start Logo -->
+							<div class="logo">
+								<a href="{{ url_for('views.home') }}"><img
+										src="{{ url_for('static', filename='img/Artboard 2.png') }}" alt="#"></a>
+							</div>
+							<!-- End Logo -->
+							<!-- Mobile Nav -->
+							<div class="mobile-nav"></div>
+							<!-- End Mobile Nav -->
 						</div>
-						<div class="col-lg-6 col-md-7 col-12">
-							<!-- Top Contact -->
-							<ul class="top-contact">
-								<li><i class="fa fa-phone"></i>+84 1234 6789</li>
-								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">CryptoTools@vnu.edu.vn</a></li>
-							</ul>
-							<!-- End Top Contact -->
+						<div class="col-lg-7 col-md-9 col-12">
+							<!-- Main Menu -->
+							<div class="main-menu">
+								<nav class="navigation">
+									<ul class="nav menu">
+										<li class="{% if request.path == '/' %}active{% endif %}"><a href="/">Home </a>
+
+										</li>
+										<li
+											class="{% if request.path in ['/rsa', '/elliptic', '/elgamal'] %}active{% endif %}">
+											<a href="">Cryptos system <i class="icofont-rounded-down"></i></a>
+											<ul class="dropdown">
+												<li class=""><a href="/rsa">RSA</a></li>
+												<li><a href="/elliptic">Elliptic</a></li>
+												<li><a href="/elgamal">Elgamal</a></li>
+												<li><a href="/rsa_signature">RSA Signature</a></li>
+												<li><a href="/elgamal_signature">Elgamal Signature</a></li>
+												<li><a href="/elliptic_signature">Elliptic Signature</a></li>
+											</ul>
+										</li>
+										<li
+											class="{% if request.path in ['/modulo', '/is_prime', '/legendre_jacobi_kronecker'] %}active{% endif %}">
+											<a href="#">Computes <i class="icofont-rounded-down"></i></a>
+											<ul class="dropdown">
+												<li><a href="/legendre_jacobi_kronecker">Legendre/Jacobi/Kronecker</a>
+												</li>
+												<li><a href="/modulo">Modular Exponentiation</a></li>
+												<li><a href="/is_prime">Prime and Factorization</a></li>
+												<li><a href="/diophantine">GCD and Diophantine</a></li>
+											</ul>
+										</li>
+										<li class="{% if request.path == '/theory' %}active{% endif %}"><a
+												href="/theory">Theory </a></li>
+										{% if not user.is_authenticated %}
+										<li><a href="/login_up">Sign in/up</a></li>
+										{% else%}
+										<li class="{% if request.path == '/contribute' %}active{% endif %}"><a
+												href="/contribute">Contribute </a></li>
+										{% endif %}
+									</ul>
+								</nav>
+							</div>
+							<!--/ End Main Menu -->
 						</div>
+						<div class="dropdown-account">
+							<i class='fas fa-user-cog' id='account_ic'
+								style='font-size:30px;color:#FF00FF;margin-top:17px;margin-left:50px;'></i>
+							{% if user.is_authenticated %}
+							<div class="dropdown-content">
+								<a href="/logout">Logout</a>
+							</div>
+							{% endif %}
+						</div>
+
+
 					</div>
 				</div>
 			</div>
-			<!-- End Topbar -->
-			<!-- Header Inner -->
-			<div class="header-inner">
-				<div class="container">
-					<div class="inner">
-						<div class="row">
-							<div class="col-lg-3 col-md-3 col-12">
-								<!-- Start Logo -->
-								<div class="logo">
-									<a href="{{ url_for('views.home') }}"><img src="{{ url_for('static', filename='img/Artboard 2.png') }}" alt="#"></a>
-								</div>
-								<!-- End Logo -->
-								<!-- Mobile Nav -->
-								<div class="mobile-nav"></div>
-								<!-- End Mobile Nav -->
-							</div>
-							<div class="col-lg-7 col-md-9 col-12">
-								<!-- Main Menu -->
-								<div class="main-menu">
-									<nav class="navigation">
-										<ul class="nav menu">
-											<li class="{% if request.path == '/' %}active{% endif %}"><a href="/">Home </a>
-												
-											</li>
-											<li class="{% if request.path in ['/rsa', '/elliptic', '/elgamal'] %}active{% endif %}"><a href="">Cryptos system <i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li class=""><a href="/rsa">RSA</a></li>
-													<li><a href="/elliptic">Elliptic</a></li>
-													<li><a href="/elgamal">Elgamal</a></li>
-													<li><a href="/rsa_signature">RSA Signature</a></li>
-													<li><a href="/elgamal_signature">Elgamal Signature</a></li>
-													<li><a href="/elliptic_signature">Elliptic Signature</a></li>
-												</ul>
-											</li>
-											<li class="{% if request.path in ['/modulo', '/is_prime', '/legendre_jacobi_kronecker'] %}active{% endif %}"><a href="#">Computes <i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li><a href="/legendre_jacobi_kronecker">Legendre/Jacobi/Kronecker</a></li>
-													<li><a href="/modulo">Modular Exponentiation</a></li>
-													<li><a href="/is_prime">Prime and Factorization</a></li>
-													<li><a href="/diophantine">GCD and Diophantine</a></li>
-												</ul>
-											</li>
-											<li class="{% if request.path == '/theory' %}active{% endif %}"><a href="/theory">Theory </a></li>
-											{% if not user.is_authenticated %}
-											<li><a href="/login_up">Sign in/up</a></li>
-											{% else%}
-											<li class="{% if request.path == '/contribute' %}active{% endif %}"><a href="/contribute">Contribute </a></li>
-											{% endif %}
-										</ul>
-									</nav>
-								</div>
-								<!--/ End Main Menu -->
-							</div>
-							<div class="dropdown-account">
-								<i class='fas fa-user-cog' id='account_ic' style='font-size:30px;color:#FF00FF;margin-top:17px;margin-left:50px;'></i>
-								{% if user.is_authenticated %}
-								<div class="dropdown-content">
-								  <a href="/logout">Logout</a>
-								</div>
-								{% endif %}
-							</div>
-							
-							
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/ End Header Inner -->
-		</header>
-		<!-- End Header Area -->
-        {% block content %}
-        {% endblock %}
-    </body>
+		</div>
+		<!--/ End Header Inner -->
+	</header>
+	<!-- End Header Area -->
+	{% block content %}
+	{% endblock %}
+</body>
 <footer id="footer" class="footer ">
-			<!-- Footer Top -->
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="single-footer">
-								<h2>About Us</h2>
-								<p>We are a group student at University of Engineering and Technology.This is our project for cryptography and information safty.</p>
-								<!-- Social -->
-								<ul class="social">
-									<li><a href="#"><i class="icofont-facebook"></i></a></li>
-									<li><a href="#"><i class="icofont-google-plus"></i></a></li>
-									<li><a href="#"><i class="icofont-twitter"></i></a></li>
-									<li><a href="#"><i class="icofont-vimeo"></i></a></li>
-									<li><a href="#"><i class="icofont-pinterest"></i></a></li>
+	<!-- Footer Top -->
+	<div class="footer-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-footer">
+						<h2>About Us</h2>
+						<p>We are a group student at University of Engineering and Technology.This is our project for
+							cryptography and information safty.</p>
+						<!-- Social -->
+						<ul class="social">
+							<li><a href="#"><i class="icofont-facebook"></i></a></li>
+							<li><a href="#"><i class="icofont-google-plus"></i></a></li>
+							<li><a href="#"><i class="icofont-twitter"></i></a></li>
+							<li><a href="#"><i class="icofont-vimeo"></i></a></li>
+							<li><a href="#"><i class="icofont-pinterest"></i></a></li>
+						</ul>
+						<!-- End Social -->
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-footer f-link">
+						<h2>Quick Links</h2>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-12">
+								<ul>
+									<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
+									<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a>
+									</li>
+									<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Other Links</a>
+									</li>
 								</ul>
-								<!-- End Social -->
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="single-footer f-link">
-								<h2>Quick Links</h2>
-								<div class="row">
-									<div class="col-lg-6 col-md-6 col-12">
-										<ul>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Other Links</a></li>	
-										</ul>
-									</div>
-									<div class="col-lg-6 col-md-6 col-12">
-										<ul>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contact Us</a></li>	
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="single-footer">
-								<h2>Address</h2>
-								<p>144 Xuân Thủy, quận Cầu Giấy, Hà Nội and Hòa Lạc, Thạch Thất, Hà Nội.</p>
-								
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="single-footer">
-								<h2>Newsletter</h2>
-								<p>Subscribe to receive exclusive insights, tips on safeguarding information, updates on new features, and industry trends. Stay informed about how our cutting-edge tools protect your data and ensure privacy in the digital age.</p>
-								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Your email address'" required="" type="email">
-									<button class="button"><i class="icofont icofont-paper-plane"></i></button>
-								</form>
+							<div class="col-lg-6 col-md-6 col-12">
+								<ul>
+									<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
+									<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
+									<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contact Us</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!--/ End Footer Top -->
-			<!-- Copyright -->
-			<div class="copyright">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-12">
-							<div class="copyright-content">
-								<p>© Copyright 2024  |  All Rights Reserved by CryptoTool organization<a href="" target="_blank"></a> </p>
-							</div>
-						</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-footer">
+						<h2>Address</h2>
+						<p>144 Xuân Thủy, quận Cầu Giấy, Hà Nội and Hòa Lạc, Thạch Thất, Hà Nội.</p>
+
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-footer">
+						<h2>Newsletter</h2>
+						<p>Subscribe to receive exclusive insights, tips on safeguarding information, updates on new
+							features, and industry trends. Stay informed about how our cutting-edge tools protect your
+							data and ensure privacy in the digital age.</p>
+						<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+							<input name="email" placeholder="Email Address" class="common-input"
+								onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'"
+								required="" type="email">
+							<button class="button"><i class="icofont icofont-paper-plane"></i></button>
+						</form>
 					</div>
 				</div>
 			</div>
-			<!--/ End Copyright -->
-		</footer>
-		<!--/ End Footer Area -->
-		
-		<!-- jquery Min JS -->
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-		<!-- jquery Migrate JS -->
-		<script src="{{ url_for('static', filename='js/jquery-migrate-3.0.0.js') }}"></script>
-		<!-- jquery Ui JS -->
-		<script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
-		<!-- Easing JS -->
-        <script src="{{ url_for('static', filename='js/easing.js') }}"></script>
-		<!-- Color JS -->
-		<script src="{{ url_for('static', filename='js/colors.js') }}"></script>
-		<!-- Popper JS -->
-		<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-		<!-- Bootstrap Datepicker JS -->
-		<script src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
-		<!-- Jquery Nav JS -->
-        <script src="{{ url_for('static', filename='js/jquery.nav.js') }}"></script>
-		<!-- Slicknav JS -->
-		<script src="{{ url_for('static', filename='js/slicknav.min.js') }}"></script>
-		<!-- ScrollUp JS -->
-        <script src="{{ url_for('static', filename='js/jquery.scrollUp.min.js') }}"></script>
-		<!-- Niceselect JS -->
-		<!-- <script src="{{ url_for('static', filename='js/niceselect.js') }}"></script> -->
-		<!-- Tilt Jquery JS -->
-		<script src="{{ url_for('static', filename='js/tilt.jquery.min.js') }}"></script>
-		<!-- Owl Carousel JS -->
-        <script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
-		<!-- counterup JS -->
-		<script src="{{ url_for('static', filename='js/jquery.counterup.min.js') }}"></script>
-		<!-- Steller JS -->
-		<script src="{{ url_for('static', filename='js/steller.js') }}"></script>
-		<!-- Wow JS -->
-		<script src="{{ url_for('static', filename='js/wow.min.js')}}"></script>
-		<!-- Magnific Popup JS -->
-		<script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
-		<!-- Counter Up CDN JS -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-		<!-- Bootstrap JS -->
-		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-		<!-- Main JS -->
-		<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    </body>
+		</div>
+	</div>
+	<!--/ End Footer Top -->
+	<!-- Copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-12">
+					<div class="copyright-content">
+						<p>© Copyright 2024 | All Rights Reserved by CryptoTool organization<a href=""
+								target="_blank"></a> </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ End Copyright -->
+</footer>
+<!--/ End Footer Area -->
+
+<!-- jquery Min JS -->
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<!-- jquery Migrate JS -->
+<script src="{{ url_for('static', filename='js/jquery-migrate-3.0.0.js') }}"></script>
+<!-- jquery Ui JS -->
+<script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+<!-- Easing JS -->
+<script src="{{ url_for('static', filename='js/easing.js') }}"></script>
+<!-- Color JS -->
+<script src="{{ url_for('static', filename='js/colors.js') }}"></script>
+<!-- Popper JS -->
+<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+<!-- Bootstrap Datepicker JS -->
+<script src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
+<!-- Jquery Nav JS -->
+<script src="{{ url_for('static', filename='js/jquery.nav.js') }}"></script>
+<!-- Slicknav JS -->
+<script src="{{ url_for('static', filename='js/slicknav.min.js') }}"></script>
+<!-- ScrollUp JS -->
+<script src="{{ url_for('static', filename='js/jquery.scrollUp.min.js') }}"></script>
+<!-- Niceselect JS -->
+<!-- <script src="{{ url_for('static', filename='js/niceselect.js') }}"></script> -->
+<!-- Tilt Jquery JS -->
+<script src="{{ url_for('static', filename='js/tilt.jquery.min.js') }}"></script>
+<!-- Owl Carousel JS -->
+<script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
+<!-- counterup JS -->
+<script src="{{ url_for('static', filename='js/jquery.counterup.min.js') }}"></script>
+<!-- Steller JS -->
+<script src="{{ url_for('static', filename='js/steller.js') }}"></script>
+<!-- Wow JS -->
+<script src="{{ url_for('static', filename='js/wow.min.js')}}"></script>
+<!-- Magnific Popup JS -->
+<script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
+<!-- Counter Up CDN JS -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<!-- Main JS -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
 </html>
