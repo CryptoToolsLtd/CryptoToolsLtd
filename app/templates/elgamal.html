@@ -2,74 +2,489 @@
 {% block title%}
 cryptoTools
 {% endblock%}
-{% block content %} 
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/elgamal.css') }}">
-        <script src="{{ url_for('static', filename='js/elgamal.js') }}"></script>
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/elgamal.css') }}">
+<script src="{{ url_for('static', filename='js/elgamal.js') }}"></script>
 
-        <div class="elgamal-section">
-            <div class="elgamal-container">
-                <h1>Elgamal Encryption (explained step by step)</h1>
-                <p>Here you can see how to encrypt and decrypt using the Elgamal procedure step by step.</p>
-                
+<div class="elgamal-section">
+    <div class="elgamal-container">
+        <h1>ElGamal Cipher (explained step by step)</h1>
+        <p>Here you can see how to encrypt and decrypt using the procedures of the ElGamal cipher, step by step.</p>
+
+        <div>
+            <h2>Step 1: Enter Parameters</h2>
+            <form id="params-form">
                 <div>
-                <h2>Step 1: Enter Parameters</h2>
-                <form id="params-form">
-                    <div>
-                        <label for="p">Prime number (p):
-                        </label>
-                        <input type="number"id="p"placeholder="Enter prime number"required>
-                    </div>
-                    <div>
-                        <label for="g">Generator (α):</label>
-                        <input type="number"id="alpha"placeholder="Enter prime number"required>
-                    </div>
-                    <div>
-                        <label for="x">Private key (a):</label>
-                        <input type="number"id="a"placeholder="Enter prime number"required>
-                    </div>
-                    <div>
-                        <button type="submit">Next Step</button>
-                    </div>
-                </form>
+                    <label for="p">Prime number (p):</label>
+                    <input type="text" id="p" placeholder="Enter prime number" oninput="window.on_p_change()" required>
                 </div>
-        
                 <div>
-                    <h2>Step 2: Calculate key values</h2>
-                    <p id="beta"> <var> β = α <sup>a</sup> </var> mod <var>p</var> = </p>
-                    <h3 id = "public-key">Public Key: <var>(p, α, β) =</var></h3>
-                    <h3 id = "private-key">Private Key: <var>a = </var></h3>
+                    <label for="alpha">Generator (α):</label>
+                    <input type="text" id="alpha" placeholder="Enter generator, which is a primitive root modulo p"
+                    oninput="window.on_alpha_change()"    
+                    required>
                 </div>
-        
                 <div>
-                    <h2>Step 3: Message Encryption</h2>
-                    <p>Choose a random integer number <var>k</var></p>
-                    <div class="input-form-group">
-                        <label for="k"> <var>k =</var>  </label>
-                        <input id="k" type="number" placeholder="Enter random number">
-                    </div>
-            
-                    <div class="input-form-group">
-                        <label for="message"> Message <var>x =</var>  </label>
-                        <input id="message" type="number" placeholder="Enter number">
-                        <select id="input-type-selector" onchange="changeInputType()">
-                            <option value="number" selected>Number</option>
-                            <option value="text">Text</option>
-                        </select>
-                    </div>
-                    <p><var>y<sub>1</sub> = α<sup>k</sup></var> mod <var>p</var></p>
-                    <p><var>y<sub>2</sub> = x · β<sup>k</sup></var> mod <var>p</var></p>
-                    <button type="button" onclick="encryptMessage()">Encrypt Message</button>
-                    <p>Encrypted Message: <span id="encrypted-message"></span></p>
+                    <label for="x">Private key (a):</label>
+                    <input type="text" id="a" placeholder="Enter any integer" oninput="window.on_a_change()" required>
                 </div>
-        
                 <div>
-                    <h2>Step 4: Message Decryption</h2>
-                    <p><var>s = y<sub>1</sub><sup>x</sup></var> mod <var>p</var></p>
-                    <p><var>M = y<sub>2</sub> . s <sup>-1</sup></var> mod <var>p</var></p>
-                    <button type="button" onclick="decryptMessage()">Decrypt Message</button>
-                    <p>Decrypted Message: <span id="decrypted-message"></span></p>
+                    <button type="button" class="button-secondary" id="generatestep1all"
+                        onclick="window.generatestep1all()">Generate all</button>
+                    <button type="button" class="button-secondary" id="generatestep1alphaa"
+                        onclick="window.generatestep1alphaa()">Keep p, generate α and a</button>
+                    <button type="button" id="step1to2" onclick="window.step1to2()" disabled>Next Step</button>
                 </div>
-            </div>
+
+                <div id="log-area-step1"></div>
+                <div id="loader-area-step1"></div>
+                <div id="error-area-step1"></div>
+            </form>
         </div>
+
+        <div>
+            <h2>Step 2: Calculate key values</h2>
+            <p><var> β = α <sup>a</sup> </var> mod <var>p</var></p>
+            <p><var> β = </var><span id="beta-calculation"></span></p>
+            <p><var> β = </var><span id="beta-value"></span></p>
+            <h3>Public Key: <var>(p, α, β) = </var> <span id="public-key"></span></h3>
+            <h3>Private Key: <var>a = </var> <span id="private-key"></span></h3>
+        </div>
+
+        <h2 style="color: blue;">The following steps can be conducted in any order.</h2>
+
+        <div>
+            <h2>Step 3.1: Message Encryption</h2>
+            <p>Choose a random integer number <var>k</var></p>
+            <div class="input-form-group">
+                <label for="k"> <var>k =</var> </label>
+                <input id="k" type="text" placeholder="Enter random number" disabled>
+            </div>
+
+            <div class="input-form-group">
+                <label for="message"> Message <var>m =</var> </label>
+                <input id="message" type="text" placeholder="Enter number" disabled>
+                <select id="input-type-selector" onchange="changeInputType()" disabled>
+                    <option value="number" selected>Number</option>
+                    <option value="text">Text</option>
+                </select>
+            </div>
+
+            <div class="input-form-group">
+                <label for="left-pad-encrypt">No. of left-padding bits</label>
+                <input id="left-pad-encrypt" type="number" placeholder="Enter number" disabled>
+            </div>
+
+            <div class="input-form-group">
+                <label for="right-pad-encrypt">No. of right-padding bits</label>
+                <input id="right-pad-encrypt" type="number" placeholder="Enter number" disabled>
+            </div>
+
+            <p>We have to pad some bits to the original integer, <var>m</var>, to form a new integer <var>x</var> such
+                that <var>x</var> is a primitive root modulo <var>p</var>. If <var>x</var> is not, the
+                encryption-decryption process will be flawed, e.g. the decrypted message is not the same as the original
+                one.</p>
+
+            <p><var>y<sub>1</sub> = α<sup>k</sup></var> mod <var>p</var></p>
+            <p><var>y<sub>2</sub> = x · β<sup>k</sup></var> mod <var>p</var></p>
+            <button id="encrypt-button" type="button" onclick="encryptMessage()" disabled>Encrypt Message</button>
+            <div id="log-area-encrypt"></div>
+            <div id="loader-area-encrypt"></div>
+            <div id="error-area-encrypt"></div>
+
+            <p>Convert message to integer and pad bits to it to form a primitive root modulo p:</p>
+            <p><b>Corresponding integer = </b><span id="m-before-encryption"></span></p>
+            <p><var>x = </var><span id="x-before-encryption"></span></p>
+
+            <p>Encrypted Message:</p>
+            <p><var>y<sub>1</sub> = </var><span id="encrypted-y1-calculation"></span></p>
+            <p><var>y<sub>2</sub> = </var><span id="encrypted-y2-calculation"></span></p>
+            <p>Calculations give us:</p>
+            <p><var>y<sub>1</sub> = </var><span id="encrypted-y1-value"></span></p>
+            <p><var>y<sub>2</sub> = </var><span id="encrypted-y2-value"></span></p>
+        </div>
+
+        <div>
+            <h2>Step 3.2: Message Decryption</h2>
+            <div class="input-form-group">
+                <label for="y1"> <var>y<sub>1</sub> =</var> </label>
+                <input id="y1" type="text" placeholder="Enter number" disabled>
+            </div>
+
+            <div class="input-form-group">
+                <label for="y2"> <var>y<sub>2</sub> =</var> </label>
+                <input id="y2" type="text" placeholder="Enter number" disabled>
+            </div>
+
+            <div class="input-form-group">
+                <label for="left-pad-decrypt">No. of left-padding bits</label>
+                <input id="left-pad-decrypt" type="number" placeholder="Enter number" disabled>
+            </div>
+
+            <div class="input-form-group">
+                <label for="right-pad-decrypt">No. of right-padding bits</label>
+                <input id="right-pad-decrypt" type="number" placeholder="Enter number" disabled>
+            </div>
+
+            <p>Enter the same number of bits used for padding as you used in the Encryption step.</p>
+
+            <button type="button" id="decrypt-button" onclick="decryptMessage()" disabled>Decrypt Message</button>
+            <div id="log-area-decrypt"></div>
+            <div id="loader-area-decrypt"></div>
+            <div id="error-area-decrypt"></div>
+
+            <p><var>s = y<sub>1</sub><sup>a</sup></var> mod <var>p</var></p>
+            <p><var>M = y<sub>2</sub> . s <sup>-1</sup></var> mod <var>p</var></p>
+
+            <p>Apply the formulae:</p>
+            <p><var>s = </var> <span id="decrypted-s-calculation"></span></p>
+            <p><var>x = </var> <span id="decrypted-x-calculation"></span></p>
+            <p>Calculations give us:</p>
+            <p><var>s = </var> <span id="decrypted-s-value"></span></p>
+            <p><var>x = </var> <span id="decrypted-x-value"></span></p>
+            <p>Decrypted Message:</p>
+            <p><var>m' = </var> <span id="decrypted-m"></span></p>
+            <p><var>text(m') = </var> <span id="decrypted-m-text"></span></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let p_certificate = "";
+    let certified_p = null;
+
+    function setPCertificate(p, cert) {
+        p_certificate = cert;
+        certified_p = p;
+        console.log(`p_certificate: ${p_certificate}, certified_p: ${certified_p}`);
+    }
+    function invalidatePCertificate() {
+        p_certificate = "";
+        certified_p = null;
+        console.log(`p_certificate: ${p_certificate}, certified_p: ${certified_p}`);
+    }
+
+    function enableStep1To2Button(enable) {
+        if (enable) {
+            document.getElementById("step1to2").disabled = false;
+        } else {
+            document.getElementById("step1to2").disabled = true;
+        }
+    }
+
+    function on_p_change(event) {
+        const p = event?.target?.value ?? document.getElementById("p").value;
+        const enable = (p && document.getElementById("alpha").value && document.getElementById("a").value);
+        enableStep1To2Button(enable);
+        if (p !== certified_p) {
+            invalidatePCertificate();
+        }
+    }
+    function on_alpha_change(event) {
+        const alpha = event?.target?.value ?? document.getElementById("alpha").value;
+        const enable = (document.getElementById("p").value && alpha && document.getElementById("a").value);
+        enableStep1To2Button(enable);
+    }
+    function on_a_change(event) {
+        const a = event?.target?.value ?? document.getElementById("a").value;
+        const enable = (document.getElementById("p").value && document.getElementById("alpha").value && a);
+        enableStep1To2Button(enable);
+    }
+
+    const askNumberOfBits = (promptText, minNumOfBits, maxNumOfBits) => {
+        let numberOfBits = parseInt(prompt(promptText));
+        for (; ;) {
+            if (isNaN(numberOfBits)) return null;
+            if (numberOfBits > maxNumOfBits || numberOfBits < minNumOfBits) {
+                numberOfBits = parseInt(prompt(`The number of bits must be >= ${minNumOfBits} and <= ${maxNumOfBits}.\n` + promptText));
+            }
+            return numberOfBits;
+        }
+    };
+
+    async function generatestep1all() {
+        const pElem = document.getElementById('p');
+        const alphaElem = document.getElementById('alpha');
+        const aElem = document.getElementById('a');
+        const generateStep1AllButton = document.getElementById('generatestep1all');
+        const generateStep1AlphaAButton = document.getElementById('generatestep1alphaa');
+        const nextStepButton = document.getElementById('step1to2');
+
+        const NEXT_STEP_BUTTON_DISABLED_BEFORE = nextStepButton.disabled;
+
+        pElem.disabled = alphaElem.disabled = aElem.disabled = true;
+        generateStep1AllButton.disabled = generateStep1AlphaAButton.disabled = true;
+        nextStepButton.disabled = true;
+
+        let generated = false;
+
+        try {
+            const numberOfBitsP = askNumberOfBits('Enter the number of bits of the prime number p:', 1, 2048);
+            if (null === numberOfBitsP) return;
+
+            const validator = async () => {};
+
+            const res = await callAPIFull(validator, "ElGamalGeneratePAlphaA", `${numberOfBitsP}`, "loader-area-step1", "error-area-step1", "log-area-step1", "Generating p, α and a...");
+
+            if (null === res) return;
+
+            const [p, alpha, a, cert] = res.output.split(',');
+
+            pElem.value = p;
+            alphaElem.value = alpha;
+            aElem.value = a;
+            setPCertificate(p, cert);
+            nextStepButton.disabled = false;
+            generated = true;
+        } finally {
+            pElem.disabled = alphaElem.disabled = aElem.disabled = false;
+            generateStep1AllButton.disabled = generateStep1AlphaAButton.disabled = false;
+            if (!generated) nextStepButton.disabled = NEXT_STEP_BUTTON_DISABLED_BEFORE;
+        }
+    }
+
+    async function generatestep1alphaa() {
+        const pElem = document.getElementById('p');
+        const alphaElem = document.getElementById('alpha');
+        const aElem = document.getElementById('a');
+
+        const generateStep1AllButton = document.getElementById('generatestep1all');
+        const generateStep1AlphaAButton = document.getElementById('generatestep1alphaa');
+        const nextStepButton = document.getElementById('step1to2');
+
+        const NEXT_STEP_BUTTON_DISABLED_BEFORE = nextStepButton.disabled;
+
+        pElem.disabled = alphaElem.disabled = aElem.disabled = true;
+        generateStep1AllButton.disabled = generateStep1AlphaAButton.disabled = true;
+        nextStepButton.disabled = true;
+
+        let generated = false;
+
+        try {
+            const p = pElem.value;
+            const validator = async () => {
+                if (!isNumberValid(p)) {
+                    throw new Error("Please enter the prime number p.");
+                }
+            };
+
+            const res = await callAPIFull(validator, "ElGamalGenerateAlphaA", `${p},${p_certificate}`, "loader-area-step1", "error-area-step1", "log-area-step1", "Generating α and a given prime number p...");
+
+            if (null === res) return;
+
+            const [alpha, a, cert] = res.output.split(',');
+
+            alphaElem.value = alpha;
+            aElem.value = a;
+            setPCertificate(p, cert);
+            nextStepButton.disabled = false;
+            generated = true;
+        } finally {
+            pElem.disabled = alphaElem.disabled = aElem.disabled = false;
+            generateStep1AllButton.disabled = generateStep1AlphaAButton.disabled = false;
+            if (!generated) nextStepButton.disabled = NEXT_STEP_BUTTON_DISABLED_BEFORE;
+        }
+    }
+
+    async function step1to2() {
+        const pElem = document.getElementById('p');
+        const alphaElem = document.getElementById('alpha');
+        const aElem = document.getElementById('a');
+        const betaCalculationElem = document.getElementById('beta-calculation');
+        const betaValueElem = document.getElementById('beta-value');
+        const publicKeyElem = document.getElementById('public-key');
+        const privateKeyElem = document.getElementById('private-key');
+        const nextStepButton = document.getElementById('step1to2');
+        const generateStep1AllButton = document.getElementById('generatestep1all');
+        const generateStep1AlphaAButton = document.getElementById('generatestep1alphaa');
+
+        pElem.disabled = alphaElem.disabled = aElem.disabled = true;
+        nextStepButton.disabled = true;
+        generateStep1AllButton.disabled = generateStep1AlphaAButton.disabled = true;
+
+        const p = pElem.value;
+        const alpha = alphaElem.value;
+        const a = aElem.value;
+
+        const validator = async () => {
+            if (!isNumberValid(p)) {
+                throw new Error("Please enter the prime number p.");
+            }
+            if (!isNumberValid(alpha)) {
+                throw new Error("Please enter the generator α.");
+            }
+            if (!isNumberValid(a)) {
+                throw new Error("Please enter the private key a.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "ElGamalCalculateBeta", `${p},${alpha},${a},${p_certificate}`, "loader-area-step1", "error-area-step1", "log-area-step1", "Calculating β...");
+
+        if (null === res) {
+            pElem.disabled = alphaElem.disabled = aElem.disabled = false;
+            nextStepButton.disabled = false;
+            generateStep1AllButton.disabled = generateStep1AlphaAButton.disabled = false;
+            return;
+        }
+
+        const [beta] = res.output.split(',');
+
+        betaCalculationElem.textContent = `${alpha}^${a} mod ${p}`;
+        betaValueElem.textContent = beta;
+        publicKeyElem.textContent = `(${p}, ${alpha}, ${beta})`;
+        privateKeyElem.textContent = `${a}`;
+
+        for (const elem of [
+            document.getElementById('k'),
+            document.getElementById('message'),
+            document.getElementById('input-type-selector'),
+            document.getElementById('left-pad-encrypt'),
+            document.getElementById('right-pad-encrypt'),
+            document.getElementById('y1'),
+            document.getElementById('y2'),
+            document.getElementById('left-pad-decrypt'),
+            document.getElementById('right-pad-decrypt'),
+            document.getElementById('encrypt-button'),
+            document.getElementById('decrypt-button'),
+        ]) {
+            elem.disabled = false;
+        }
+    }
+
+    async function encryptMessage() {
+        const kElem = document.getElementById('k');
+        const messageElem = document.getElementById('message');
+        const inputTypeSelector = document.getElementById('input-type-selector');
+        const leftPadElem = document.getElementById('left-pad-encrypt');
+        const rightPadElem = document.getElementById('right-pad-encrypt');
+        const xElem = document.getElementById('x-before-encryption');
+        const mElem = document.getElementById('m-before-encryption');
+        const y1CalculationElem = document.getElementById('encrypted-y1-calculation');
+        const y2CalculationElem = document.getElementById('encrypted-y2-calculation');
+        const y1ValueElem = document.getElementById('encrypted-y1-value');
+        const y2ValueElem = document.getElementById('encrypted-y2-value');
+        const logAreaElem = document.getElementById('log-area-encrypt');
+        const loaderAreaElem = document.getElementById('loader-area-encrypt');
+        const errorAreaElem = document.getElementById('error-area-encrypt');
+
+        kElem.disabled = messageElem.disabled = leftPadElem.disabled = rightPadElem.disabled = true;
+
+        const p = document.getElementById('p').value;
+        const alpha = document.getElementById('alpha').value;
+        const beta = document.getElementById('beta-value').textContent;
+        const k = kElem.value;
+        const message = messageElem.value;
+        const inputType = inputTypeSelector.value;
+        const leftPad = leftPadElem.value;
+        const rightPad = rightPadElem.value;
+
+        const validator = async () => {
+            if (!isNumberValid(k)) {
+                throw new Error("Please enter a valid random number k.");
+            }
+            if (inputType === 'number' && !isNumberValid(message)) {
+                throw new Error("Please enter a valid message.");
+            }
+            if (!isNumberValid(leftPad)) {
+                throw new Error("Please enter a valid number of left-padding bits.");
+            }
+            if (!isNumberValid(rightPad)) {
+                throw new Error("Please enter a valid number of right-padding bits.");
+            }
+        };
+
+        const payload = {
+            p,
+            p_certificate,
+            alpha,
+            beta,
+            k,
+            message,
+            inputType,
+            leftPad,
+            rightPad,
+        }
+        const res = await callAPIFull(validator, "ElGamalEncrypt", JSON.stringify(payload), "loader-area-encrypt", "error-area-encrypt", "log-area-encrypt", "Encrypting message...");
+
+        if (null === res) {
+            kElem.disabled = messageElem.disabled = leftPadElem.disabled = rightPadElem.disabled = false;
+            return;
+        }
+
+        const [m, x, y1, y2] = res.output.split(',');
+
+        mElem.textContent = m;
+        xElem.textContent = x;
+        y1CalculationElem.textContent = `${alpha}^${k} mod ${p}`;
+        y2CalculationElem.textContent = `${x} * ${beta}^${k} mod ${p}`;
+        y1ValueElem.textContent = y1;
+        y2ValueElem.textContent = y2;
+
+        kElem.disabled = messageElem.disabled = leftPadElem.disabled = rightPadElem.disabled = false;
+    }
+
+    async function decryptMessage() {
+        const y1Elem = document.getElementById('y1');
+        const y2Elem = document.getElementById('y2');
+        const leftPadElem = document.getElementById('left-pad-decrypt');
+        const rightPadElem = document.getElementById('right-pad-decrypt');
+        const sCalculationElem = document.getElementById('decrypted-s-calculation');
+        const xCalculationElem = document.getElementById('decrypted-x-calculation');
+        const sValueElem = document.getElementById('decrypted-s-value');
+        const xValueElem = document.getElementById('decrypted-x-value');
+        const decryptedMElem = document.getElementById('decrypted-m');
+        const decryptedMTextElem = document.getElementById('decrypted-m-text');
+        const logAreaElem = document.getElementById('log-area-decrypt');
+        const loaderAreaElem = document.getElementById('loader-area-decrypt');
+        const errorAreaElem = document.getElementById('error-area-decrypt');
+
+        y1Elem.disabled = y2Elem.disabled = leftPadElem.disabled = rightPadElem.disabled = true;
+
+        const p = document.getElementById('p').value;
+        const a = document.getElementById('a').value;
+        const y1 = y1Elem.value;
+        const y2 = y2Elem.value;
+        const leftPad = leftPadElem.value;
+        const rightPad = rightPadElem.value;
+
+        const validator = async () => {
+            if (!isNumberValid(y1)) {
+                throw new Error("Please enter a valid number y1.");
+            }
+            if (!isNumberValid(y2)) {
+                throw new Error("Please enter a valid number y2.");
+            }
+            if (!isNumberValid(leftPad)) {
+                throw new Error("Please enter a valid number of left-padding bits.");
+            }
+            if (!isNumberValid(rightPad)) {
+                throw new Error("Please enter a valid number of right-padding bits.");
+            }
+        };
+
+        const payload = {
+            p,
+            a,
+            y1,
+            y2,
+            leftPad,
+            rightPad,
+        }
+        const res = await callAPIFull(validator, "ElGamalDecrypt", JSON.stringify(payload), "loader-area-decrypt", "error-area-decrypt", "log-area-decrypt", "Decrypting message...");
+
+        if (null === res) return;
+
+        const [s, x, m, mText] = res.output.split(',');
+
+        sCalculationElem.textContent = `${y1}^${a} mod ${p}`;
+        xCalculationElem.textContent = `${y2} * ${s}^(-1) mod ${p}`;
+        sValueElem.textContent = s;
+        xValueElem.textContent = x;
+        decryptedMElem.textContent = m;
+        decryptedMTextElem.textContent = mText;
+
+        y1Elem.disabled = y2Elem.disabled = leftPadElem.disabled = rightPadElem.disabled = false;
+    }
+</script>
 
 {%endblock%}

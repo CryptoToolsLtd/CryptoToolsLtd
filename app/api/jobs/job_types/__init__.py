@@ -13,6 +13,12 @@ from .RSAStep2to3JobType import *
 from .RSAEncryptJobType import *
 from .RSADecryptJobType import *
 
+from .ElGamalGeneratePAlphaAJobType import *
+from .ElGamalGenerateAlphaAJobType import *
+from .ElGamalCalculateBetaJobType import *
+from .ElGamalEncryptJobType import *
+from .ElGamalDecryptJobType import *
+
 job_types: list[JobType] = [
     JKLJobType(),
     ModularExponentiationJobType(),
@@ -27,4 +33,10 @@ job_types: list[JobType] = [
     RSAStep2To3JobType(),
     RSAEncryptJobType(),
     RSADecryptJobType(),
+
+    ElGamalGeneratePAlphaAJobType(),
+    ElGamalGenerateAlphaAJobType(),
+    ElGamalCalculateBetaJobType(),
+    ElGamalEncryptJobType(),
+    ElGamalDecryptJobType(),
 ]
