@@ -53,15 +53,6 @@ cryptoTools
         font-weight: bold;
     }
 
-    input[type="number"] {
-        flex: 1;
-        padding: 8px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 10px;
-    }
-
     input[type="text"] {
         flex: 1;
         padding: 8px;
@@ -114,11 +105,11 @@ cryptoTools
 
         <div class="input-group">
             <label for="a"> a = </label>
-            <input type="number" id="a" placeholder="Enter a ">
+            <input type="text" id="a" placeholder="Enter a ">
         </div>
         <div class="input-group">
             <label for="b"> b = </label>
-            <input type="number" id="b" placeholder="Enter b">
+            <input type="text" id="b" placeholder="Enter b">
         </div>
 
         <p class="note"><em>We then compute d = gcd(a,b), the inverse of a modulo b (if any), and find x, y that satisfy the Diophantine equation ax + by = d.</em></p>

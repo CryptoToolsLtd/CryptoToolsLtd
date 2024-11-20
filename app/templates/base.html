@@ -400,7 +400,7 @@
 							<div class="mobile-nav"></div>
 							<!-- End Mobile Nav -->
 						</div>
-						<div class="col-lg-7 col-md-9 col-12">
+						<div class="col-lg-8 col-md-9 col-12">
 							<!-- Main Menu -->
 							<div class="main-menu">
 								<nav class="navigation">
@@ -410,19 +410,27 @@
 										</li>
 										<li
 											class="{% if request.path in ['/rsa', '/elliptic', '/elgamal'] %}active{% endif %}">
-											<a href="">Cryptos system <i class="icofont-rounded-down"></i></a>
+											<a href="">Ciphers<i class="icofont-rounded-down"></i></a>
 											<ul class="dropdown">
-												<li class=""><a href="/rsa">RSA</a></li>
-												<li><a href="/elliptic">Elliptic</a></li>
-												<li><a href="/elgamal">Elgamal</a></li>
+												<li><a href="/rsa">RSA</a></li>
+												<li><a href="/elgamal">ElGamal</a></li>
+												<li><a href="/elliptic">EC-ElGamal</a></li>
+											</ul>
+										</li>
+
+										<li
+											class="{% if request.path in ['/rsa_signature', '/elgamal_signature', '/elliptic_signature'] %}active{% endif %}">
+											<a href="">Signature Schemes<i class="icofont-rounded-down"></i></a>
+											<ul class="dropdown">
 												<li><a href="/rsa_signature">RSA Signature</a></li>
-												<li><a href="/elgamal_signature">Elgamal Signature</a></li>
+												<li><a href="/elgamal_signature">ElGamal Signature</a></li>
 												<li><a href="/elliptic_signature">Elliptic Signature</a></li>
 											</ul>
 										</li>
+
 										<li
 											class="{% if request.path in ['/modulo', '/is_prime', '/legendre_jacobi_kronecker'] %}active{% endif %}">
-											<a href="#">Computes <i class="icofont-rounded-down"></i></a>
+											<a href="#">Compute<i class="icofont-rounded-down"></i></a>
 											<ul class="dropdown">
 												<li><a href="/legendre_jacobi_kronecker">Legendre/Jacobi/Kronecker</a>
 												</li>
@@ -433,12 +441,9 @@
 										</li>
 										<li class="{% if request.path == '/theory' %}active{% endif %}"><a
 												href="/theory">Theory </a></li>
-										{% if not user.is_authenticated %}
-										<li><a href="/login_up">Sign in/up</a></li>
-										{% else%}
-										<li class="{% if request.path == '/contribute' %}active{% endif %}"><a
-												href="/contribute">Contribute </a></li>
-										{% endif %}
+										{# MOVED DOWN BELOW
+											<li class="{% if request.path == '/contribute' %}active{% endif %}"><a
+												href="/contribute">Contribute </a></li> #}
 									</ul>
 								</nav>
 							</div>
@@ -449,12 +454,15 @@
 								style='font-size:30px;color:#FF00FF;margin-top:17px;margin-left:50px;'></i>
 							{% if user.is_authenticated %}
 							<div class="dropdown-content">
+								<a href="/contribute">Contribute</a>
 								<a href="/logout">Logout</a>
+							</div>
+							{% else %}
+							<div class="dropdown-content">
+								<a href="/login_up">Sign in/up</a>
 							</div>
 							{% endif %}
 						</div>
-
-
 					</div>
 				</div>
 			</div>

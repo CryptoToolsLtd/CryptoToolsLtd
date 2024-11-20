@@ -12,6 +12,8 @@ body {
     margin-bottom: 20px;
 }
 .elgamal-container {
+    overflow-x: scroll;
+    padding-right: 20px;
     width: 80%;
     margin: 0 auto;
     padding: 20px;
