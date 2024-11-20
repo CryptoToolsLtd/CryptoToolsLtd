@@ -15,6 +15,16 @@ def print_threadsafe(msg: str):
 def worker_process(worker_id: int, app: Flask):
     redis_client = redis.StrictRedis(host=ENV.REDIS_HOSTNAME, port=ENV.REDIS_HOSTPORT, db=0)
 
+    def caught_signal(signum: int, frame: Any):
+        print_threadsafe(f"Worker {worker_id} caught signal {signum}. Exiting.")
+        sys.exit(0)
+    
+    signal.signal(signal.SIGINT, caught_signal)
+    signal.signal(signal.SIGTERM, caught_signal)
+    signal.signal(signal.SIGQUIT, caught_signal)
+    signal.signal(signal.SIGHUP, caught_signal)
+    signal.signal(signal.SIGABRT, caught_signal)
+
     with app.app_context():  # Ensure app context for database operations
         print_threadsafe(f"Worker {worker_id} started.")
 
@@ -82,10 +92,14 @@ atexit.register(stop_worker_pool)
 import signal
 import typing
 def cleanup(*args: typing.Any):
+    print_threadsafe(f"Received signal {args[0]}. Cleaning up.")
     stop_worker_pool()
     exit(0)
 signal.signal(signal.SIGINT, cleanup)
 signal.signal(signal.SIGTERM, cleanup)
+signal.signal(signal.SIGQUIT, cleanup)
+signal.signal(signal.SIGHUP, cleanup)
+signal.signal(signal.SIGABRT, cleanup)
 
 from .job_types import job_types
 from typing import Any

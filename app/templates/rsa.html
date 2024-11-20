@@ -3,117 +3,390 @@
 cryptoTools
 {% endblock%}
 {% block content %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rsa.css') }}">
-        <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rsa.css') }}">
+<script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
 
-        <div class="rsa-section">
+<div class="rsa-section">
 
-            <div class="rsa-container">
-                <h1>RSA Encryption (explained step by step)</h1>
-                <p>Here you can see how to encrypt and decrypt using the RSA procedure step by step.</p>
-                
-                <!------- Step 1 ------->
-                <h2>Step 1: Set prime numbers</h2>
-                <p>As a starting point for RSA, choose two prime numbers <var>p</var> and <var>q</var>:</p>
-                <div class="input-group">
-                    <div class="input-item">
-                        <label for="p"><var>p</var> = </label>
-                        <input type="number" id="p" placeholder="Enter prime number">
-                    </div>
-                    <div class="input-item">
-                        <label for="q"><var>q</var> = </label>
-                        <input type="number" id="q" placeholder="Enter prime number">
-                    </div>
-                </div>
-                <div>
-                    <button type="submit">Next Step</button>
-                </div>
-                
-                <!------- Step 2 ------->
-                <h2>Step 2: Calculate key values</h2>
-                <p>The next steps will calculate the two keys.</p>
-                <p>Both consist of two numbers, one of which is equal.</p>
-                <p>Private key: (<var>n</var>, <var>d</var>)</p>
-                <p>Public key: (<var>n</var>, <var>e</var>)</p>
-                
-                <!------- Step 2.1 ------->
+    <div class="rsa-container">
+        <h1>RSA Encryption (explained step by step)</h1>
+        <p>Here you can see how to encrypt and decrypt using the RSA procedure step by step.</p>
 
-                <h4><var>n</var> (Step 2.1)</h4>
-                <p>To calculate <i>n</i>, simply multiply <i>p</i> and <i>q</i>.</p>
-                <p><var>n</var> = <var>p</var> . <var>q</var></p>
-                <p id="p-q-value"> <var>n</var> = </p>
-                <p id="n-value"><var>n</var> = </p>
-                
-                <!------- Step 2.2 ------->
-                <h4><var>ϕ(n) </var>(Step 2.2)</h4>
-                <p>To calculate the further values <var>e</var> and <var>d</var> the Euler phi function <var>ϕ</var> is used.
-                  It calculates how many numbers coprime to <var>n</var> are there, which are not larger than <var>n</var>. </p>
-                <p> <var>ϕ</var>(<var>n</var>) = (p - 1) . (q - 1) </p>
-                <p id="p-1-q-1-value"><var>ϕ</var>(<var>n</var>) = </p>
-                <p id="phi-value"><var>ϕ</var>(<var>n</var>) = </p>
-                    
-                <!------- Step 2.3 ------->
-
-                <h4><var>e</var> (Step 2.3)</h4>
-                <p>Choose a number <var>e</var> that is coprime to <var>φ</var>(<var>n</var>) and smaller than it.</p>
-                <label for="e"> <var>e</var> = </label>
-                <input type="number" id="e" placeholder="Enter number">
-                <div>
-                    <button type="submit">Next Step</button>
-                </div>
-                
-                <!------- Step 2.4 ------->
-                <h4> <var>d</var> (Step 2.4)</h4>
-                <p>The number <var>d</var> is the multiplicative inverse to e</p>
-                <p>Expressed in formulas, the following must apply:</p>
-                <p> (<var>d</var> . <var>e</var>) mod <var>ϕ</var>(<var>n</var>) = 1 </p>
-                <p id="d-value"><var>d</var> = </p>
-    
-                <div>
-                    <button type="submit">Generate Key</button>
-                </div>
-                <h3 id = "public-key">Public key: <var>(n,d) = </var></h3>
-                <h3 id = "private-key">Private key: <var>(n,e) = </var></h3>
-                
-                <!------- Encryption ------->
-                <h2>Step 3: Encrypt</h2>
-                <p>To encrypt a number <var>m</var> to ciphertext <var>c</var> the following formula is applied.</p>
-                <p>It uses the numbers of the public key:</p>
-                <p> <var>c = m <sup>e</sup></var> mod <var>n</var></p>
-                <p>RSA encrypts only numbers. These must be greater-equal 0 and less than n.</p>
-    
-                <!-- <label for="m"> <var>m</var> = </label>
-                <input type="number" id="m" placeholder="Enter number"> -->
-                
-                <div class="input-form-group">
-                    <label for="m"> <var>m =</var>  </label>
-                    <input id="m" type="number" placeholder="Enter number">
-                    <select id="input-type-selector" onchange="changeInputType()">
-                        <option value="number" selected>Number</option>
-                        <option value="text">Text</option>
-                    </select>
-                </div>
-    
-                <div>
-                    <button type="button" onclick="encryptMessage()">Encrypt Message</button>
-
-                </div>
-                <p id="c"> <var>c</var> = </p>
-                <p id="c-value"><var>c</var> = </p>
-        
-                <!------- Decryption ------->
-                <h2>Step 4: Decrypt</h2>
-                <p>For decryption the inverse formula is applied.</p>
-                <p>It uses the numbers of the private key:</p>
-                <p> <var>m' = c <sup>d</sup> mod n</var></p>
-                <label for="c-decrypt"> <var>c</var> = </label>
-                <input type="number" id="c-decrypt" placeholder="Enter number">
-                <div>
-                    <button type="button" onclick="decryptMessage()">Decrypt Message</button>
-                </div>
-                <p id="m-decrypt"> <var>m'</var> = </p>
-                <p id="m-decrypt-value"><var>m'</var> =</p>
-        
+        <!-- ----- Step 1 ----- -->
+        <h2>Step 1: Set prime numbers</h2>
+        <p>As a starting point for RSA, choose two prime numbers <var>p</var> and <var>q</var>:</p>
+        <div class="input-group">
+            <div class="input-item">
+                <label for="p"><var>p</var> = </label>
+                <input type="text" id="p" placeholder="Enter prime number">
+            </div>
+            <div class="input-item">
+                <label for="q"><var>q</var> = </label>
+                <input type="text" id="q" placeholder="Enter prime number">
             </div>
         </div>
+        <div>
+            <button type="button" class="button-secondary" id="generatestep1" onclick="generatestep1()">Generate automatically</button>
+            <button type="button" id="step1to2" onclick="step1to2()" disabled>Next Step</button>
+        </div>
+
+        <div id="log-area-step1"></div>
+        <div id="loader-area-step1"></div>
+        <div id="error-area-step1"></div>
+
+        <!-- ----- Step 2 ---- -->
+        <h2>Step 2: Calculate key values</h2>
+        <p>The next steps will calculate the two keys.</p>
+        <p>Both consist of two numbers, one of which is equal.</p>
+        <p>Private key: (<var>n</var>, <var>d</var>)</p>
+        <p>Public key: (<var>n</var>, <var>e</var>)</p>
+
+        <!-- ----- Step 2.1 ----- -->
+
+        <h4><var>n</var> (Step 2.1)</h4>
+        <p>To calculate <i>n</i>, simply multiply <i>p</i> and <i>q</i>.</p>
+        <p><var>n</var> = <var>p</var> . <var>q</var></p>
+        <p> <var>n</var> = <span id="p-q-value"></span></p>
+        <p><var>n</var> = <span id="n-value"></span></p>
+
+        <!-- ----- Step 2.2 ----- -->
+        <h4><var>ϕ(n) </var>(Step 2.2)</h4>
+        <p>To calculate the further values <var>e</var> and <var>d</var> the Euler phi function <var>ϕ</var> is used.
+            It calculates how many numbers coprime to <var>n</var> are there, which are not larger than <var>n</var>.
+        </p>
+        <p> <var>ϕ</var>(<var>n</var>) = (p - 1) . (q - 1) </p>
+        <p><var>ϕ</var>(<var>n</var>) = <span id="p-1-q-1-value"></span></p>
+        <p><var>ϕ</var>(<var>n</var>) = <span id="phi-value"></span></p>
+
+        <!-- ----- Step 2.3 ----- -->
+
+        <h4><var>e</var> (Step 2.3)</h4>
+        <p>Choose a number <var>e</var> that is coprime to <var>φ</var>(<var>n</var>) and smaller than it.</p>
+        <label for="e"> <var>e</var> = </label>
+        <input type="number" id="e" placeholder="Enter number" disabled>
+        <div>
+            <button type="button" class="button-secondary" id="generatestep2" onclick="generatestep2()" disabled>Generate automatically</button>
+            <button type="button" id="step2to3" onclick="step2to3()" disabled>Next Step</button>
+        </div>
+        <div id="log-area-step2"></div>
+        <div id="loader-area-step2"></div>
+        <div id="error-area-step2"></div>
+
+        <!-- ----- Step 2.4 ----- -->
+        <h4> <var>d</var> (Step 2.4)</h4>
+        <p>The number <var>d</var> is the multiplicative inverse to e</p>
+        <p>Expressed in formulas, the following must apply:</p>
+        <p> (<var>d</var> . <var>e</var>) mod <var>ϕ</var>(<var>n</var>) = 1 </p>
+        <p><var>d</var> = <span id="d-value"></span></p>
+
+        <h3>Public key: <var>(n,d) = <span id="public-key"></span></var></h3>
+        <h3>Private key: <var>(n,e) = <span id="private-key"></span></var></h3>
+
+        <h2 style="color: blue;">The following steps can be conducted in any order.</h2>
+
+        <!-- ----- Encryption ----- -->
+        <h2>Step 3.1: Encrypt</h2>
+        <p>To encrypt a number <var>m</var> to ciphertext <var>c</var> the following formula is applied.</p>
+        <p>It uses the numbers of the public key:</p>
+        <p> <var>c = m <sup>e</sup></var> mod <var>n</var></p>
+        <p>RSA encrypts only numbers. These must be greater-equal 0 and less than n.</p>
+
+        <!-- <label for="m"> <var>m</var> = </label>
+                <input type="number" id="m" placeholder="Enter number"> -->
+
+        <div class="input-form-group">
+            <label for="m"> <var>m =</var> </label>
+            <input id="m" type="text" placeholder="Enter number" disabled>
+            <select id="input-type-selector" onchange="changeInputType()">
+                <option value="number" selected>Number</option>
+                <option value="text">Text</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="button" onclick="encryptMessage()" id="encrypt-button" disabled>Encrypt Message</button>
+
+        </div>
+        <p> <var>c</var> = <span id="c"></span></p>
+        <p><var>c</var> = <span id="c-value"></span></p>
+
+        <div id="log-area-encrypt"></div>
+        <div id="loader-area-encrypt"></div>
+        <div id="error-area-encrypt"></div>
+
+        <!-- ----- Decryption ----- -->
+        <h2>Step 3.2: Decrypt</h2>
+        <p>For decryption the inverse formula is applied.</p>
+        <p>It uses the numbers of the private key:</p>
+        <p> <var>m' = c <sup>d</sup> mod n</var></p>
+        <label for="c-decrypt"> <var>c</var> = </label>
+        <input type="number" id="c-decrypt" placeholder="Enter number" disabled>
+        <div>
+            <button type="button" onclick="decryptMessage()" id="decrypt-button" disabled>Decrypt Message</button>
+        </div>
+        <p> <var>m'</var> = <span id="m-decrypt"></span></p>
+        <p><var>m'</var> = <span id="m-decrypt-value"></span></p>
+        <p><var>text(m')</var> = <span id="m-decrypt-text"></span></p>
+
+        <div id="log-area-decrypt"></div>
+        <div id="loader-area-decrypt"></div>
+        <div id="error-area-decrypt"></div>
+    </div>
+</div>
+
+<script>
+    function on_p_change(event) {
+        if (event.target.value && document.getElementById("q").value) {
+            document.getElementById("step1to2").disabled = false;
+        } else {
+            document.getElementById("step1to2").disabled = true;
+        }
+    }
+    function on_q_change(event) {
+        if (event.target.value && document.getElementById("p").value) {
+            document.getElementById("step1to2").disabled = false;
+        } else {
+            document.getElementById("step1to2").disabled = true;
+        }
+    }
+    document.getElementById("p").addEventListener("input", on_p_change);
+    document.getElementById("q").addEventListener("input", on_q_change);
+
+    async function generatestep1() {
+        const pElem = document.getElementById("p");
+        const qElem = document.getElementById("q");
+        const generateStep1Button = document.getElementById("generatestep1");
+        const nextStepButton = document.getElementById("step1to2");
+
+        const NEXT_STEP_BUTTON_DISABLED_BEFORE = nextStepButton.disabled;
+
+        pElem.disabled = true;
+        qElem.disabled = true;
+        generateStep1Button.disabled = true;
+        nextStepButton.disabled = true;
+
+        let generated = false;
+
+        try {
+            const askNumberOfBitsOf = (variableName) => {
+                let promptText = `Enter the number of bits for the prime number ${variableName} (maximum 2048): `;
+                let numberOfBits = parseInt(prompt(promptText));
+                for (; ;) {
+                    if (isNaN(numberOfBits)) return null;
+                    if (numberOfBits > 2048 || numberOfBits < 1) {
+                        numberOfBits = parseInt(prompt("The number of bits must be >= 1 and <= 2048.\n" + promptText));
+                    }
+                    return numberOfBits;
+                }
+            };
+
+            const numberOfBitsP = askNumberOfBitsOf("p");
+            if (null === numberOfBitsP) return;
+            const numberOfBitsQ = askNumberOfBitsOf("q");
+            if (null === numberOfBitsQ) return;
+
+            const validator = async () => { };
+
+            const res = await callAPIFull(validator, "RSAGenerateStep1", `${numberOfBitsP},${numberOfBitsQ}`, "loader-area-step1", "error-area-step1", "log-area-step1", "Generating primes p and q...");
+
+            if (null === res) return;
+
+            const [p, q] = res.output.split(',');
+
+            pElem.value = p;
+            qElem.value = q;
+            nextStepButton.disabled = false;
+            generated = true;
+        } catch (e) {
+            throw e;
+        } finally {
+            pElem.disabled = false;
+            qElem.disabled = false;
+            generateStep1Button.disabled = false;
+            if (!generated) {
+                nextStepButton.disabled = NEXT_STEP_BUTTON_DISABLED_BEFORE;
+            }
+        }
+    }
+
+    async function step1to2() {
+        const pElem = document.getElementById("p");
+        const qElem = document.getElementById("q");
+        const generateStep1Button = document.getElementById("generatestep1");
+        const nextStepButton = document.getElementById("step1to2");
+
+        pElem.disabled = true;
+        qElem.disabled = true;
+        generateStep1Button.disabled = true;
+        nextStepButton.disabled = true;
+
+        const p = pElem.value;
+        const q = qElem.value;
+
+        const validator = async () => {
+            if (!isNumberValid(p) || !isNumberValid(q)) {
+                throw new Error("Please enter valid numbers.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "RSAStep1To2", `${p},${q}`, "loader-area-step1", "error-area-step1", "log-area-step1", "Calculating n and ϕ(n)...");
+
+        if (null === res) {
+            pElem.disabled = false;
+            qElem.disabled = false;
+            generateStep1Button.disabled = false;
+            nextStepButton.disabled = false;
+            return;
+        }
+
+        const [n, p_1, q_1, phi_n] = res.output.split(',');
+        document.getElementById("p-q-value").textContent = `${p} x ${q}`;
+        document.getElementById("n-value").textContent = `${n}`;
+        document.getElementById("p-1-q-1-value").textContent = `${p_1} x ${q_1}`;
+        document.getElementById("phi-value").textContent = `${phi_n}`;
+
+        document.getElementById("e").disabled = false;
+        document.getElementById("generatestep2").disabled = false;
+        document.getElementById("step2to3").disabled = false;
+    }
+
+    async function generatestep2() {
+        const p = document.getElementById("p").value;
+        const q = document.getElementById("q").value;
+
+        const eElem = document.getElementById("e");
+        const generateStep2Button = document.getElementById("generatestep2");
+        const nextStepButton = document.getElementById("step2to3");
+
+        const NEXT_STEP_BUTTON_DISABLED_BEFORE = nextStepButton.disabled;
+
+        eElem.disabled = true;
+        generateStep2Button.disabled = true;
+        nextStepButton.disabled = true;
+
+        let generated = false;
+
+        try {
+            const askNumberOfBitsOfE = () => {
+                let promptText = `Enter the number of bits of e to generate: `;
+                let numberOfBits = parseInt(prompt(promptText));
+                for (; ;) {
+                    if (isNaN(numberOfBits)) return null;
+                    if (numberOfBits > 2048 || numberOfBits < 1) {
+                        numberOfBits = parseInt(prompt("The number of bits must be >= 1 and <= 2048.\n" + promptText));
+                    }
+                    return numberOfBits;
+                }
+            };
+
+            const numberOfBitsE = askNumberOfBitsOfE();
+            if (null === numberOfBitsE) return;
+
+            const validator = async () => { };
+
+            const res = await callAPIFull(validator, "RSAGenerateStep2", `${p},${q},${numberOfBitsE}`, "loader-area-step2", "error-area-step2", "log-area-step2", "Generating e...");
+
+            if (null === res) return;
+
+            const e = res.output;
+
+            eElem.value = e;
+            nextStepButton.disabled = false;
+            generated = true;
+        } catch (e) {
+            throw e;
+        } finally {
+            eElem.disabled = false;
+            generateStep2Button.disabled = false;
+            if (!generated) {
+                nextStepButton.disabled = NEXT_STEP_BUTTON_DISABLED_BEFORE;
+            }
+        }
+    }
+
+    async function step2to3() {
+        const p = document.getElementById("p").value;
+        const q = document.getElementById("q").value;
+
+        const eElem = document.getElementById("e");
+        const generateStep2Button = document.getElementById("generatestep2");
+        const nextStepButton = document.getElementById("step2to3");
+
+        eElem.disabled = true;
+        generateStep2Button.disabled = true;
+        nextStepButton.disabled = true;
+
+        const e = eElem.value;
+
+        const validator = async () => {
+            if (!isNumberValid(e)) {
+                throw new Error("Please enter a valid number.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "RSAStep2To3", `${p},${q},${e}`, "loader-area-step2", "error-area-step2", "log-area-step2", "Calculating d...");
+
+        if (null === res) {
+            eElem.disabled = false;
+            generateStep2Button.disabled = false;
+            nextStepButton.disabled = false;
+            return;
+        }
+
+        const d = res.output;
+        document.getElementById("d-value").textContent = `${d}`;
+
+        document.getElementById("public-key").textContent = `(${document.getElementById("n-value").textContent},${e})`;
+        document.getElementById("private-key").textContent = `(${document.getElementById("n-value").textContent},${d})`;
+
+        document.getElementById("m").disabled = false;
+        document.getElementById("c-decrypt").disabled = false;
+        document.getElementById("encrypt-button").disabled = false;
+        document.getElementById("decrypt-button").disabled = false;
+    }
+
+    async function encryptMessage() {
+        const e = document.getElementById("e").value;
+        const n = document.getElementById("n-value").textContent;
+        const message = document.getElementById("m").value;
+
+        const inputType = document.getElementById("input-type-selector").value;
+
+        let payload;
+        payload = { e, n, message, inputType };
+
+        const validator = async () => {
+            if (!isNumberValid(e) || !isNumberValid(n) || (inputType === 'number' && !isNumberValid(message))) {
+                throw new Error("Please enter valid numbers.");
+            }
+            if (message.length === 0) {
+                throw new Error("Please enter a message.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "RSAEncrypt", JSON.stringify(payload), "loader-area-encrypt", "error-area-encrypt", "log-area-encrypt", "Encrypting message...");
+        const [m, c] = res.output.split(',');
+        document.getElementById("c").textContent = `${m} ^ ${e} mod ${n}`;
+        document.getElementById("c-value").textContent = `${c}`;
+    }
+
+    async function decryptMessage() {
+        const d = document.getElementById("d-value").textContent;
+        const n = document.getElementById("n-value").textContent;
+        const c = document.getElementById("c-decrypt").value;
+
+        const validator = async () => {
+            if (!isNumberValid(d) || !isNumberValid(n) || !isNumberValid(c)) {
+                throw new Error("Please enter valid numbers.");
+            }
+        };
+
+        const res = await callAPIFull(validator, "RSADecrypt", `${c},${d},${n}`, "loader-area-decrypt", "error-area-decrypt", "log-area-decrypt", "Decrypting message...");
+        const [m, text] = res.output.split(',');
+        document.getElementById("m-decrypt").textContent = `${c} ^ ${d} mod ${n}`;
+        document.getElementById("m-decrypt-value").textContent = `${m}`;
+        document.getElementById("m-decrypt-text").textContent = `${text}`;
+    }
+</script>
+
 {%endblock%}

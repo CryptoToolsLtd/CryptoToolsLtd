@@ -11,7 +11,7 @@ if len(sys.argv) >= 2:
         sys.exit(1)
 
 INTERPRETER = sys.executable
-COMMAND = f'{INTERPRETER} -m gunicorn --workers 1 --reload --graceful-timeout 1 --timeout 2 --bind 0.0.0.0:{port} "app:create_app()"'
+COMMAND = f'{INTERPRETER} -m gunicorn --reload --timeout 1 --bind 0.0.0.0:{port} "app:create_app()"'
 
 p = subprocess.Popen(
     COMMAND,
