@@ -19,6 +19,12 @@ from .ElGamalCalculateBetaJobType import *
 from .ElGamalEncryptJobType import *
 from .ElGamalDecryptJobType import *
 
+from .ECGenerateJobType import *
+from .ECSelectPredefinedJobType import *
+from .ECValidateJobType import *
+from .ECElGamalEncryptJobType import *
+from .ECElGamalDecryptJobType import *
+
 job_types: list[JobType] = [
     JKLJobType(),
     ModularExponentiationJobType(),
@@ -39,4 +45,11 @@ job_types: list[JobType] = [
     ElGamalCalculateBetaJobType(),
     ElGamalEncryptJobType(),
     ElGamalDecryptJobType(),
+
+    ECGenerateJobType(),
+    ECSelectPredefinedJobType(),
+    ECValidateJobType(),
+
+    ECElGamalEncryptJobType(),
+    ECElGamalDecryptJobType(),
 ]
