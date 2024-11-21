@@ -219,7 +219,7 @@ cryptoTools
         let generated = false;
 
         try {
-            const numberOfBitsP = askNumberOfBits('Enter the number of bits of the prime number p:', 1, 2048);
+            const numberOfBitsP = askNumberOfBits('Enter the number of bits of the prime number p:', 1, 8192);
             if (null === numberOfBitsP) return;
 
             const validator = async () => {};

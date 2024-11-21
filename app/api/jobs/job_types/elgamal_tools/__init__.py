@@ -5,7 +5,7 @@ import json
 def elgamal_check_p_certificate(p: int, p_certificate: str):
     if p < 1:
         raise ValueError("Invalid number of bits for p")
-    if p.bit_length() > 2048:
+    if p.bit_length() > 8192:
         raise ValueError("Number of bits for p is too large")
     
     if not is_prime(p):

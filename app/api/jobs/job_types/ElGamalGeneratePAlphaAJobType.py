@@ -7,14 +7,14 @@ import json
 class ElGamalGeneratePAlphaAJobType(JobType):
     @override
     def __init__(self):
-        super().__init__(job_type="ElGamalGeneratePAlphaA", immediate=True)
+        super().__init__(job_type="ElGamalGeneratePAlphaA", immediate=False)
     
     @override
     def __call__(self, input: str) -> str:
         numBitsP = int(input)
         if numBitsP < 1:
             raise ValueError("Invalid number of bits for p")
-        if numBitsP > 2048:
+        if numBitsP > 8192:
             raise ValueError("Number of bits for p is too large")
         
         pubkey, privkey, fact_of_p_minus_1 = ElGamal_generate_keypair(numBitsP)

@@ -63,7 +63,7 @@ cryptoTools
         <h4><var>e</var> (Step 2.3)</h4>
         <p>Choose a number <var>e</var> that is coprime to <var>φ</var>(<var>n</var>) and smaller than it.</p>
         <label for="e"> <var>e</var> = </label>
-        <input type="number" id="e" placeholder="Enter number" disabled>
+        <input type="text" id="e" placeholder="Enter number" disabled>
         <div>
             <button type="button" class="button-secondary" id="generatestep2" onclick="generatestep2()" disabled>Generate automatically</button>
             <button type="button" id="step2to3" onclick="step2to3()" disabled>Next Step</button>
@@ -91,9 +91,6 @@ cryptoTools
         <p> <var>c = m <sup>e</sup></var> mod <var>n</var></p>
         <p>RSA encrypts only numbers. These must be greater-equal 0 and less than n.</p>
 
-        <!-- <label for="m"> <var>m</var> = </label>
-                <input type="number" id="m" placeholder="Enter number"> -->
-
         <div class="input-form-group">
             <label for="m"> <var>m =</var> </label>
             <input id="m" type="text" placeholder="Enter number" disabled>
@@ -120,7 +117,7 @@ cryptoTools
         <p>It uses the numbers of the private key:</p>
         <p> <var>m' = c <sup>d</sup> mod n</var></p>
         <label for="c-decrypt"> <var>c</var> = </label>
-        <input type="number" id="c-decrypt" placeholder="Enter number" disabled>
+        <input type="text" id="c-decrypt" placeholder="Enter number" disabled>
         <div>
             <button type="button" onclick="decryptMessage()" id="decrypt-button" disabled>Decrypt Message</button>
         </div>
