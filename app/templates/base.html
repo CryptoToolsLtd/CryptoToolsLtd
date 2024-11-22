@@ -256,6 +256,15 @@
 			return checkResponse(res);
 		}
 
+		let _lastError = null;
+
+		function popLastError() {
+			try {
+				return _lastError;
+			} finally {
+				_lastError = null;
+			}
+		}
 		/**
 		 * 
 		 * @param {() => Promise<any>} validator The callback to validate input before calling the API. It should throw an exception if the input is invalid
@@ -323,6 +332,7 @@
 			} catch (error) {
 				success = false;
 				addError(errorAreaId, error.message);
+				_lastError = error;
 				return null;
 			} finally {
 				removeLoaders(loaderAreaId);
