@@ -39,16 +39,34 @@ cryptoTools
                 <h4><var>n</var> (Step 2.1)</h4>
                 <p>To calculate <i>n</i>, simply multiply <i>p</i> and <i>q</i>.</p>
                 <p><var>n</var> = <var>p</var> . <var>q</var></p>
-                <p id="p-q-value"> <var>n</var> = </p>
-                <p id="n-value"><var>n</var> = </p>
+                <div class="input-group">
+                    <div class="input-item">
+                        <label for=""><var>n</var> = </label>
+                        <input type="text" id="p-q-value" readonly>
+                    </div>
+                    <div class="input-item">
+                        <label for=""><var>n</var> = </label>
+                        <input type="text" id="n-value" readonly>
+                    </div>
+                </div>
+                <!-- <p id="p-q-value"> <var>n</var> = </p>
+                <p id="n-value"><var>n</var> = </p> -->
                 
                 <!------- Step 2.2 ------->
                 <h4><var>ϕ(n) </var>(Step 2.2)</h4>
                 <p>To calculate the further values <var>e</var> and <var>d</var> the Euler phi function <var>ϕ</var> is used.
                   It calculates how many numbers coprime to <var>n</var> are there, which are not larger than <var>n</var>. </p>
                 <p> <var>ϕ</var>(<var>n</var>) = (p - 1) . (q - 1) </p>
-                <p id="p-1-q-1-value"><var>ϕ</var>(<var>n</var>) = </p>
-                <p id="phi-value"><var>ϕ</var>(<var>n</var>) = </p>
+                <div class="input-group">
+                    <div class="input-item">
+                        <label for=""><var>ϕ</var> = </label>
+                        <input type="text" id="p-1-q-1-value" readonly>
+                    </div>
+                    <div class="input-item">
+                        <label for=""><var>ϕ</var> = </label>
+                        <input type="text" id="phi-value" readonly>
+                    </div>
+                </div>
                     
                 <!------- Step 2.3 ------->
                 <h4><var>b</var> (Step 2.3)</h4>
@@ -64,13 +82,28 @@ cryptoTools
                 <p>The number <var>a</var> is the multiplicative inverse to b</p>
                 <p>Expressed in formulas, the following must apply:</p>
                 <p> (<var>a</var> . <var>b</var>) mod <var>ϕ</var>(<var>n</var>) = 1 </p>
-                <p id="a-value"><var>a</var> = </p>
-    
+                <div class="input-group">
+                    <div class="input-item">
+                        <label for=""><p></p><var>a</var> = </p></label>
+                        <input type="text" id="a-value" readonly>
+                    </div>
+                </div>
+                <!-- <p id="a-value"><var>a</var> = </p> -->
                 <div>
                     <button type="submit">Generate Key</button>
                 </div>
-                <h3 id = "public-key">Public key: <var>(n,b) = </var></h3>
-                <h3 id = "private-key">Private key: <var>(n,a) = </var></h3>
+                <div class="input-group">
+                    <div class="input-item">
+                        <label for=""><h3>Public key: <var>(n,b) = </var></h3></label>
+                        <input type="text" id="public-key" readonly>
+                    </div>
+                    <div class="input-item">
+                        <label for=""><h3>Private key: <var>(n,a) = </var></h3></label>
+                        <input type="text" id="private-key" readonly>
+                    </div>
+                </div>
+                <!-- <h3 id = "public-key">Public key: <var>(n,b) = </var></h3>
+                <h3 id = "private-key">Private key: <var>(n,a) = </var></h3> -->
                 
                 <!------- Encryption ------->
                 <h2>Step 3: Sign the Message</h2>
@@ -87,9 +120,15 @@ cryptoTools
                 </div>
     
                 <div>
-                    <button type="button" onclick="signMessage()">Sign Message</button>
+                    <button style="margin-bottom: 10px" type="button" onclick="signMessage()">Sign Message</button>
                 </div>
-                <p id="signature-value">Signature: </p>
+                <div class="input-group">
+                    <div class="input-item">
+                        <label for=""><p><var>Signature</var> = </p></label>
+                        <input type="text" id="signature-value" readonly>
+                    </div>
+                </div>
+                <!-- <p id="signature-value">Signature: </p> -->
         
                  <!------- Verify ------->
                 <h2>Step 4: Verify the Signature</h2>
