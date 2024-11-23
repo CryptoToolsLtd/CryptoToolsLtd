@@ -30,8 +30,19 @@ cryptoTools
             <input type="number" id="d" placeholder="Enter random number" required>
             <p id = "Q-value"><var>Q = dg</var></p>
             <button onclick="generateKeys()">Generate Keys</button>
-            <h3 id="public-key">Public Key: <var>(E<sub>p</sub>(a,b), g, n, Q) =</var></h3>
-            <h3 id="private-key">Private Key: <var>d =</var></h3>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for=""><h3>Public Key: <var>(E<sub>p</sub>(a,b), g, n, Q) </var> = </h3></label>
+                    <input type="text" id="public-key" readonly>
+                </div>
+                <div class="input-item">
+                    <label for=""><h3>Private Key: <var>d </var> = </h3></label>
+                    <input type="text" id="private-key" readonly>
+                </div>
+                
+            </div>
+            <!-- <h3 id="public-key">Public Key: <var>(E<sub>p</sub>(a,b), g, n, Q) =</var></h3>
+            <h3 id="private-key">Private Key: <var>d =</var></h3> -->
     
             <!-- Step 2: Sign the Message -->
             <h2>Step 2: Sign the Message</h2>
@@ -52,7 +63,14 @@ cryptoTools
                 <p id = "s-value"><var>s = (h + d * r) * (k <sup>-1</sup>) mod n</var></p>
                 
                 <button type="button" onclick="signMessage()">Sign Message</button>
-                <p>Signature: <var>(r, s) =</var> <span id="signature"></span></p>
+                <div class="input-group">
+                    <div class="input-item">
+                        <label for=""><p>Signature: <var>(r, s) </var>=</p></label>
+                        <input type="text" id="signature" readonly>
+                    </div>
+                   
+                </div>
+                <!-- <p>Signature: <var>(r, s) =</var> <span id="signature"></span></p> -->
             </div>
     
             <!-- Step 3: Verify the Signature -->

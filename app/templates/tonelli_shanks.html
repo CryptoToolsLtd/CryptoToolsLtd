@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% block title%}
+Modulo
+{% endblock%}
+{% block content %}
+
+<style>
+    .modulo-section {
+        background-color: #f4f4f9;
+        width: 100%;
+        height: 100ch;
+        padding: 20px;
+    }
+
+    .container-modulo {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        height: 80ch;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        color: #4CAF50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 18px;
+        width: 80px;
+        font-weight: bold;
+    }
+
+    input[type="number"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .button-groups {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    .note {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    details {
+        margin-bottom: 20px;
+    }
+</style>
+
+
+<section class="modulo-section">
+    <div class="container-modulo">
+        <h1>Modular Exponentiation</h1>
+        <h2>Set parameters</h2>
+        <p>As a starting point for Modulo, choose three parameters <em>a</em>, <em>b</em> and <em>n</em>:</p>
+
+        <div class="input-group">
+            <label for="a"> a = </label>
+            <input type="text" id="a" placeholder="Enter a ">
+        </div>
+        <div class="input-group">
+            <label for="p"> p = </label>
+            <input type="text" id="p" placeholder="Enter p">
+        </div>
+
+        <p class="note"><em>We x satisfy as following: x<sup>2</sup> <span>≡</span> a mod p</em> </p>
+
+        <div class="button-groups">
+            <button type="button" id="submit_button">Compute</button>
+        </div>
+        <div id="log-area"></div>
+        <div id="loader-area"></div>
+
+        <div id="result" style="display: none; margin-top: 20px;">
+            <h2>Result</h2>
+            <div id="result-container">
+                <label for="result-all"><strong>Result = </strong></label>
+                <input type="text" id="result-all" readonly>
+            </div>
+        </div>
+
+        <div id="error-area"></div>
+    </div>
+</section>
+
+<script>
+    document.getElementById("submit_button").addEventListener("click", function (event) {
+        event.preventDefault(); // Ngăn chặn form reload trang
+        document.getElementById("result").style.display = "none";
+
+        // Lấy giá trị từ input
+        const a = document.getElementById("a").value;
+        const p = document.getElementById("p").value;
+
+        // Kiểm tra đầu vào hợp lệ
+        const isValidNumber = (num) => !isNaN(num) && num.trim() !== "";
+        if (!isValidNumber(a) || !isValidNumber(p)) {
+            alert("Please enter valid numbers for 'a' and 'p'.");
+            return;
+        }
+
+         // Gọi API (giả định `callAPIFull` là hàm gọi API của bạn)
+         // Mock dữ liệu giả lập (giả sử tìm được 2 nghiệm là 3 và 7)
+         const mockResult = [3, 7]; // Thay đổi giá trị này để thử nghiệm
+     
+         // Hiển thị kết quả từ dữ liệu mock
+         const resultContainer = document.getElementById("result-container");
+     
+         // Xóa các kết quả cũ nếu có
+         resultContainer.innerHTML = "";
+     
+         if (Array.isArray(mockResult) && mockResult.length > 0) {
+             // Thêm từng nghiệm vào một dòng input
+             mockResult.forEach((root, index) => {
+                 const inputGroup = document.createElement("div");
+                 inputGroup.className = "input-group";
+     
+                 const label = document.createElement("label");
+                 label.innerHTML = `x<sub>${index + 1}</sub> = `;
+                 label.style.fontWeight = "bold";
+     
+                 const input = document.createElement("input");
+                 input.type = "text";
+                 input.value = root;
+                 input.readOnly = true;
+     
+                 inputGroup.appendChild(label);
+                 inputGroup.appendChild(input);
+                 resultContainer.appendChild(inputGroup);
+             });
+         } else {
+             // Hiển thị thông báo không tìm thấy nghiệm
+             resultContainer.innerHTML = "<p>No solutions found.</p>";
+         }
+     
+         document.getElementById("result").style.display = "block";
+
+        
+    });
+</script>
+
+{%endblock%}

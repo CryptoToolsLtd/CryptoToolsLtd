@@ -66,3 +66,7 @@ def theory():
 @views.route('/diophantine')
 def diophantine():
     return render_template("diophantine.html", user=current_user)
+
+@views.route('/tonelli_shanks')
+def tonelli_shanks():
+    return render_template("tonelli_shanks.html", user=current_user)

@@ -45,10 +45,28 @@ cryptoTools
         <div>
             <h2>Step 2: Calculate key values</h2>
             <p><var> β = α <sup>a</sup> </var> mod <var>p</var></p>
-            <p><var> β = </var><span id="beta-calculation"></span></p>
-            <p><var> β = </var><span id="beta-value"></span></p>
-            <h3>Public Key: <var>(p, α, β) = </var> <span id="public-key"></span></h3>
-            <h3>Private Key: <var>a = </var> <span id="private-key"></span></h3>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for=""><p><var>β</var> = </p> </label>
+                    <input type="text" id="beta-calculation" readonly>
+                </div>
+                <div class="input-item">
+                    <label for=""><p><var>β</var> = </p> </label>
+                    <input type="text" id="beta-value" readonly>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for=""><h3>Public Key: <var>(p, α, β) </var> = </h3></label>
+                    <input type="text" id="public-key" readonly>
+                </div>
+                <div class="input-item">
+                    <label for=""><h3>Private Key: <var>a</var> = </h3></label>
+                    <input type="text" id="private-key" readonly>
+                </div>
+            </div>
+            <!-- <h3>Public Key: <var>(p, α, β) = </var> <span id="public-key"></span></h3>
+            <h3>Private Key: <var>a = </var> <span id="private-key"></span></h3> -->
         </div>
 
         <h2 style="color: blue;">The following steps can be conducted in any order.</h2>
@@ -93,15 +111,45 @@ cryptoTools
             <div id="error-area-encrypt"></div>
 
             <p>Convert message to integer and pad bits to it to form a primitive root modulo p:</p>
-            <p><b>Corresponding integer = </b><span id="m-before-encryption"></span></p>
-            <p><var>x = </var><span id="x-before-encryption"></span></p>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for=""><p><b><var> Corresponding integer </var> = </b></p></label>
+                    <input type="text" id="m-before-encryption" readonly>
+                </div>
+                <div class="input-item">
+                    <label for=""><p><var>x</var>=</label>
+                    <input type="text" id="x-before-encryption" readonly>
+                </div>
+            </div>
+            <!-- <p><b>Corresponding integer = </b><span id="m-before-encryption"></span></p>
+            <p><var>x = </var><span id="x-before-encryption"></span></p> -->
 
             <p>Encrypted Message:</p>
-            <p><var>y<sub>1</sub> = </var><span id="encrypted-y1-calculation"></span></p>
-            <p><var>y<sub>2</sub> = </var><span id="encrypted-y2-calculation"></span></p>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for=""><p><var> y<sub>1</sub> </var> = </p></label>
+                    <input type="text" id="encrypted-y1-calculation" readonly>
+                </div>
+                <div class="input-item">
+                    <label for=""><p><var> y<sub>2</sub> </var> = </p></label>
+                    <input type="text" id="encrypted-y2-calculation" readonly>
+                </div>
+            </div>
+            <!-- <p><var>y<sub>1</sub> = </var><span id="encrypted-y1-calculation"></span></p>
+            <p><var>y<sub>2</sub> = </var><span id="encrypted-y2-calculation"></span></p> -->
             <p>Calculations give us:</p>
-            <p><var>y<sub>1</sub> = </var><span id="encrypted-y1-value"></span></p>
-            <p><var>y<sub>2</sub> = </var><span id="encrypted-y2-value"></span></p>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for=""><p><var> y<sub>1</sub> </var> = </p></label>
+                    <input type="text" id="encrypted-y1-value" readonly>
+                </div>
+                <div class="input-item">
+                    <label for=""><p><var>y<sub>2</sub></var>=</p></label>
+                    <input type="text" id="encrypted-y2-value" readonly>
+                </div>
+            </div>
+            <!-- <p><var>y<sub>1</sub> = </var><span id="encrypted-y1-value"></span></p>
+            <p><var>y<sub>2</sub> = </var><span id="encrypted-y2-value"></span></p> -->
         </div>
 
         <div>
@@ -137,14 +185,38 @@ cryptoTools
             <p><var>M = y<sub>2</sub> . s <sup>-1</sup></var> mod <var>p</var></p>
 
             <p>Apply the formulae:</p>
-            <p><var>s = </var> <span id="decrypted-s-calculation"></span></p>
-            <p><var>x = </var> <span id="decrypted-x-calculation"></span></p>
+            <div class="input-group">
+                <div class="input-item">
+                    <label for=""><p><var>s </var> = </p></label>
+                    <input type="text" id="decrypted-s-calculation" readonly>
+                </div>
+                <div class="input-item">
+                    <label for=""><p><var>x </var> = </p></label>
+                    <input type="text" id="decrypted-x-calculation" readonly>
+                </div>
+            </div>
             <p>Calculations give us:</p>
-            <p><var>s = </var> <span id="decrypted-s-value"></span></p>
-            <p><var>x = </var> <span id="decrypted-x-value"></span></p>
+            <div class="input-item">
+                <label for=""><p><var>s </var> = </p></label>
+                <input type="text" id="decrypted-s-value" readonly>
+            </div>
+            <div class="input-item">
+                <label for=""><p><var>x </var> = </p></label>
+                <input type="text" id="decrypted-x-value" readonly>
+            </div>
+            <!-- <p><var>s = </var> <span id="decrypted-s-value"></span></p>
+            <p><var>x = </var> <span id="decrypted-x-value"></span></p> -->
             <p>Decrypted Message:</p>
-            <p><var>m' = </var> <span id="decrypted-m"></span></p>
-            <p><var>text(m') = </var> <span id="decrypted-m-text"></span></p>
+            <div class="input-item">
+                <label for=""><p><var>text(m) = </var> </p></label>
+                <input type="text" id="decrypted-m" readonly>
+            </div>
+            <div class="input-item">
+                <label for=""><p><var>Int(m) </var> = </p></label>
+                <input type="text" id="decrypted-m-text" readonly>
+            </div>
+            <!-- <p><var>m' = </var> <span id="decrypted-m"></span></p>
+            <p><var>text(m') = </var> <span id="decrypted-m-text"></span></p> -->
         </div>
     </div>
 </div>
@@ -329,10 +401,10 @@ cryptoTools
 
         const [beta] = res.output.split(',');
 
-        betaCalculationElem.textContent = `${alpha}^${a} mod ${p}`;
-        betaValueElem.textContent = beta;
-        publicKeyElem.textContent = `(${p}, ${alpha}, ${beta})`;
-        privateKeyElem.textContent = `${a}`;
+        betaCalculationElem.value = `${alpha}^${a} mod ${p}`;
+        betaValueElem.value = beta;
+        publicKeyElem.value = `(${p}, ${alpha}, ${beta})`;
+        privateKeyElem.value = `${a}`;
 
         for (const elem of [
             document.getElementById('k'),
@@ -371,7 +443,7 @@ cryptoTools
 
         const p = document.getElementById('p').value;
         const alpha = document.getElementById('alpha').value;
-        const beta = document.getElementById('beta-value').textContent;
+        const beta = document.getElementById('beta-value').value;
         const k = kElem.value;
         const message = messageElem.value;
         const inputType = inputTypeSelector.value;
@@ -413,12 +485,12 @@ cryptoTools
 
         const [m, x, y1, y2] = res.output.split(',');
 
-        mElem.textContent = m;
-        xElem.textContent = x;
-        y1CalculationElem.textContent = `${alpha}^${k} mod ${p}`;
-        y2CalculationElem.textContent = `${x} * ${beta}^${k} mod ${p}`;
-        y1ValueElem.textContent = y1;
-        y2ValueElem.textContent = y2;
+        mElem.value = m;
+        xElem.value = x;
+        y1CalculationElem.value = `${alpha}^${k} mod ${p}`;
+        y2CalculationElem.value = `${x} * ${beta}^${k} mod ${p}`;
+        y1ValueElem.value = y1;
+        y2ValueElem.value = y2;
 
         kElem.disabled = messageElem.disabled = leftPadElem.disabled = rightPadElem.disabled = false;
     }
@@ -476,12 +548,12 @@ cryptoTools
 
         const [s, x, m, mText] = res.output.split(',');
 
-        sCalculationElem.textContent = `${y1}^${a} mod ${p}`;
-        xCalculationElem.textContent = `${y2} * ${s}^(-1) mod ${p}`;
-        sValueElem.textContent = s;
-        xValueElem.textContent = x;
-        decryptedMElem.textContent = m;
-        decryptedMTextElem.textContent = mText;
+        sCalculationElem.value = `${y1}^${a} mod ${p}`;
+        xCalculationElem.value = `${y2} * ${s}^(-1) mod ${p}`;
+        sValueElem.value = s;
+        xValueElem.value = x;
+        decryptedMElem.value = mText;
+        decryptedMTextElem.value = m;
 
         y1Elem.disabled = y2Elem.disabled = leftPadElem.disabled = rightPadElem.disabled = false;
     }

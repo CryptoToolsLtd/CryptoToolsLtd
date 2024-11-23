@@ -454,7 +454,32 @@ body{
 	visibility: hidden;
 	top: 74px;
 	border-left:3px solid #2889e4;
+	max-height: 150px; /* Limit height for scrolling */
+    overflow-y: auto; /*Add scrollbar for long dropdowns*/
 }
+/* Tùy chỉnh thanh cuộn */
+.header .nav li .dropdown::-webkit-scrollbar {
+    width: 5px;
+}
+
+.header .nav li .dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền thanh cuộn */
+    border-radius: 10px;
+}
+
+.header .nav li .dropdown::-webkit-scrollbar-thumb {
+    background: #888; /* Màu thanh cuộn */
+    border-radius: 10px;
+}
+
+.header .nav li .dropdown::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu khi hover */
+}
+
+
+
+
+
 .header .nav li:hover .dropdown{
 	background-color: rgb(245, 245, 245);
 	opacity:1;

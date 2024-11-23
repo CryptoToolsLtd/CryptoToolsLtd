@@ -37,9 +37,23 @@ cryptoTools
                 <!-- Step 2: Calculate Key Values -->
                 <div>
                     <h2>Step 2: Calculate key values</h2>
-                    <p id="beta"> <var> β = α <sup>a</sup> </var> mod <var>p</var> = </p>
+                    <div class="input-group">
+                        <div class="input-item">
+                            <label for=""><p > <var> β = α <sup>a</sup> </var> mod <var>p</var> = </p></label>
+                            <input type="text" id="beta" readonly>
+                        </div>
+                        <div class="input-item">
+                            <label for=""><h3>Public Key: <var>(p, α, β) </var> = </h3></label>
+                            <input type="text" id="public-key" readonly>
+                        </div>
+                        <div class="input-item">
+                            <label for=""><h3>Private Key: <var>a</var> = </h3></label>
+                            <input type="text" id="private-key" readonly>
+                        </div>
+                    </div>
+                    <!-- <p id="beta"> <var> β = α <sup>a</sup> </var> mod <var>p</var> = </p>
                     <h3 id = "public-key">Public Key: <var>(p, α, β) =</var></h3>
-                    <h3 id = "private-key">Private Key: <var>a = </var></h3>
+                    <h3 id = "private-key">Private Key: <var>a = </var></h3> -->
                 </div>
 
                 <!-- Step 3: Message Signing -->
@@ -63,7 +77,13 @@ cryptoTools
                     <p><var>&gamma; = α<sup>k</sup></var> mod <var>p</var></p>
                     <p><var>&delta; = (x- a.&gamma;).k<sup>-1</sup></var> mod <var>(p-1)</var></p>
                     <button type="button" onclick="signMessage()">Sign Message</button>
-                    <p>Signature: <span id="signature"><var>sig<sub>K'</sub>(x, k) = (&gamma;,&delta;)</var></span></p>
+                    <div class="input-group">
+                        <div class="input-item">
+                            <label for=""><p>Signature:<var>sig<sub>K'</sub>(x, k) = (&gamma;,&delta;)</var></p></label>
+                            <input type="text" id="signature" readonly>
+                        </div>
+                    </div>
+                    <!-- <p>Signature: <span id="signature"><var>sig<sub>K'</sub>(x, k) = (&gamma;,&delta;)</var></span></p> -->
                 </div>
 
                 <!-- Step 4: Verify Signature -->
