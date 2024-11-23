@@ -70,3 +70,7 @@ def diophantine():
 @views.route('/tonelli_shanks')
 def tonelli_shanks():
     return render_template("tonelli_shanks.html", user=current_user)
+
+@views.route('/points_ECC')
+def points_on_ECC():
+    return render_template("points_ecc.html", user=current_user)
