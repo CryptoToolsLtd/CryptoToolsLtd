@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% block title%}
+points_ecc
+{% endblock%}
+{% block content %}
+
+<style>
+    .points_ecc-section {
+        background-color: #f4f4f9;
+        width: 100%;
+        height: 100ch;
+        padding: 20px;
+    }
+
+    .container-points_ecc {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        height: 80ch;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        color: #4CAF50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 18px;
+        width: 80px;
+        font-weight: bold;
+    }
+
+    input[type="number"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .button-groups {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    .note {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    details {
+        margin-bottom: 20px;
+    }
+</style>
+
+
+<section class="points_ecc-section">
+    <div class="container-points_ecc">
+        <h1>Count points on Elliptic Curve</h1>
+        <h2>Set parameters</h2>
+        <p>Enter three parameters <em>a</em>, <em>b</em> and <em>p</em> to specify an elliptic curve in Weierstrass form <var>y <sup>2</sup> = x <sup>3</sup> + ax + b</var>.</p>
+
+        <div class="input-group">
+            <label for="p"> p = </label>
+            <input type="text" id="p" placeholder="Enter p">
+        </div>
+        <div class="input-group">
+            <label for="a"> a = </label>
+            <input type="text" id="a" placeholder="Enter a ">
+        </div>
+        <div class="input-group">
+            <label for="b"> b = </label>
+            <input type="text" id="b" placeholder="Enter b">
+        </div>
+
+        <p class="note"><em>We then compute the number of points on this Elliptic Curve.</em></p>
+
+        <div class="button-groups">
+            <button type="button" id="submit_button">Compute</button>
+        </div>
+        <div id="log-area"></div>
+        <div id="loader-area"></div>
+
+        <div id="result" style="display: none; margin-top: 20px;">
+            <h2>Result</h2>
+
+            <div class="input-group">
+                <label for="result-all" style="width: 200px"><strong>Number of points = </strong></label>
+                <input type="text" id="result-all" readonly>
+            </div>
+        </div>
+        <div id="error-area"></div>
+    </div>
+</section>
+
+<script>
+    document.getElementById("submit_button").addEventListener("click", async function (event) {
+        event.preventDefault(); // Ngăn chặn form reload trang
+        document.getElementById("result").style.display = "none";
+
+        const pElem = document.getElementById("p");
+        const aElem = document.getElementById("a");
+        const bElem = document.getElementById("b");
+
+        const p = pElem.value;
+        const a = aElem.value;
+        const b = bElem.value;
+
+        const validator = async () => {
+            if (!isNumberValid(a) || !isNumberValid(b) || !isNumberValid(p)) {
+                throw new Error("Please enter valid numbers");
+            }
+        };
+
+        pElem.disabled = aElem.disabled = bElem.disabled = true;
+
+        try {
+            const res = await callAPIFull(validator, "Count Points on EC", `${p},${a},${b}`, "loader-area", "error-area", "log-area");
+            if (null === res) return;
+
+            const output = res.output;
+            document.getElementById("result-all").value = output;
+            document.getElementById("result").style.display = "block";
+        } finally {
+            pElem.disabled = aElem.disabled = bElem.disabled = false;
+        }
+    });
+</script>
+
+{%endblock%}

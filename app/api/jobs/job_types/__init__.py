@@ -6,6 +6,7 @@ from .FactorJobType import *
 from .GeneratePrimesJobType import *
 from .GCDJobType import *
 from .TonelliShanksJobType import *
+from .CountPointsOnECJobType import *
 
 from .RSAGenerateStep1JobType import *
 from .RSAStep1To2JobType import *
@@ -34,6 +35,7 @@ job_types: list[JobType] = [
     GeneratePrimesJobType(),
     GCDJobType(),
     TonelliShanksJobType(),
+    CountPointsOnECJobType(),
 
     RSAGenerateStep1JobType(),
     RSAStep1To2JobType(),
