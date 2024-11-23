@@ -59,27 +59,25 @@ cryptoTools
 
         <!-- ----- Step 2.2 ----- -->
         <h4><var>ϕ(n) </var>(Step 2.2)</h4>
-        <p>To calculate the further values <var>e</var> and <var>d</var> the Euler phi function <var>ϕ</var> is used.
+        <p>To calculate the further values <var>e</var> and <var>d</var> the Euler phi function <var>ϕ(n)</var> is used.
             It calculates how many numbers coprime to <var>n</var> are there, which are not larger than <var>n</var>.
         </p>
-        <p> <var>ϕ</var>(<var>n</var>) = (p - 1) . (q - 1) </p>
+        <p> <var>ϕ(n)</var> = (p - 1) . (q - 1) </p>
         <div class="input-group">
             <div class="input-item">
-                <label for=""><var>ϕ</var> = </label>
+                <label for=""><var>ϕ(n)</var> = </label>
                 <input type="text" id="p-1-q-1-value" readonly>
             </div>
             <div class="input-item">
-                <label for=""><var>ϕ</var> = </label>
+                <label for=""><var>ϕ(n)</var> = </label>
                 <input type="text" id="phi-value" readonly>
             </div>
         </div>
-        <!-- <p><var>ϕ</var>(<var>n</var>) = <span id="p-1-q-1-value"></span></p>
-        <p><var>ϕ</var>(<var>n</var>) = <span id="phi-value"></span></p> -->
 
         <!-- ----- Step 2.3 ----- -->
 
         <h4><var>e</var> (Step 2.3)</h4>
-        <p>Choose a number <var>e</var> that is coprime to <var>φ</var>(<var>n</var>) and smaller than it.</p>
+        <p>Choose a number <var>e</var> that is coprime to <var>ϕ(n)</var> and smaller than it.</p>
         <label for="e"> <var>e</var> = </label>
         <input type="text" id="e" placeholder="Enter number" disabled>
         <div>
@@ -94,7 +92,7 @@ cryptoTools
         <h4> <var>d</var> (Step 2.4)</h4>
         <p>The number <var>d</var> is the multiplicative inverse to e</p>
         <p>Expressed in formulas, the following must apply:</p>
-        <p> (<var>d</var> . <var>e</var>) mod <var>ϕ</var>(<var>n</var>) = 1 </p>
+        <p> (<var>d</var> . <var>e</var>) mod <var>ϕ(n)</var> = 1 </p>
         <div class="input-group">
             <div class="input-item">
                 <label for=""><var>d</var> = </label>
