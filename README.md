@@ -3,10 +3,15 @@
 - [CryptoToolsLtd](#cryptotoolsltd)
   - [Authors](#authors)
   - [Setup](#setup)
-    - [Prerequisites](#prerequisites)
-    - [Install Python Packages](#install-python-packages)
-    - [Create Database and Setup Environment Variables](#create-database-and-setup-environment-variables)
-  - [Launch the App](#launch-the-app)
+    - [Using Docker](#using-docker)
+      - [Docker: Prerequisites](#docker-prerequisites)
+      - [Docker: Build the Image](#docker-build-the-image)
+      - [Docker: Launch the App](#docker-launch-the-app)
+    - [Running Bare Metal](#running-bare-metal)
+      - [Bare Metal: Prerequisites](#bare-metal-prerequisites)
+      - [Bare Metal: Install Python Packages](#bare-metal-install-python-packages)
+      - [Bare Metal: Create Database and Setup Environment Variables](#bare-metal-create-database-and-setup-environment-variables)
+      - [Bare Metal: Launch the App](#bare-metal-launch-the-app)
   - [Advanced Use](#advanced-use)
     - [Database Migration](#database-migration)
   - [License](#license)
@@ -23,7 +28,41 @@ We are a group of students at UET - VNU.
 
 ## Setup
 
-### Prerequisites
+Using Docker is easier!
+
+### Using Docker
+
+#### Docker: Prerequisites
+
+- Docker (tested with version 27.3.1, Ubuntu 22.04)
+
+#### Docker: Build the Image
+
+This step is done only once. In the project root, run:
+
+```sh
+docker compose build
+```
+
+If something fails, try adding the magic word `sudo` (Linux)
+or running the command as admin (Windows).
+
+#### Docker: Launch the App
+
+When the previous setup steps have been done,
+now whenever you need to run the app, just
+enter this one command (at the project root):
+
+```sh
+docker compose up
+```
+
+### Running Bare Metal
+
+That is, you install the required tools straight into your
+own system.
+
+#### Bare Metal: Prerequisites
 
 - Python 3.12+
 
@@ -37,7 +76,7 @@ We are a group of students at UET - VNU.
 
     For other distros (and other operating systems), see the full guide at <https://pypi.org/project/mysqlclient/>.
 
-### Install Python Packages
+#### Bare Metal: Install Python Packages
 
 You may want to create and activate a virtual environment
 (venv) first. Then, at the project root, run
@@ -46,7 +85,7 @@ You may want to create and activate a virtual environment
 pip install -r requirements.txt
 ```
 
-### Create Database and Setup Environment Variables
+#### Bare Metal: Create Database and Setup Environment Variables
 
 You have to create a `.env` file at the project root
 containing the values of the required environment
@@ -64,7 +103,7 @@ is activated):
 flask db upgrade
 ```
 
-## Launch the App
+#### Bare Metal: Launch the App
 
 Activate the venv if necessary. Then, at the project
 root, execute

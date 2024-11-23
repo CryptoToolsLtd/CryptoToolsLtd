@@ -1,0 +1,55 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Map container's port 3000 to host's port 3000
+    environment:
+      FLASK_ENV: development
+      FLASK_RUN_PORT: 3000  # Set the Flask app to listen on port 3000
+      MYSQL_HOSTNAME: db
+      MYSQL_HOSTPORT: 3306
+      MYSQL_USERNAME: flask_user
+      MYSQL_PASSWORD: flask_password
+      MYSQL_DATABASE: flask_db
+      REDIS_HOSTNAME: redis
+      REDIS_HOSTPORT: 6379
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/app
+    networks:
+      - backend
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: flask_db
+      MYSQL_USER: flask_user
+      MYSQL_PASSWORD: flask_password
+    ports:
+      - "3307:3306"  # Map MySQL container's default port 3306 to host's port 3307
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - backend
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6380:6379"  # Map Redis container's default port 6379 to host's port 6380
+    networks:
+      - backend
+
+volumes:
+  db_data:
+
+networks:
+  backend:
+    driver: bridge
+ 
