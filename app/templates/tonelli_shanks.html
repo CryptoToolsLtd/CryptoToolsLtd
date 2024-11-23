@@ -121,13 +121,12 @@ Modulo
             <input type="text" id="p" placeholder="Enter p">
         </div>
 
-        <p class="note"><em>We will find x satisfy the following equation: <var>x<sup>2</sup> <span>≡</span> a mod p</var> </em> </p>
+        <p class="note"><em>We will find x satisfy the following equation: <var>x<sup>2</sup> <span>≡</span> a mod
+                    p</var> </em> </p>
 
         <div class="button-groups">
             <button type="button" id="submit_button">Compute</button>
         </div>
-        <div id="log-area"></div>
-        <div id="loader-area"></div>
 
         <div id="result" style="display: none; margin-top: 20px;">
             <h2>Result</h2>
@@ -137,63 +136,68 @@ Modulo
             </div>
         </div>
 
+        <div id="log-area"></div>
+        <div id="loader-area"></div>
         <div id="error-area"></div>
     </div>
 </section>
 
 <script>
-    document.getElementById("submit_button").addEventListener("click", function (event) {
+    document.getElementById("submit_button").addEventListener("click", async function (event) {
         event.preventDefault(); // Ngăn chặn form reload trang
         document.getElementById("result").style.display = "none";
 
         // Lấy giá trị từ input
-        const a = document.getElementById("a").value;
-        const p = document.getElementById("p").value;
+        const aElem = document.getElementById("a");
+        const pElem = document.getElementById("p");
+        const a = aElem.value;
+        const p = pElem.value;
 
-        // Kiểm tra đầu vào hợp lệ
-        const isValidNumber = (num) => !isNaN(num) && num.trim() !== "";
-        if (!isValidNumber(a) || !isValidNumber(p)) {
-            alert("Please enter valid numbers for 'a' and 'p'.");
-            return;
+        const validator = async () => {
+            if (!isNumberValid(a) || !isNumberValid(p)) {
+                throw new Error("Please enter valid numbers.");
+            }
+        };
+
+        const resultContainer = document.getElementById("result-container");
+        resultContainer.innerHTML = "";
+        aElem.disabled = true;
+        pElem.disabled = true;
+
+        try {
+            const res = await callAPIFull(validator, "Tonelli-Shanks", `${p},${a}`, "loader-area", "error-area", "log-area", "Solving the equation...");
+            if (null === res) return;
+
+            const results = res.output.split(',').filter(x => x !== '');
+
+            if (Array.isArray(results) && results.length > 0) {
+                // Thêm từng nghiệm vào một dòng input
+                results.forEach((root, index) => {
+                    const inputGroup = document.createElement("div");
+                    inputGroup.className = "input-group";
+
+                    const label = document.createElement("label");
+                    label.innerHTML = `x<sub>${index + 1}</sub> = `;
+                    label.style.fontWeight = "bold";
+
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.value = root;
+                    input.readOnly = true;
+
+                    inputGroup.appendChild(label);
+                    inputGroup.appendChild(input);
+                    resultContainer.appendChild(inputGroup);
+                });
+            } else {
+                // Hiển thị thông báo không tìm thấy nghiệm
+                resultContainer.innerHTML = "<p>No solutions found.</p>";
+            }
+            document.getElementById("result").style.display = "block";
+        } finally {
+            aElem.disabled = false;
+            pElem.disabled = false;
         }
-
-         // Gọi API (giả định `callAPIFull` là hàm gọi API của bạn)
-         // Mock dữ liệu giả lập (giả sử tìm được 2 nghiệm là 3 và 7)
-         const mockResult = [3, 7]; // Thay đổi giá trị này để thử nghiệm
-     
-         // Hiển thị kết quả từ dữ liệu mock
-         const resultContainer = document.getElementById("result-container");
-     
-         // Xóa các kết quả cũ nếu có
-         resultContainer.innerHTML = "";
-     
-         if (Array.isArray(mockResult) && mockResult.length > 0) {
-             // Thêm từng nghiệm vào một dòng input
-             mockResult.forEach((root, index) => {
-                 const inputGroup = document.createElement("div");
-                 inputGroup.className = "input-group";
-     
-                 const label = document.createElement("label");
-                 label.innerHTML = `x<sub>${index + 1}</sub> = `;
-                 label.style.fontWeight = "bold";
-     
-                 const input = document.createElement("input");
-                 input.type = "text";
-                 input.value = root;
-                 input.readOnly = true;
-     
-                 inputGroup.appendChild(label);
-                 inputGroup.appendChild(input);
-                 resultContainer.appendChild(inputGroup);
-             });
-         } else {
-             // Hiển thị thông báo không tìm thấy nghiệm
-             resultContainer.innerHTML = "<p>No solutions found.</p>";
-         }
-     
-         document.getElementById("result").style.display = "block";
-
-        
     });
 </script>
 

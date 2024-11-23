@@ -454,7 +454,7 @@ body{
 	visibility: hidden;
 	top: 74px;
 	border-left:3px solid #2889e4;
-	max-height: 150px; /* Limit height for scrolling */
+	min-height: 150px; /* Limit height for scrolling */
     overflow-y: auto; /*Add scrollbar for long dropdowns*/
 }
 /* Tùy chỉnh thanh cuộn */
