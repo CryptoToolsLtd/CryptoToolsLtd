@@ -46,8 +46,8 @@ cryptoTools
         <h4><var>n</var> (Step 2.1)</h4>
         <p>To calculate <i>n</i>, simply multiply <i>p</i> and <i>q</i>.</p>
         <p><var>n</var> = <var>p</var> . <var>q</var></p>
-        <p> <var>n</var> = <span id="p-q-value"></span></p>
-        <p><var>n</var> = <span id="n-value"></span></p>
+        <p> <var>n</var> = <input type="text" id="p-q-value" readonly></p>
+        <p><var>n</var> = <input type="text" id="n-value" readonly></p>
 
         <!-- ----- Step 2.2 ----- -->
         <h4><var>ϕ(n) </var>(Step 2.2)</h4>
@@ -55,8 +55,8 @@ cryptoTools
             It calculates how many numbers coprime to <var>n</var> are there, which are not larger than <var>n</var>.
         </p>
         <p> <var>ϕ</var>(<var>n</var>) = (p - 1) . (q - 1) </p>
-        <p><var>ϕ</var>(<var>n</var>) = <span id="p-1-q-1-value"></span></p>
-        <p><var>ϕ</var>(<var>n</var>) = <span id="phi-value"></span></p>
+        <p><var>ϕ</var>(<var>n</var>) = <input type="text" id="p-1-q-1-value" readonly></p>
+        <p><var>ϕ</var>(<var>n</var>) = <input type="text" id="phi-value" readonly></p>
 
         <!-- ----- Step 2.3 ----- -->
 
@@ -77,10 +77,10 @@ cryptoTools
         <p>The number <var>a</var> is the multiplicative inverse to b</p>
         <p>Expressed in formulas, the following must apply:</p>
         <p> (<var>a</var> . <var>b</var>) mod <var>ϕ</var>(<var>n</var>) = 1 </p>
-        <p><var>a</var> = <span id="d-value"></span></p>
+        <p><var>a</var> = <input type="text" id="d-value" readonly></p>
 
-        <h3>Private key (for signing): <var>(n,a) = <span id="private-key"></span></var></h3>
-        <h3>Public key (for verification): <var>(n,b) = <span id="public-key"></span></var></h3>
+        <h3>Private key (for signing): <var>(n,a) = </var><input type="text" id="private-key" readonly></h3>
+        <h3>Public key (for verification): <var>(n,b) = </var><input type="text" id="public-key" readonly></h3>
 
         <h2 style="color: blue;">The following steps can be conducted in any order.</h2>
 
@@ -105,8 +105,8 @@ cryptoTools
         </div>
         <p><var>m = </var> <input type="text" readonly id="m-before-mod"></p>
         <p><var>m mod n </var> <input type="text" readonly id="m-real"></p>
-        <p> <var>y</var> = <span id="c"></span></p>
-        <p><var>y</var> = <span id="c-value"></span></p>
+        <p> <var>y</var> = <input type="text" id="c" readonly></p>
+        <p><var>y</var> = <input type="text" id="c-value" readonly></p>
 
         <div id="log-area-encrypt"></div>
         <div id="loader-area-encrypt"></div>
@@ -136,9 +136,9 @@ cryptoTools
         <div>
             <button type="button" onclick="decryptMessage()" id="decrypt-button" disabled>Verify Message</button>
         </div>
-        <p> <var>m'</var> = <span id="m-decrypt"></span></p>
-        <p><var>m'</var> = <span id="m-decrypt-value"></span></p>
-        <p><var>text(m')</var> = <span id="m-decrypt-text"></span></p>
+        <p> <var>m'</var> = <input type="text" id="m-decrypt" readonly></p>
+        <p><var>m'</var> = <input type="text" id="m-decrypt-value" readonly></p>
+        <p><var>text(m')</var> = <input type="text" id="m-decrypt-text" readonly></p>
         <p><var>m mod n = </var> <input type="text" readonly id="m-to-check-mod-n"> </p>
         <p><var>m' = m ?</var> <input type="text" readonly id="m-check"> </p>
 
@@ -258,10 +258,10 @@ cryptoTools
         }
 
         const [n, p_1, q_1, phi_n] = res.output.split(',');
-        document.getElementById("p-q-value").textContent = `${p} x ${q}`;
-        document.getElementById("n-value").textContent = `${n}`;
-        document.getElementById("p-1-q-1-value").textContent = `${p_1} x ${q_1}`;
-        document.getElementById("phi-value").textContent = `${phi_n}`;
+        document.getElementById("p-q-value").value = `${p} x ${q}`;
+        document.getElementById("n-value").value = `${n}`;
+        document.getElementById("p-1-q-1-value").value = `${p_1} x ${q_1}`;
+        document.getElementById("phi-value").value = `${phi_n}`;
 
         document.getElementById("e").disabled = false;
         document.getElementById("generatestep2").disabled = false;
@@ -357,10 +357,10 @@ cryptoTools
         }
 
         const d = res.output;
-        document.getElementById("d-value").textContent = `${d}`;
+        document.getElementById("d-value").value = `${d}`;
 
-        document.getElementById("public-key").textContent = `(${document.getElementById("n-value").textContent},${e})`;
-        document.getElementById("private-key").textContent = `(${document.getElementById("n-value").textContent},${d})`;
+        document.getElementById("public-key").value = `(${document.getElementById("n-value").value},${e})`;
+        document.getElementById("private-key").value = `(${document.getElementById("n-value").value},${d})`;
 
         document.getElementById("m").disabled = false;
         document.getElementById("c-decrypt").disabled = false;
@@ -371,7 +371,7 @@ cryptoTools
 
     async function encryptMessage() {
         const e = document.getElementById("e").value;
-        const n = document.getElementById("n-value").textContent;
+        const n = document.getElementById("n-value").value;
         const message = document.getElementById("m").value;
 
         const inputType = document.getElementById("input-type-selector").value;
@@ -394,13 +394,13 @@ cryptoTools
 
         document.getElementById("m-before-mod").value = m;
         document.getElementById("m-real").value = res_m_mod_n.output;
-        document.getElementById("c").textContent = `${m} ^ ${e} mod ${n}`;
-        document.getElementById("c-value").textContent = `${c}`;
+        document.getElementById("c").value = `${m} ^ ${e} mod ${n}`;
+        document.getElementById("c-value").value = `${c}`;
     }
 
     async function decryptMessage() {
-        const d = document.getElementById("d-value").textContent;
-        const n = document.getElementById("n-value").textContent;
+        const d = document.getElementById("d-value").value;
+        const n = document.getElementById("n-value").value;
         const c = document.getElementById("c-decrypt").value;
         const mToCheck = document.getElementById("m-to-check").value;
 
@@ -416,9 +416,9 @@ cryptoTools
         ]);
 
         const [m, text] = res.output.split(',');
-        document.getElementById("m-decrypt").textContent = `${c} ^ ${d} mod ${n}`;
-        document.getElementById("m-decrypt-value").textContent = `${m}`;
-        document.getElementById("m-decrypt-text").textContent = `${text}`;
+        document.getElementById("m-decrypt").value = `${c} ^ ${d} mod ${n}`;
+        document.getElementById("m-decrypt-value").value = `${m}`;
+        document.getElementById("m-decrypt-text").value = `${text}`;
         document.getElementById("m-to-check-mod-n").value = res_m_mod_n.output;
         const mToCheckModN = res_m_mod_n.output;
         document.getElementById("m-check").value = mToCheckModN === m ? "YES, the message is authentic" : "NO, the message is not authentic! It may be tampered by an attacker!";
