@@ -7,6 +7,7 @@ from .GeneratePrimesJobType import *
 from .GCDJobType import *
 from .TonelliShanksJobType import *
 from .CountPointsOnECJobType import *
+from .ECOrderOfPointJobType import *
 
 from .RSAGenerateStep1JobType import *
 from .RSAStep1To2JobType import *
@@ -31,6 +32,9 @@ from .ElGamalSignJobType import *
 from .ElGamalVerifyJobType import *
 from .ElGamalSignatureGenerateKJobType import *
 
+from .ECDSASignJobType import *
+from .ECDSAVerifyJobType import *
+
 job_types: list[JobType] = [
     JKLJobType(),
     ModularExponentiationJobType(),
@@ -40,6 +44,7 @@ job_types: list[JobType] = [
     GCDJobType(),
     TonelliShanksJobType(),
     CountPointsOnECJobType(),
+    ECOrderOfPointJobType(),
 
     RSAGenerateStep1JobType(),
     RSAStep1To2JobType(),
@@ -64,4 +69,7 @@ job_types: list[JobType] = [
     ElGamalSignJobType(),
     ElGamalVerifyJobType(),
     ElGamalSignatureGenerateKJobType(),
+
+    ECDSASignJobType(),
+    ECDSAVerifyJobType(),
 ]

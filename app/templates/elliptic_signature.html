@@ -4,100 +4,150 @@ cryptoTools
 {% endblock%}
 {% block content %}
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ecc.css') }}">
-    <script src="{{ url_for('static', filename='js/ecc.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ecc.css') }}">
 
-    <div class="elliptic-section">
-        <div class="ecc-container">
-            <h1>ECDSA Signing and Verification</h1>
-            <p>Here you can see how to generate a digital signature and verify it step by step using ECDSA.</p>
-    
-            <!-- Step 1: Key Setup -->
+<div class="elliptic-section">
+    <div class="ecc-container">
+        <h1>ECDSA Signing and Verification</h1>
+        <p>Here you can see how to generate a digital signature and verify it step by step using ECDSA.</p>
+
+        <div>
             <h2>Step 1: Key Setup</h2>
-            <p>Choose a predefined elliptic curve and generate key pairs.</p>
-            
             <div>
-                <label for="predefined-curve-options">Choose a predefined curve:</label>
-                <select id="predefined-curve-options" onchange="selectCurve(this.value)">
-                    <option value="1" selected> secp192k1</option>
-                    <option value="2"> secp224k1</option>
-                    <option value="3"> secp256k1</option>
-                    <option value="4"> secp384r1</option>
-                    <option value="5"> secp521r1</option>
+                <p>Choose a prime number p, coefficients a and b, generator point g, and a private key d.</p>
+                <div>
+                    <label for="curve-options">Choose an option:</label>
+                    <select id="curve-options">
+                        <option value="input-yourself" selected>Input them yourself</option>
+                        <option value="predefined-curve">Select a predefined curve</option>
+                        <option value="generate-new">Generate new curve</option>
+                    </select>
+                </div>
+
+                <div id="generatecurvearea" class="hidden">
+                    <label for="new-curve-p-bits">Number of bits of p (field <var>F<sub>p</sub></var>):</label>
+                    <input type="text" id="new-curve-p-bits" placeholder="Enter number of bits"><br><br>
+                    <button id="generatecurvebutton" class="button-secondary">Generate new curve</button>
+                </div>
+
+                <select id="predefined-curve-selector" class="hidden">
+                    <option value="secp192k1" selected>secp192k1</option>
+                    <option value="secp224k1">secp224k1</option>
+                    <option value="secp256k1">secp256k1</option>
+                    <option value="secp384r1">secp384r1</option>
+                    <option value="secp521r1">secp521r1</option>
                 </select>
-            </div>
-            <label for="d">Choose a random integer d (<var>1</var> < <var>d</var> < <var>n-1</var>):</label>
-            <input type="number" id="d" placeholder="Enter random number" required>
-            <p id = "Q-value"><var>Q = dg</var></p>
-            <button onclick="generateKeys()">Generate Keys</button>
-            <div class="input-group">
-                <div class="input-item">
-                    <label for=""><h3>Public Key: <var>(E<sub>p</sub>(a,b), g, n, Q) </var> = </h3></label>
-                    <input type="text" id="public-key" readonly>
+
+                <div id="log-area-curveformation"></div>
+                <div id="loader-area-curveformation"></div>
+                <div id="error-area-curveformation"></div>
+
+                <div>
+                    <label for="p">Prime number p:</label>
+                    <input type="text" id="p" placeholder="Enter prime p"><br><br>
+                    <label for="a">Coefficient a:</label>
+                    <input type="text" id="a" placeholder="Enter coefficient a"><br><br>
+                    <label for="b">Coefficient b:</label>
+                    <input type="text" id="b" placeholder="Enter coefficient b"><br><br>
+                    <label for="">Generator point g:</label>
+                    <div class="input-form-group">
+                        <input type="text" id="gx" placeholder="Enter x">
+                        <input type="text" id="gy" placeholder="Enter y">
+                    </div>
+                    <label for="d">Private Key (d):</label>
+                    <input type="text" id="d" placeholder="Enter private key d"><br><br>
+                    <button type="button" id="step1to2button">Next Step</button>
+                    <div id="log-area-step1"></div>
+                    <div id="loader-area-step1"></div>
+                    <div id="error-area-step1"></div>
                 </div>
-                <div class="input-item">
-                    <label for=""><h3>Private Key: <var>d </var> = </h3></label>
-                    <input type="text" id="private-key" readonly>
+
+                <h3 id="public-key">Public Key (for verification): <var>(E, F<sub>p</sub>, g, n, Q = dg)</h3>
+                <h3 id="private-key">Private Key: <var>d</var></h3>
+                <div>
+                    <p>where point <var>Q</var> is:</p>
+                    <div>
+                        <input type="text" id="Qx" readonly>
+                        <input type="text" id="Qy" readonly>
+                    </div>
+
+                    <p>and <var>n</var> (the order of point <var>g</var>) is: <input type="text" id="n" readonly></p>
+                    <p>For the remaining parameters of the Public and Private keys, scroll up to see.</p>
                 </div>
-                
             </div>
-            <!-- <h3 id="public-key">Public Key: <var>(E<sub>p</sub>(a,b), g, n, Q) =</var></h3>
-            <h3 id="private-key">Private Key: <var>d =</var></h3> -->
-    
-            <!-- Step 2: Sign the Message -->
-            <h2>Step 2: Sign the Message</h2>
+
+            <h2 style="color: blue;">The following steps can be conducted in any order.</h2>
+
+            <h2>Step 2.1: Sign the Message</h2>
             <div>
                 <div class="input-form-group">
                     <label for="message">Message to Sign:</label>
-                    <input id="message" type="number" placeholder="Enter number">
-                    <select id="input-type-selector" onchange="changeInputType()">
+                    <input id="message" type="text" placeholder="Enter number" disabled>
+                    <select id="input-type-selector" onchange="changeInputType()" disabled>
                         <option value="number" selected>Number</option>
                         <option value="text">Text</option>
                     </select>
                 </div>
-                <label for="k">Choose a random integer k ( <var>1</var> < <var>d</var> < <var>n-1</var>):</label>
-                <input type="number" id="k" placeholder="Enter random number">
-                <p id="x1-y1-value"><var>(x<sub>1</sub>, y<sub>1</sub>) = kg</var></p>
-                <p id = "r-value"><var>r = x<sub>1</sub> mod n</var></p>
-                <p id = "h-value"><var>h =  H(M)</var></p>
-                <p id = "s-value"><var>s = (h + d * r) * (k <sup>-1</sup>) mod n</var></p>
-                
-                <button type="button" onclick="signMessage()">Sign Message</button>
+
+                <div class="input-form-group">
+                    <label for="k">Choose a random integer k in range [1, n-1]:</label>
+                    <input type="text" id="k" placeholder="Enter random number" disabled>
+                </div>
+                <button type="button" onclick="signMessage()" id="sign-button" disabled>Sign Message</button>
+                <div id="log-area-sign"></div>
+                <div id="loader-area-sign"></div>
+                <div id="error-area-sign"></div>
+
+                <p>Corresponding integer <var>m</var> = <input type="text" id="corresponding-m" readonly></p>
+                <p><var>(x<sub>1</sub>, y<sub>1</sub>) = kg</var> = <input type="text" id="x1-y1-value" readonly></p>
+                <p><var>r = x<sub>1</sub> mod n</var> = <input type="text" id="r-value" readonly></p>
+                <p><var>h = H(m) = m</var> (hashed value of it is itself) = <input type="text" id="h-value" readonly>
+                </p>
+                <p><var>s = (h + d * r) * (k <sup>-1</sup>) mod n</var> = <input type="text" id="s-value" readonly></p>
+
                 <div class="input-group">
                     <div class="input-item">
-                        <label for=""><p>Signature: <var>(r, s) </var>=</p></label>
+                        <label for="">
+                            <p>Signature: <var>(r, s) </var>=</p>
+                        </label>
                         <input type="text" id="signature" readonly>
                     </div>
-                   
                 </div>
-                <!-- <p>Signature: <var>(r, s) =</var> <span id="signature"></span></p> -->
             </div>
-    
-            <!-- Step 3: Verify the Signature -->
-            <h2>Step 3: Verify the Signature</h2>
+
+            <h2>Step 2.2: Verify the Signature</h2>
             <div>
+                <p>Enter the plaintext as number to verify the signature against:</p>
                 <div class="input-form-group">
-                    <label for="message-to-verify">Message to Verify:</label>
-                    <input id="message" type="number" placeholder="Enter number">
-                    <select id="input-type-selector" onchange="changeInputType()">
-                        <option value="number" selected>Number</option>
-                        <option value="text">Text</option>
-                    </select>
+                    <label for="">Integer <var>m</var>:</label>
+                    <input type="number" id="m-input-verify" placeholder="Enter m" disabled>
                 </div>
-                <label for="signature-r">Signature r:</label>
-                <input type="text" id="signature-r" placeholder="Enter r"><br><br>
-                <label for="signature-s">Signature s:</label>
-                <input type="text" id="signature-s" placeholder="Enter s"><br><br>
-                <p id = "hash-value"><var>h =  H(M)</var></p>
-                <p id = "w-value"><var>w = s <sup>-1</sup> mod n</var></p>
-                <p id = "u1-value"><var>u<sub>1</sub> = h * w mod n</var></p>
-                <p id = "u2-value"><var>u<sub>2</sub> = r * w mod n</var></p>
-                <p id = "x0-y0-value"><var>(x<sub>0</sub>, y<sub>0</sub>) = u<sub>1</sub>g + u<sub>2</sub>Q</var></p>
-                <p id = "v-value"><var>v = x<sub>0</sub> mod n</var></p>
-                <button type="button" onclick="verifySignature()">Verify Signature</button>
-                <p>Verification Result: <span id="verification-result"></span></p>
+
+                <p>Enter the signature:</p>
+                <label for="r-input"><var>r</var> = </label>
+                <input type="text" id="r-input" placeholder="Enter r" disabled><br><br>
+                <label for="s-input"><var>s</var> = </label>
+                <input type="text" id="s-input" placeholder="Enter s" disabled><br><br>
+
+                <button type="button" onclick="verifySignature()" id="verify-button" disabled>Verify Signature</button>
+                <div id="log-area-verify"></div>
+                <div id="loader-area-verify"></div>
+                <div id="error-area-verify"></div>
+
+                <p><var>h = h(m) = m</var> (hashed value of it is itself) = <input type="text" id="ver-hash-value"
+                        readonly></p>
+                <p><var>w = s <sup>-1</sup> mod n</var> = <input type="text" id="ver-w-value" readonly></p>
+                <p><var>u<sub>1</sub> = h * w mod n</var> = <input type="text" id="ver-u1-value" readonly></p>
+                <p><var>u<sub>2</sub> = r * w mod n</var> = <input type="text" id="ver-u2-value" readonly></p>
+                <p><var>(x<sub>0</sub>, y<sub>0</sub>) = u<sub>1</sub>g + u<sub>2</sub>Q</var> = <input type="text"
+                        id="ver-x0-y0-value" readonly></p>
+                <p><var>v = x<sub>0</sub> mod n</var> = <input type="text" id="ver-v-value" readonly></p>
+                <p>Signature valid?<input type="text" id="verification-result" readonly></p>
             </div>
         </div>
     </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/ecdsa.js') }}"></script>
 
 {%endblock%}

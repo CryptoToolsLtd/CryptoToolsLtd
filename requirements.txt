@@ -9,7 +9,7 @@ click-didyoumean==0.3.1
 click-plugins==1.1.1
 click-repl==0.3.0
 colorama==0.4.6
-CryptoEngine @ git+https://github.com/CryptoToolsLtd/CryptoEngine.git@8d1231717c09232b3b6ad7897c69e4248cf12c4b
+CryptoEngine @ git+https://github.com/CryptoToolsLtd/CryptoEngine.git@aaf7ea44fd08f74ad4ffa7127decc15b8bba0081
 Flask==3.0.3
 Flask-Login==0.6.3
 Flask-Migrate==4.0.7
