@@ -27,6 +27,10 @@ from .ECValidateJobType import *
 from .ECElGamalEncryptJobType import *
 from .ECElGamalDecryptJobType import *
 
+from .ElGamalSignJobType import *
+from .ElGamalVerifyJobType import *
+from .ElGamalSignatureGenerateKJobType import *
+
 job_types: list[JobType] = [
     JKLJobType(),
     ModularExponentiationJobType(),
@@ -56,4 +60,8 @@ job_types: list[JobType] = [
 
     ECElGamalEncryptJobType(),
     ECElGamalDecryptJobType(),
+
+    ElGamalSignJobType(),
+    ElGamalVerifyJobType(),
+    ElGamalSignatureGenerateKJobType(),
 ]
