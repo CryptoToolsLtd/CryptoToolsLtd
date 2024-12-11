@@ -98,10 +98,12 @@ cryptoTools
                 <input id="right-pad-encrypt" type="number" placeholder="Enter number" disabled>
             </div>
 
-            <p>We have to pad some bits to the original integer, <var>m</var>, to form a new integer <var>x</var> such
+            {# <p>We have to pad some bits to the original integer, <var>m</var>, to form a new integer <var>x</var> such
                 that <var>x</var> is a primitive root modulo <var>p</var>. If <var>x</var> is not, the
                 encryption-decryption process will be flawed, e.g. the decrypted message is not the same as the original
-                one.</p>
+                one.</p> #}
+            
+            <p style="color: darkkhaki">If not sure, just set both padding values to zero.</p>
 
             <p><var>y<sub>1</sub> = α<sup>k</sup></var> mod <var>p</var></p>
             <p><var>y<sub>2</sub> = x · β<sup>k</sup></var> mod <var>p</var></p>

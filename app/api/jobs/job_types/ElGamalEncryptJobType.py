@@ -1,6 +1,6 @@
 from .JobType import JobType
 from typing import override
-from crypto import str2int, modpower, inverse, BitPaddingConfig # type: ignore
+from crypto import str2int, modpower, inverse, BitPaddingConfig, pad # type: ignore
 import json
 from .elgamal_tools import elgamal_check_p_certificate, convert_plain_number_to_primitive_root
 
@@ -51,12 +51,15 @@ class ElGamalEncryptJobType(JobType):
         
         fact_of_p_minus_1 = elgamal_check_p_certificate(p, p_certificate)
 
-        x = convert_plain_number_to_primitive_root(
-            BitPaddingConfig(LEFT_PADDING_SIZE=leftPad, RIGHT_PADDING_SIZE=rightPad),
-            p,
-            m,
-            fact_of_p_minus_1,
-        )
+        # x = convert_plain_number_to_primitive_root(
+        #     BitPaddingConfig(LEFT_PADDING_SIZE=leftPad, RIGHT_PADDING_SIZE=rightPad),
+        #     p,
+        #     m,
+        #     fact_of_p_minus_1,
+        # )
+        x = pad(BitPaddingConfig(LEFT_PADDING_SIZE=leftPad, RIGHT_PADDING_SIZE=rightPad), m, lambda candidate: True)
+        if x is None:
+            raise RuntimeError("This case should never happen. Please contact the administrator.")
 
         one_per_x = inverse(x, p)
         if one_per_x is None:
